@@ -3,12 +3,13 @@ import { RouterOutlet } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { MyDataService } from './my-data.service';
+import { CommentsComponent } from './comments/comments.component';
 import _ from "underscore"
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, HttpClientModule, CommonModule],
+  imports: [RouterOutlet, HttpClientModule, CommonModule, CommentsComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
@@ -27,7 +28,7 @@ export class AppComponent {
 
   showComment() {
     console.log("kjhkljlk")
-    this.commentVisibility = true
+    this.commentVisibility = !this.commentVisibility
   }
   ngOnInit() {
 

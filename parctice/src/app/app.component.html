@@ -20,8 +20,9 @@
                     </button>
                 </span>
             </div>
-            <div *ngIf="commentVisibility else elsePart">
-                {{data.comment}}
+            <div class="comment" *ngIf="commentVisibility else elsePart">
+                <app-comments [dataPasing]="data.comment"></app-comments>
+                <!-- {{commentVisibility=false}} -->
             </div>
 
             <ng-template #elsePart>

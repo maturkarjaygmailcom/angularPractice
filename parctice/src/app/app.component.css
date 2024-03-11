@@ -72,3 +72,7 @@
 .comment {
     margin-bottom: 5px;
 }
+
+.hiddenClass{
+    display: none;
+}
