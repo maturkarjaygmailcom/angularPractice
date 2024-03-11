@@ -1,2 +1,35 @@
+<!-- HTML -->
+<div class="insta-feed">
+    <div class="post" *ngFor="let data of UserDetailsMainObj">
+        <div class="post-header">
+            <div class="profile-picture-container">
+                <img src="{{profile_picture}}" alt="{{data.fullName}}" class="profile-picture">
+            </div>
+            <div class="user-details">
+                <span class="full-name">{{data.fullName}}</span>
+                <span class="username">{{data.username}}</span>
+            </div>
+        </div>
+        <img src="{{data.post_image}}" alt="Post" class="post-image">
+        <div class="comments">
+            <div class="user-details">
+                <span>
+                    <!-- <img class="like_picture" src="{{like_picture}}" alt="Post" > -->
+                    <button class="btnComment" (click)="showComment()">
+                        <img class="comment_picture" src="{{comment_picture}}" alt="Post">
+                    </button>
+                </span>
+            </div>
+            <div *ngIf="commentVisibility else elsePart">
+                {{data.comment}}
+            </div>
 
-<div *ngIf="true"></div>
+            <ng-template #elsePart>
+                <span className="hiddenClass"></span>
+            </ng-template>
+
+
+
+        </div>
+    </div>
+</div>

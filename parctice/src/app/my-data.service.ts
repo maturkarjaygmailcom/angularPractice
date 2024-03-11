@@ -23,9 +23,10 @@ export class MyDataService {
                 "text": "@kashrafiq82 i dnt know what im not ready means.",
                 "from": {
                   "username": "el_capit4n",
-                  "profile_picture": "https://igcdn-photos-e-a.akamaihd.net/hphotos-ak-xfp1/t51.2885-19/11056014_930580873660876_1764685772_a.jpg",
+                  "profile_picture": "../../../../assets/img/149071.png",
                   "id": "1813181663",
-                  "full_name": "Aidan Shah"
+                  "full_name": "Aidan Shah",
+                  "postImg": "../../../../assets/img/12-Ways-Caring-For-Someone-Keeps-You-Emotionally-Stable-1600x900.jpg"
                 },
                 "id": "1060981586725475242"
               },
@@ -36,7 +37,8 @@ export class MyDataService {
                   "username": "a_grillz10",
                   "profile_picture": "https://igcdn-photos-b-a.akamaihd.net/hphotos-ak-xpf1/t51.2885-19/10864973_677675199015449_1525007523_a.jpg",
                   "id": "55897168",
-                  "full_name": "Adam Grillo"
+                  "full_name": "Adam Grillo",
+                  "postImg": "../../../../assets/img/quotes-caring-others-1.webp"
                 },
                 "id": "1060983319694446650"
               },
@@ -47,7 +49,8 @@ export class MyDataService {
                   "username": "chelphill",
                   "profile_picture": "https://igcdn-photos-g-a.akamaihd.net/hphotos-ak-xpa1/t51.2885-19/10249235_681947635271742_1429097030_a.jpg",
                   "id": "176724813",
-                  "full_name": "Chelsea Phillips"
+                  "full_name": "Chelsea Phillips",
+                  "postImg": "../../../../assets/img/OIP (1).jfif"
                 },
                 "id": "1060983558862049358"
               },
@@ -58,7 +61,8 @@ export class MyDataService {
                   "username": "mahsa_shabani64",
                   "profile_picture": "https://igcdn-photos-c-a.akamaihd.net/hphotos-ak-xaf1/t51.2885-19/11084925_460968970727762_1341672594_a.jpg",
                   "id": "1779523061",
-                  "full_name": "Mahsa"
+                  "full_name": "Mahsa",
+                  "postImg": "../../../../assets/img/OIP.jfif"
                 },
                 "id": "1060983926434074734"
               },
@@ -69,7 +73,9 @@ export class MyDataService {
                   "username": "kashrafiq82",
                   "profile_picture": "https://igcdn-photos-g-a.akamaihd.net/hphotos-ak-xpf1/t51.2885-19/10549667_1438012593153662_318172580_a.jpg",
                   "id": "1226513641",
-                  "full_name": "Kash"
+                  "full_name": "Kash",
+                  "postImg": "../../../../assets/img/R.jfif"
+
                 },
                 "id": "1060984408904863890"
               },
@@ -80,7 +86,8 @@ export class MyDataService {
                   "username": "cinar_eylul",
                   "profile_picture": "https://igcdn-photos-a-a.akamaihd.net/hphotos-ak-xfa1/t51.2885-19/s150x150/11821727_824606154321928_942058662_a.jpg",
                   "id": "1576801832",
-                  "full_name": "Ayşegül Çetinn"
+                  "full_name": "Ayşegül Çetinn",
+                  "postImg": "../../../../assets/img/12-Ways-Caring-For-Someone-Keeps-You-Emotionally-Stable-1600x900.jpg"
                 },
                 "id": "1060985377025724643"
               },

@@ -15,10 +15,21 @@ import _ from "underscore"
 export class AppComponent {
 
   public userData: any = [];
+  public UserDetailsMainObj: any = [];
+  commentVisibility = false;
+
+  profile_picture: string = "../../../../assets/img/149071.png"
+  like_picture: string = "../../../../assets/img/24-243634_instagram-like-icon-png-image-free-download-searchpng.png"
+  comment_picture: string = "../../../../assets/img/OIP (2).jfif"
+
   constructor(private _data: MyDataService) { }
 
+
+  showComment() {
+    console.log("kjhkljlk")
+    this.commentVisibility = true
+  }
   ngOnInit() {
-    let UserDetailsMainObj:any = [];
 
     let userDetailObj: any;
 
@@ -28,27 +39,24 @@ export class AppComponent {
     _.each(this.userData[0].data, dataEle => {
       // console.log(dataEle.comments.data)
       _.each(dataEle.comments.data, commitEle => {
-        // console.log("profile_picture",commitEle.from.profile_picture)
 
-        // console.log("fullname",commitEle.from.full_name)
-        // console.log("username",commitEle.from.username)
-
-        // console.log("created_time",commitEle.created_time)
-        // console.log("coment", commitEle.text)
         userDetailObj = {
           'fullName': commitEle.from.full_name,
-          "lastName": commitEle.from.username,
-          "pp": commitEle.created_time,
-          "comment": commitEle.text
+          "username": commitEle.from.username,
+          // "profile_picture": commitEle.from.profile_picture,
+          "created_time": commitEle.created_time,
+          "comment": commitEle.text,
+          'post_image': commitEle.from.postImg
         }
         // console.log(UserDetailsMainObj)
         // console.log(userDetailObj)
-        UserDetailsMainObj.push(userDetailObj);
+        this.UserDetailsMainObj.push(userDetailObj);
 
       })
     })
 
-    console.log(UserDetailsMainObj)
+    // console.log(this.UserDetailsMainObj)
+
   }
 
 
