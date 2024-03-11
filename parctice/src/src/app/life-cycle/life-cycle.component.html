@@ -1,0 +1,27 @@
+<p>life-cycle works!</p>
+<!-- <app-todo [count]="data"></app-todo> -->
+
+<div *ngIf="true; then thenBlock;else elseBlock">
+</div>
+
+<ng-template #thenBlock>
+    <div>if block</div>
+</ng-template>
+
+<ng-template #elseBlock>
+    <div>else block</div>
+</ng-template>
+
+<div [ngSwitch]="color">
+    <div *ngSwitchCase="'red'">this is red</div>
+    <div *ngSwitchCase="'blue'">this is blue</div>
+    <div *ngSwitchDefault>pick again</div>
+</div>
+
+<div *ngFor="let i of data; index as ind">
+    {{i}}{{ind}}
+</div>
+
+<br>
+<button (click)="ClickMe()">click</button>
+{{c}}

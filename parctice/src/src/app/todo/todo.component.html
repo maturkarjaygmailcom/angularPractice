@@ -1,0 +1,89 @@
+<style>
+    /* .carsName {
+        /* margin-left: 30%;
+        margin-right: 50%;
+        padding-left: 68px;
+        background-color: beige;
+        border-radius: 20px;
+        flex-wrap: wrap;
+        display: flex;
+        flex-direction: row;
+        margin: 0;
+        justify-content: center; */
+    /* } */
+    */ .flex-container {
+        /* display: flex; */
+        /* justify-content: space-between; */
+        /* flex-wrap: wrap; */
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+
+    }
+    span{
+        margin-left: 35%;
+    }
+</style>
+
+<!-- <span class="box-decoration-clone bg-gradient-to-r from-indigo-600 to-pink-500 text-white px-2 ...">
+    Hello<br />
+    {{empName}}
+</span> -->
+<br>
+<!-- <form action=""> -->
+<!-- <input type="text" [(ngModel)]="empName" placeholder="Enter Your Name" id="name"> -->
+<!-- <input type="password" placeholder="Enter Your Password"> -->
+<br>
+<!-- <button type="submit">Login</button> -->
+<!-- </form> -->
+
+<!-- {{empData}} -->
+<!-- 
+<div class="flex" *ngFor="let i of empData">
+    <div *ngFor="let j of i.car_list">
+        <div class=" flex-none w-29 h-14 carsName ">{{j.name}}</div>
+    </div>
+</div> -->
+
+<!-- 
+<ul *ngFor="let i of empData">
+    <ul *ngFor="let j of i.car_list">
+        <li>{{j.name}}</li>
+    </ul>
+</ul>
+
+<ul *ngFor="let i of empData">
+    <ul *ngFor="let j of i.department_data.department_master">
+        <li>{{j.department_name}}</li>
+    </ul>
+</ul>
+-->
+
+<!-- <div>{{statment}}</div> -->
+
+<span>
+    {{empName}}
+</span>
+ {{department}}
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col-4" *ngFor="let i of requestCarList">
+            <div class="card">
+                <img [src]="i" [alt]="i">
+                <a href="#" class="btn btn-primary">{{(this.statment)?"Access It":"Request"}}</a>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<!-- <img src="'../../../../assets/carsImg/ferrari f401.jpg"> -->
+<!-- <img src="'../assets/img/ferrari f401.jpg'"> -->
+
+<!-- <ul *ngFor="let i of empData">
+    <ul *ngFor="let j of i.user_list">
+        <li>{{j.user_name}}</li>
+    </ul>
+</ul> -->

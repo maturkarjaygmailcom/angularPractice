@@ -1,0 +1,163 @@
+import { Injectable } from '@angular/core';
+// import { empcars } from '../assets/js_exam_2024 (2).json'
+    
+@Injectable({
+  providedIn: 'root'
+})
+export class EmpCarsService {
+
+  public empcars = [
+    {
+        "car_list": [
+            {
+                "name": "tata harrier",
+                "car_id": 1,
+                "car_category": "regular",
+                "allowed_user_level": [
+                    1,
+                    2,
+                    3,
+                    4,
+                    5
+                ],
+                "is_request": true,
+                "img": "../../../../assets/carsImg/tata harrier.png"
+            },
+            {
+                "name": "toyota fortuner",
+                "car_id": 2,
+                "car_category": "executive",
+                "allowed_user_level": [
+                    3,
+                    4,
+                    5
+                ],
+                "is_request": true,
+                "img": "../../../../assets/carsImg/toyota fortuner.png"
+            },
+            {
+                "name": "mercedes maybach",
+                "car_id": 3,
+                "car_category": "premium",
+                "allowed_user_level": [
+                    5
+                ],
+                "is_request": false,
+                "img": "../../../../assets/carsImg/mercedes maybach.png"
+            },
+            {
+                "name": "jaguar f pace",
+                "car_id": 4,
+                "car_category": "premium",
+                "allowed_user_level": [
+                    5
+                ],
+                "is_request": true,
+                "img": "../../../../assets/carsImg/jaguar f pace.png"
+            },
+            {
+                "name": "ferrari f40",
+                "car_id": 5,
+                "car_category": "premium",
+                "allowed_user_level": [
+                    5
+                ],
+                "is_request": false,
+                "img": "../../../../assets/carsImg/ferrari f40.png"
+            },
+            {
+                "name": "honda civic",
+                "car_id": 6,
+                "car_category": "executive",
+                "allowed_user_level": [
+                    3,
+                    4,
+                    5
+                ],
+                "is_request": true,
+                "img": "../../../../assets/carsImg/honda civic.png"
+            }
+        ],
+        "department_data": {
+            "department_master": [
+                {
+                    "department_code": 1,
+                    "department_name": "Seinor Developers"
+                },
+                {
+                    "department_code": 2,
+                    "department_name": "Team Leads"
+                },
+                {
+                    "department_code": 3,
+                    "department_name": "Project Managers"
+                },
+                {
+                    "department_code": 4,
+                    "department_name": "Tech Leads"
+                },
+                {
+                    "department_code": 5,
+                    "department_name": "Co-Founder"
+                }
+            ],
+            "permission_deparment_wise": {
+                "allowed": [
+                    {
+                        "department_code": [
+                        
+                            2,
+                            3,
+                            5
+                        ]
+                    }
+                ]
+            }
+        },
+        "user_list": [
+            {
+                "department_code": 1,
+                "user_name": "Mark",
+                "user_level": 3,
+                "is_request": true
+            },
+            {
+                "department_code": 5,
+                "user_name": "John",
+                "user_level": 5,
+                "is_request": false
+            },
+            {
+                "department_code": 2,
+                "user_name": "Luis",
+                "user_level": 1,
+                "is_request": true
+            },
+            {
+                "department_code": 3,
+                "user_name": "Celvin",
+                "user_level": 3,
+                "is_request": false
+            },
+            {
+                "department_code": 4,
+                "user_name": "Martin",
+                "user_level": 4,
+                "is_request": false
+            },
+            {
+                "department_code": 2,
+                "user_name": "Prakash",
+                "user_level": 1,
+                "is_request": true
+            }
+        ]
+    }
+]
+  constructor() { }
+
+  getData() {
+    return this.empcars;
+  }
+
+}
