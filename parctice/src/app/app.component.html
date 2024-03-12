@@ -1,36 +1,8 @@
 <!-- HTML -->
-<div class="insta-feed">
-    <div class="post" *ngFor="let data of UserDetailsMainObj">
-        <div class="post-header">
-            <div class="profile-picture-container">
-                <img src="{{profile_picture}}" alt="{{data.fullName}}" class="profile-picture">
-            </div>
-            <div class="user-details">
-                <span class="full-name">{{data.fullName}}</span>
-                <span class="username">{{data.username}}</span>
-            </div>
-        </div>
-        <img src="{{data.post_image}}" alt="Post" class="post-image">
-        <div class="comments">
-            <div class="user-details">
-                <span>
-                    <!-- <img class="like_picture" src="{{like_picture}}" alt="Post" > -->
-                    <button class="btnComment" (click)="showComment()">
-                        <img class="comment_picture" src="{{comment_picture}}" alt="Post">
-                    </button>
-                </span>
-            </div>
-            <div class="comment" *ngIf="commentVisibility else elsePart">
-                <app-comments [dataPasing]="data.comment"></app-comments>
-                <!-- {{commentVisibility=false}} -->
-            </div>
+<input type="text" [(ngModel)]="name" placeholder="Enter Your Name">
+<!-- <button (click)="sendName($event)" type="submit">Search</button> -->
+<!-- {{name}} -->
+<app-users-feed [userNamePassing]="name"></app-users-feed>
+<!-- <app-searchbar></app-searchbar> -->
 
-            <ng-template #elsePart>
-                <span className="hiddenClass"></span>
-            </ng-template>
-
-
-
-        </div>
-    </div>
-</div>
+<!-- <app-users-feed></app-users-feed> -->

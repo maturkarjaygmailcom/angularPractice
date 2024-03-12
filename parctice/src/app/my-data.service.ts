@@ -25,7 +25,7 @@ export class MyDataService {
                   "username": "el_capit4n",
                   "profile_picture": "../../../../assets/img/149071.png",
                   "id": "1813181663",
-                  "full_name": "Aidan Shah",
+                  "full_name": "Shah",
                   "postImg": "../../../../assets/img/12-Ways-Caring-For-Someone-Keeps-You-Emotionally-Stable-1600x900.jpg"
                 },
                 "id": "1060981586725475242"

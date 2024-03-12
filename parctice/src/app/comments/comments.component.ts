@@ -8,16 +8,22 @@ import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from
   styleUrl: './comments.component.css'
 })
 export class CommentsComponent implements OnChanges {
+  
+  
 
   @Input() dataPasing: string = "";
-  @Output() public newEvent = new EventEmitter()
+ 
+  
 
   data: string = ""
-  hideData: boolean = false;
+  hideData: boolean = true;
 
   ngOnChanges(changes: SimpleChanges): void {
     this.data = this.dataPasing;
-    this.newEvent.emit(this.hideData)
+    // console.log(this.dataPasing)
+    // console.log(this.dataUserName)
+    // this.newEvent.emit(this.hideData)
+
   }
 
 
