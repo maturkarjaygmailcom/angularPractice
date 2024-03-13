@@ -1,6 +1,6 @@
 <!-- hello{{UserDetailsMainObj}} -->
 <!-- {{userNamePassing}} -->
-<div class="insta-feed" *ngIf="userNamePassing!='';else elsePart">
+<div class="insta-feed" >
 
     <div class="post" *ngFor="let data of UserDetailsMainObj; index as i">
         <!-- <div>{{userNamePassing}}</div> -->
@@ -18,14 +18,13 @@
             <div class="user-details">
                 <span>
 
-                    <button class="btnComment" id={{i}} (click)="showComment()">
+                    <button class="btnComment" id={{i}} (click)="showComment($event)">
                         <img class="comment_picture" src="{{comment_picture}}" alt="Post">
                     </button>
                 </span>
             </div>
             <div class="comment" *ngIf="commentVisibility else elsePart">
                 <app-comments [dataPasing]="data.comment"></app-comments>
-
             </div>
 
             <ng-template #elsePart>
@@ -37,6 +36,8 @@
     </div>
 </div>
 <ng-template #elsePart>
-    <div></div>
+    <div>
+
+    </div>
 
 </ng-template>

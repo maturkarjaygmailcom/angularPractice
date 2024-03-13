@@ -1,9 +1,14 @@
 import { Injectable } from '@angular/core';
-
+import _ from "underscore"
 @Injectable({
   providedIn: 'root'
 })
 export class MyDataService {
+  userData: any = []
+  userDetailObj: any = []
+  // userNameData: any = []
+  UserDetailsObj: any = []
+
   public metaData = [
     {
       "meta": {
@@ -22,11 +27,11 @@ export class MyDataService {
                 "created_time": "1440698882",
                 "text": "@kashrafiq82 i dnt know what im not ready means.",
                 "from": {
-                  "username": "el_capit4n",
+                  "username": "Shah_prit",
                   "profile_picture": "../../../../assets/img/149071.png",
                   "id": "1813181663",
                   "full_name": "Shah",
-                  "postImg": "../../../../assets/img/12-Ways-Caring-For-Someone-Keeps-You-Emotionally-Stable-1600x900.jpg"
+                  "postImg": ""
                 },
                 "id": "1060981586725475242"
               },
@@ -44,7 +49,7 @@ export class MyDataService {
               },
               {
                 "created_time": "1440699117",
-                "text": "Omg you're so creative I luh dat name. @a_grillz10",
+                "text": "@a_grillz10 Omg you're so creative I luh dat name. ",
                 "from": {
                   "username": "chelphill",
                   "profile_picture": "https://igcdn-photos-g-a.akamaihd.net/hphotos-ak-xpa1/t51.2885-19/10249235_681947635271742_1429097030_a.jpg",
@@ -87,7 +92,7 @@ export class MyDataService {
                   "profile_picture": "https://igcdn-photos-a-a.akamaihd.net/hphotos-ak-xfa1/t51.2885-19/s150x150/11821727_824606154321928_942058662_a.jpg",
                   "id": "1576801832",
                   "full_name": "Ayşegül Çetinn",
-                  "postImg": "../../../../assets/img/12-Ways-Caring-For-Someone-Keeps-You-Emotionally-Stable-1600x900.jpg"
+                  "postImg":""
                 },
                 "id": "1060985377025724643"
               },
@@ -125,7 +130,7 @@ export class MyDataService {
                 "username": "odemiskardesler",
                 "profile_picture": "https://instagramimages-a.akamaihd.net/profiles/anonymousUser.jpg",
                 "id": "2144844568",
-                "full_name": ""
+                "full_name": "jay"
               },
               {
                 "username": "saffetcangundogan",
@@ -143,7 +148,7 @@ export class MyDataService {
                 "username": "dali_ala",
                 "profile_picture": "https://igcdn-photos-f-a.akamaihd.net/hphotos-ak-xaf1/t51.2885-19/s150x150/11950668_1080544918624669_968459361_a.jpg",
                 "id": "2147856286",
-                "full_name": ""
+                "full_name": "alay"
               }
             ]
           },
@@ -4257,7 +4262,54 @@ export class MyDataService {
   ]
   constructor() { }
 
-  getUserData() {
-    return this.metaData
+  getUserData(userNameData: string) {
+    this.userData = this.metaData
+
+    _.each(this.userData[0].data, dataEle => {
+      _.each(dataEle.comments.data, commitEle => {
+
+        this.userDetailObj = {
+          'fullName': commitEle.from.full_name,
+          "username": commitEle.from.username,
+          // "profile_picture": commitEle.from.profile_picture,
+          "created_time": commitEle.created_time,
+          "comment": commitEle.text,
+          'post_image': commitEle.from.postImg
+        }
+
+        if (commitEle.from.full_name != "") {
+          if (userNameData == commitEle.from.full_name) {
+            this.UserDetailsObj = []
+            this.UserDetailsObj.push(this.userDetailObj);
+          }
+        }
+        // else if()
+      })
+
+    })
+    return this.UserDetailsObj
+  }
+
+  getUserAllData() {
+    this.userData = this.metaData
+
+    _.each(this.userData[0].data, dataEle => {
+      _.each(dataEle.comments.data, commitEle => {
+
+        this.userDetailObj = {
+          'fullName': commitEle.from.full_name,
+          "username": commitEle.from.username,
+          // "profile_picture": commitEle.from.profile_picture,
+          "created_time": commitEle.created_time,
+          "comment": commitEle.text,
+          'post_image': commitEle.from.postImg
+        }
+
+        this.UserDetailsObj.push(this.userDetailObj);
+
+      })
+
+    })
+    return this.UserDetailsObj
   }
 }

@@ -1,0 +1,12 @@
+*{
+    font: 2em sans-serif;
+}
+.Search{
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+    margin: auto;
+    /* margin-left: 32%;
+    margin-top: 0.2%;*/
+    margin-bottom: 1.1%; 
+}
