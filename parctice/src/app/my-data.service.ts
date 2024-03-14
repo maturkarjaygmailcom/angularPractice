@@ -92,7 +92,7 @@ export class MyDataService {
                   "profile_picture": "https://igcdn-photos-a-a.akamaihd.net/hphotos-ak-xfa1/t51.2885-19/s150x150/11821727_824606154321928_942058662_a.jpg",
                   "id": "1576801832",
                   "full_name": "Ayşegül Çetinn",
-                  "postImg":""
+                  "postImg":"git stst"
                 },
                 "id": "1060985377025724643"
               },
