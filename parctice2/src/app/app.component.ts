@@ -60,14 +60,12 @@ export class AppComponent {
         this.modifyName = element.name;
         this.modifyPhno = element.phno;
         this.modifyCity = element.city;
-
-        console.log(element.name, element.phno, element.city)
-        console.log(this.modifyCity, this.modifyName, this.modifyPhno)
       })
 
     }
 
   }
+  
   update() {
     _.each(this.mainData, ele => {
       console.log(ele);
