@@ -1,0 +1,23 @@
+<div>
+    <label for="">name</label>
+    <input type="text" name="" id="" value={{userName}}>
+    <br>
+    <label for="">adress-1</label>
+    <input type="text" name="" id="">
+
+    <br>
+    <label for="">adress-2</label>
+    <input type="text" name="" id="">
+
+    <div *ngFor="let city of citys">
+
+        <select name="" id="">
+            <option value={{city}}>{{city}}</option>
+        </select>
+    </div>
+
+    <select name="" id="" *ngFor="let state of states">
+        <option value={{state}}>{{state}}</option>
+    </select>
+
+</div>

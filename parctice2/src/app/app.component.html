@@ -1,0 +1,40 @@
+<input type="radio" name="search" id="name" value="name">
+Name
+
+<input type="radio" name="search" id="phoneNo" value="phoneNo">
+Phone_number
+
+<input type="radio" name="search" id="city" value="city">
+City
+<br>
+<input type="search" placeholder="Enter Your Name" [(ngModel)]="name" id="searchInput">
+
+<button (click)="searchUser($event)">Search</button>
+
+<div *ngIf="datatableFlag">
+  <table>
+    <tr>
+      <th>Name</th>
+      <th>Phone_number</th>
+      <th>City</th>
+    </tr>
+
+    <tr *ngFor="let data of resulte">
+      <td>{{data.name}}</td>
+      <td>{{data.phno}}</td>
+      <td>{{data.city}}</td>
+    </tr>
+  </table>
+  <br>
+  <div><b>Modify</b></div>
+  <div *ngFor="let data of resulte;index as i">
+
+    <input type="text" name="modifyName" id={{i}} [(ngModel)]="data.name">
+    <input type="text" name="modifyphno" id={{i}} [(ngModel)]="data.phno">
+    <input type="text" name="modifycity" id={{i}} [(ngModel)]="data.city">
+  </div>
+
+  <button (click)="update()">Update</button>
+
+</div>
+<app-sub-component1 *ngIf="userNameVisibility" [userName]="modifyName"></app-sub-component1>
