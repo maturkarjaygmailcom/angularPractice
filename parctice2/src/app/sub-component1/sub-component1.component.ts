@@ -22,24 +22,31 @@ export class SubComponent1Component {
 
   @Input() public obj: any;
   @Output() passingObjectToAppCom = new EventEmitter()
+  @Output() dataPushCheck = new EventEmitter()
+  showModifyData = false;
 
-  showPushBtn=false;
+  objArray: any = []
+  showPushBtn = false;
   getCity(city: string) {
     console.log(city)
   }
-
   pushData() {
     this.fullAddess = this.address1 + " , " + this.address2 + " , " + this.obj.city + " , " + this.selectedState + ".";
     console.log(this.fullAddess)
 
     this.obj['address'] = this.fullAddess
 
-    this.showPushBtn=true
-    console.log(this.obj);
+    this.objArray.push(this.obj)
+    console.log(this.objArray);
+
+    this.showPushBtn = true
+    this.showModifyData = true
     this.passingObjectToAppCom.emit(this.obj);
-    
+    this.dataPushCheck.emit(this.showModifyData);
+
+
   }
-  showPushData(){
+  showPushData() {
     this.outputVisble = true;
   }
 

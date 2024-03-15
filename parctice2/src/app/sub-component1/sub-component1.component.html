@@ -1,6 +1,6 @@
-<div>
+<div class="from-control">
     <label for="">name</label>
-    <input type="text" name="" id="" value={{obj.name}} disabled>
+    <input class="c" type=" text" name="" id="" value={{obj.name}} disabled>
     <br>
     <label for="">adress-1</label>
     <input type="text" name="" id="" value={{address1}} [(ngModel)]="address1">
@@ -10,7 +10,6 @@
     <input type="text" name="" id="" value={{address2}} [(ngModel)]="address2">
 
     <div>
-
         <label for="">citys</label>
         <select name="" id="" [(ngModel)]="obj.city">
             <option value="" *ngFor="let city of citys" value={{city}}>{{city}}</option>

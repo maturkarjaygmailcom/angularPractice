@@ -40,9 +40,10 @@ export class AppComponent {
   }]
   name: string = "";
 
-
+  dataPushCheck=false;
+  showModifyData=false;
   category: any;
-  showModifyData = false;
+  dataPush = false;
 
   public datatableFlag: boolean = false
   userNameVisibility = false
@@ -61,7 +62,8 @@ export class AppComponent {
 
   obj1: any;
 
-  updateDataedObjFromChild: any = [];
+  updateDataedObjFromChild: any ;
+
 
 
 

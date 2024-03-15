@@ -1,50 +1,100 @@
-<input type="radio" name="search" id="name" value="name" [(ngModel)]="category">
-Name
+<div class="container">
 
-<input type="radio" name="search" id="phoneNo" value="phoneNo" [(ngModel)]="category">
-Phone_number
-
-<input type="radio" name="search" id="city" value="city" [(ngModel)]="category">
-City
-<br>
-<input type="search" placeholder="Enter Your Name" [(ngModel)]="name" id="searchInput">
-
-<button (click)="searchUser($event)">Search</button>
-
-<div *ngIf="datatableFlag">
-  <table>
-    <tr>
-      <th>Name</th>
-      <th>Phone_number</th>
-      <th>City</th>
-    </tr>
-
-    <tr *ngFor="let data of resulte">
-      <td>{{data.name}}</td>
-      <td>{{data.phno}}</td>
-      <td>{{data.city}}</td>
-    </tr>
-  </table>
-  <br>
-  <button (click)="showModify()">Modify</button>
-</div>
-
-  <div *ngIf="showModifyData">
-    <div><b>Modify</b></div>
-    <div *ngFor="let data of resulte;index as i">
-
-      <input type="text" name="modifyName" id={{i}} [(ngModel)]="data.name" (ngModelChange)="getModifedName(data.name)">
-      <input type="text" name="modifyphno" id={{i}} [(ngModel)]="data.phno" (ngModelChange)="getModifedPhno(data.phno)">
-      <input type="text" name="modifycity" id={{i}} [(ngModel)]="data.city" (ngModelChange)="getModifedCity(data.city)">
-      <button (click)=" updateData()">Next</button>
-      <br>
-
-    </div>
+  <div class="form-check form-check-inline">
+    <input class="form-check-input" type="radio" name="search" id="name" value="name" [(ngModel)]="category">
+    <label class="form-check-label" for="flexRadioDefault1">
+      Name
+    </label>
   </div>
 
-<app-sub-component1 (passingObjectToAppCom)="updateDataedObjFromChild=$event" *ngIf="userNameVisibility"
-  [obj]="obj1"></app-sub-component1>
+  <div class="form-check form-check-inline">
+    <input class="form-check-input" type="radio" name="search" id="phoneNo" value="phoneNo" [(ngModel)]="category">
+    <label class="form-check-label" for="flexRadioDefault2">
+      Phone_number
+    </label>
+  </div>
 
-<!-- <div *ngif="updateDataedObjFromChild.length>0"> -->
+  <div class="form-check form-check-inline">
+    <input class="form-check-input" type="radio" name="search" id="city" value="city" [(ngModel)]="category">
+    <label class="form-check-label" for="flexRadioDefault2">
+      City
+    </label>
+  </div>
 
-<!-- </div> -->
+  <div class="from-check">
+    <!-- 
+    <input class="from-check" type="radio" name="search" id="name" value="name" [(ngModel)]="category">
+    Name
+  </div>
+
+  <input type="radio" name="search" id="phoneNo" value="phoneNo" [(ngModel)]="category">
+  Phone_number
+
+  <input type="radio" name="search" id="city" value="city" [(ngModel)]="category">
+  City -->
+
+    <br>
+    <div class="input-group">
+      <input type="text" placeholder="Enter Your Name" class="from-control" aria-label="Example text with button addon"
+        aria-describedby="button-addon1" [(ngModel)]="name" id="searchInput">
+
+      <button (click)="searchUser($event)" class="btn btn-primary">Search</button>
+      <!-- <input type="checkbox" class="btn-check" id="btn-check" autocomplete="off">
+      <label class="btn btn-primary" for="btn-check" (click)="searchUser($event)">Search</label> -->
+    </div>
+
+    <div *ngIf="datatableFlag">
+      <table class="table table-hover table-striped table-primary table-striped">
+
+        <tr>
+          <th>Name</th>
+          <th>Phone_number</th>
+          <th>City</th>
+        </tr>
+
+        <tr *ngFor="let data of resulte">
+          <td>{{data.name}}</td>
+          <td>{{data.phno}}</td>
+          <td>{{data.city}}</td>
+        </tr>
+      </table>
+      <br>
+      <button (click)="showModify()" class="btn btn-primary">Modify</button>
+    </div>
+
+    <div *ngIf="showModifyData">
+      <br>
+      <hr>
+
+      <div><b>Modify</b></div>
+
+      <div class="input-group mt-3" *ngFor="let data of resulte;index as i">
+
+        <input class="from-control" type="text" name="modifyName" id={{i}} [(ngModel)]="data.name"
+          (ngModelChange)="getModifedName(data.name)">
+        <input class="from-control" type="text" name="modifyphno" id={{i}} [(ngModel)]="data.phno"
+          (ngModelChange)="getModifedPhno(data.phno)">
+        <input class="from-control" type="text" name="modifycity" id={{i}} [(ngModel)]="data.city"
+          (ngModelChange)="getModifedCity(data.city)">
+        <button (click)=" updateData()" class="btn btn-primary">Next</button>
+        <br>
+
+      </div>
+    </div>
+    <hr>
+    <br>
+
+    <app-sub-component1 (dataPushCheck)="dataPush=$event" (passingObjectToAppCom)="updateDataedObjFromChild=$event" *ngIf="userNameVisibility"
+      [obj]="obj1"></app-sub-component1>
+
+  </div>
+
+  <div *ngIf="dataPushCheck">
+    <div *ngFor="let i of updateDataedObjFromChild">
+      sakjjkh
+    {{i}}
+  </div>
+  
+
+   <!-- {{updateDataedObjFromChild}}
+   </div> -->
