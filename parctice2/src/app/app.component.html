@@ -1,10 +1,10 @@
-<input type="radio" name="search" id="name" value="name">
+<input type="radio" name="search" id="name" value="name" [(ngModel)]="category">
 Name
 
-<input type="radio" name="search" id="phoneNo" value="phoneNo">
+<input type="radio" name="search" id="phoneNo" value="phoneNo" [(ngModel)]="category">
 Phone_number
 
-<input type="radio" name="search" id="city" value="city">
+<input type="radio" name="search" id="city" value="city" [(ngModel)]="category">
 City
 <br>
 <input type="search" placeholder="Enter Your Name" [(ngModel)]="name" id="searchInput">
@@ -26,15 +26,22 @@ City
     </tr>
   </table>
   <br>
-  <div><b>Modify</b></div>
-  <div *ngFor="let data of resulte;index as i">
+  <button (click)="showModify()">Modify</button>
+  <div *ngIf="showModifyData">
+    <div><b>Modify</b></div>
+    <div *ngFor="let data of resulte;index as i">
 
-    <input type="text" name="modifyName" id={{i}} [(ngModel)]="data.name">
-    <input type="text" name="modifyphno" id={{i}} [(ngModel)]="data.phno">
-    <input type="text" name="modifycity" id={{i}} [(ngModel)]="data.city">
+      <input type="text" name="modifyName" id={{i}} [(ngModel)]="data.name" (ngModelChange)="getModifedName(data.name)">
+      <input type="text" name="modifyphno" id={{i}} [(ngModel)]="data.phno" (ngModelChange)="getModifedPhno(data.phno)">
+      <input type="text" name="modifycity" id={{i}} [(ngModel)]="data.city" (ngModelChange)="getModifedCity(data.city)">
+    </div>
+    <button (click)=" updateData()">Next</button>
   </div>
 
-  <button (click)="update()">Update</button>
-
 </div>
-<app-sub-component1 *ngIf="userNameVisibility" [userName]="modifyName"></app-sub-component1>
+<app-sub-component1 (passingObjectToAppCom)="updateDataedObjFromChild=$event" *ngIf="userNameVisibility"
+  [obj]="obj1"></app-sub-component1>
+
+<!-- <div *ngif="updateDataedObjFromChild.length>0"> -->
+
+<!-- </div> -->

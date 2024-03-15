@@ -1,23 +1,48 @@
 <div>
     <label for="">name</label>
-    <input type="text" name="" id="" value={{userName}}>
+    <input type="text" name="" id="" value={{obj.name}} disabled>
     <br>
     <label for="">adress-1</label>
-    <input type="text" name="" id="">
+    <input type="text" name="" id="" value={{address1}} [(ngModel)]="address1">
 
     <br>
     <label for="">adress-2</label>
-    <input type="text" name="" id="">
+    <input type="text" name="" id="" value={{address2}} [(ngModel)]="address2">
 
-    <div *ngFor="let city of citys">
+    <div>
 
-        <select name="" id="">
-            <option value={{city}}>{{city}}</option>
+        <label for="">citys</label>
+        <select name="" id="" [(ngModel)]="obj.city">
+            <option value="" *ngFor="let city of citys" value={{city}}>{{city}}</option>
         </select>
     </div>
 
-    <select name="" id="" *ngFor="let state of states">
-        <option value={{state}}>{{state}}</option>
+    <label for="">State</label>
+    <select name="" id="" [(ngModel)]="selectedState">
+        <option *ngFor="let state of states" value={{state}}>{{state}}</option>
     </select>
 
-</div>
+    <button (click)="pushData()">Save</button>
+
+    <div *ngIf="showPushBtn">
+        <button (click)="showPushData()">Push Data</button>
+
+    </div>
+
+    <div *ngIf="outputVisble">
+        <!-- <div>/{/</div> -->
+
+
+        <br>
+        <div>name:{{obj.name}}</div>
+        <br>
+        <div>phno:{{obj.phno}}</div>
+        <br>
+        <div> city:{{obj.city}}</div>
+        <br>
+        <div>address:{{obj.address}}</div>
+        <!-- <div>"}"</div> -->
+
+
+
+    </div>

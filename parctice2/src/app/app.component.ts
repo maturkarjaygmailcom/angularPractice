@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnChanges, SimpleChange, SimpleChanges } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import _ from "underscore"
 import { SubComponent1Component } from './sub-component1/sub-component1.component';
+
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -23,80 +24,141 @@ export class AppComponent {
   }, {
     name: "alay",
     phno: "9825108987",
-    city: "surat"
+    city: "valsad"
   }, {
-    name: "mohit",
+    name: "raj",
     phno: "9825108987",
-    city: "surat"
+    city: "dadar"
   }, {
     name: "ashish",
     phno: "9825108987",
-    city: "surat"
+    city: "valsad"
   }, {
     name: "karan",
     phno: "9825108987",
     city: "surat"
   }]
   name: string = "";
+
+
+  category: any;
+  showModifyData = false;
+
   public datatableFlag: boolean = false
   userNameVisibility = false
   public resulte: any = []
   newName = ""
+  newPhno: string = "";
+  newCity: string = "";
 
   modifyName: string = "";
   modifyPhno: string = "";
   modifyCity: string = "";
 
+  nameChangeState: boolean = false;
+  phnoChangeState: boolean = false;
+  cityChangeState: boolean = false;
+
+  obj1: any;
+
+  updateDataedObjFromChild: any = [];
+
+
+
+
   searchUser(event: any) {
-    this.resulte = _.filter(this.mainData, element => {
-      return element.name == this.name;
-    })
+    console.log(this.category)
+    if (this.category == 'name') {
 
-    if (this.resulte.length > 0) {
-      this.datatableFlag = true;
-
-      _.each(this.resulte, element => {
-
-        this.modifyName = element.name;
-        this.modifyPhno = element.phno;
-        this.modifyCity = element.city;
+      this.resulte = _.filter(this.mainData, element => {
+        return element.name == this.name;
       })
 
+      if (this.resulte.length > 0) {
+        this.datatableFlag = true;
+
+        _.each(this.resulte, element => {
+
+          this.modifyName = element.name;
+          this.modifyPhno = element.phno;
+          this.modifyCity = element.city;
+        })
+
+      }
     }
 
-  }
-  
-  update() {
-    _.each(this.mainData, ele => {
-      console.log(ele);
-      // console.log(this.name);
-      
-      if (ele.name == this.name) {
-        console.log("dsjgahkjsahksh");
-        
-        ele.name == this.modifyName
-        //
-        this.newName = this.modifyName
-        console.log(this.newName, this.modifyName)
+    if (this.category == 'phoneNo') {
+
+      this.resulte = _.filter(this.mainData, element => {
+        return element.phno == this.name;
+      })
+
+      if (this.resulte.length > 0) {
+        this.datatableFlag = true;
+
+        _.each(this.resulte, element => {
+
+          this.modifyName = element.name;
+          this.modifyPhno = element.phno;
+          this.modifyCity = element.city;
+        })
+
       }
-      else{
-        console.log("aaaaaa");
-        
+    }
+
+    if (this.category == 'city') {
+
+      this.resulte = _.filter(this.mainData, element => {
+        return element.city == this.name;
+      })
+
+      if (this.resulte.length > 0) {
+        this.datatableFlag = true;
+
+        _.each(this.resulte, element => {
+
+          this.modifyName = element.name;
+          this.modifyPhno = element.phno;
+          this.modifyCity = element.city;
+        })
+
       }
-    })
-    //
-    this.userNameVisibility = true;
-    console.log(this.modifyName)
-    console.log(this.newName)
-    console.log(this.newName)
+    }
+
 
   }
-  //     else if(selectValue=='phoneNo'){
 
-  //     }
-  //     else if(selectValue=='city'){
+  getModifedName(name: string) {
+    this.nameChangeState = true;
+    this.modifyName = name
 
-  // }
+  }
+  getModifedPhno(phno: string) {
+    this.phnoChangeState = true;
+    this.modifyPhno = phno
+  }
+  getModifedCity(city: string) {
+    this.cityChangeState = true;
+    this.modifyCity = city
+  }
 
+
+  updateData() {
+
+
+    if (this.nameChangeState || this.phnoChangeState || this.cityChangeState) {
+
+      this.obj1 = { name: this.modifyName, phno: this.modifyPhno, city: this.modifyCity }
+      console.log(this.obj1)
+      this.userNameVisibility = true;
+    }
+    else {
+      this.userNameVisibility = false;
+
+    }
+  }
+  showModify() {
+    this.showModifyData = true
+  }
 }
 
