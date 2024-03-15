@@ -27,6 +27,8 @@ City
   </table>
   <br>
   <button (click)="showModify()">Modify</button>
+</div>
+
   <div *ngIf="showModifyData">
     <div><b>Modify</b></div>
     <div *ngFor="let data of resulte;index as i">
@@ -34,11 +36,12 @@ City
       <input type="text" name="modifyName" id={{i}} [(ngModel)]="data.name" (ngModelChange)="getModifedName(data.name)">
       <input type="text" name="modifyphno" id={{i}} [(ngModel)]="data.phno" (ngModelChange)="getModifedPhno(data.phno)">
       <input type="text" name="modifycity" id={{i}} [(ngModel)]="data.city" (ngModelChange)="getModifedCity(data.city)">
+      <button (click)=" updateData()">Next</button>
+      <br>
+
     </div>
-    <button (click)=" updateData()">Next</button>
   </div>
 
-</div>
 <app-sub-component1 (passingObjectToAppCom)="updateDataedObjFromChild=$event" *ngIf="userNameVisibility"
   [obj]="obj1"></app-sub-component1>
 
