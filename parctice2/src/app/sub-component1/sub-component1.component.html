@@ -1,47 +1,30 @@
-<div class="from-control">
-    <label for="">name</label>
-    <input class="c" type=" text" name="" id="" value={{obj.name}} disabled>
-    <br>
-    <label for="">adress-1</label>
-    <input type="text" name="" id="" value={{address1}} [(ngModel)]="address1">
+<!-- <hr> -->
 
-    <br>
-    <label for="">adress-2</label>
-    <input type="text" name="" id="" value={{address2}} [(ngModel)]="address2">
+<div><b>Address Details</b></div>
+<div class="input-group">
+    <!-- <label for="">name</label> -->
+    <input class="from-control ms-2 " type=" text" placeholder="Name" name="" id="" value={{obj.name}} disabled>
 
-    <div>
-        <label for="">citys</label>
-        <select name="" id="" [(ngModel)]="obj.city">
-            <option value="" *ngFor="let city of citys" value={{city}}>{{city}}</option>
-        </select>
-    </div>
+    <!-- <label for="">adress-1</label> -->
+    <input class="from-control ms-2 " type="text" placeholder="Address-1" id="" value={{address1}}
+        [(ngModel)]="address1">
 
-    <label for="">State</label>
-    <select name="" id="" [(ngModel)]="selectedState">
-        <option *ngFor="let state of states" value={{state}}>{{state}}</option>
+
+    <!-- <label for="">adress-2</label> -->
+    <input class="from-control ms-2 " type="text" placeholder="Address-1" name="" id="" value={{address2}}
+        [(ngModel)]="address2">
+
+    <!-- <label for="">citys</label> -->
+    <select class="ms-3" id="" [(ngModel)]="obj.city">
+        <option value="" *ngFor="let city of citys" value={{city}}>{{city}}</option>
     </select>
 
-    <button (click)="pushData()">Save</button>
 
-    <div *ngIf="showPushBtn">
-        <button (click)="showPushData()">Push Data</button>
+    <!-- <label for="">State</label> -->
+    <select class="ms-3" name="" id="" [(ngModel)]="selectedState">
+        <option *ngFor="let state of states" value={{state}}>{{state}}</option>
+    </select>
+    <button class="btn btn-primary" (click)="save()">Save</button>
+    <hr>
 
-    </div>
-
-    <div *ngIf="outputVisble">
-        <!-- <div>/{/</div> -->
-
-
-        <br>
-        <div>name:{{obj.name}}</div>
-        <br>
-        <div>phno:{{obj.phno}}</div>
-        <br>
-        <div> city:{{obj.city}}</div>
-        <br>
-        <div>address:{{obj.address}}</div>
-        <!-- <div>"}"</div> -->
-
-
-
-    </div>
+</div>
