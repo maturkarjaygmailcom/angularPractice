@@ -1,18 +1,19 @@
 
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AppComponent } from '../app.component';
+import { json } from 'stream/consumers';
 @Component({
   selector: 'app-sub-component1',
   standalone: true,
-  imports: [CommonModule, FormsModule,AppComponent],
+  imports: [CommonModule, FormsModule, AppComponent],
   templateUrl: './sub-component1.component.html',
   styleUrl: './sub-component1.component.css'
 })
-export class SubComponent1Component {
+export class SubComponent1Component implements OnChanges {
   @Input() userName: string = ""
-  @Input() output: string = ""
+  @Input() output: any = {}
 
   citys: string[] = ["surat", "navsari", "valsad", "dadar"]
   states: string[] = ["gujarat", "Maharashtra"]
@@ -22,7 +23,7 @@ export class SubComponent1Component {
   selectedCity: string = "surat";
   selectedState: string = "gujarat";
   fullAddess: string = ""
-  showPushData=false;
+  showPushData = false;
   // outputVisble: boolean = false;
 
   @Input('OBJ') public obj: any;
@@ -32,6 +33,14 @@ export class SubComponent1Component {
 
   objArray: any = []
 
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(changes)
+    for (let data in changes) {
+      let prop = changes[data]
+      console.log(JSON.stringify(prop.currentValue))
+      console.log(JSON.stringify(prop.previousValue))
+    }
+  }
   save() {
 
     this.objArray = [];
@@ -52,7 +61,7 @@ export class SubComponent1Component {
 
   }
 
-  pushtomainobj(){
+  pushtomainobj() {
 
     console.log("aaaaaaa")
     this.objArray = [];
@@ -65,7 +74,7 @@ export class SubComponent1Component {
 
 
     this.showModifyData = true
-    this.showPushData=true
+    this.showPushData = true
     this.dataPushCheck.emit(this.showModifyData);
 
     this.passingObjectToAppCom.emit(this.objArray);

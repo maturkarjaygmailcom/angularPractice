@@ -2,8 +2,9 @@ import { Component, OnChanges, SimpleChange, SimpleChanges, input, numberAttribu
 import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import _ from "underscore"
+import _, { isString } from "underscore"
 import { SubComponent1Component } from './sub-component1/sub-component1.component';
+import { compileNgModule } from '@angular/compiler';
 
 @Component({
   selector: 'app-root',
@@ -38,38 +39,49 @@ export class AppComponent implements OnChanges {
     phno: "9825108987",
     city: "surat"
   }]
-  serachText: string = "";
+  serachText: any;
+
+  category: any = "";
+
+  public resulte: any = []
+  modifyName: string[] = [];
+  modifyPhno: string[] = [];
+  modifyCity: string[] = [];
+
+  public dataPush: boolean = false
+  public datatableFlag: boolean = false
+  userNameVisibility = false
+
+  nameChangeState: boolean = false;
+  phnoChangeState: boolean = false;
+  cityChangeState: boolean = false;
 
   //for pushing data to app compo...
   dataPushCheck: boolean = false;
 
   showModifyData = false;
 
-  category: any;
-  public dataPush: boolean = false
-
-  public datatableFlag: boolean = false
-  userNameVisibility = false
-  public resulte: any = []
-  newName = ""
-  newPhno: string = "";
-  newCity: string = "";
-
-  modifyName: string[] = [];
-  modifyPhno: string[] = [];
-  modifyCity: string[] = [];
-
-  nameChangeState: boolean = false;
-  phnoChangeState: boolean = false;
-  cityChangeState: boolean = false;
 
   obj1: any;
 
   updateDataedObjFromChild: any;
   finalOutput: any;
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log(this.dataPush, "kshdkshoidusidui")
+  inputAccessble = true;
 
+  ngOnChanges(changes: SimpleChanges): void {
+
+    if (this.category == "") {
+      this.inputAccessble = true
+    }
+    else {
+      this.inputAccessble = false
+
+    }
+  }
+
+  inputCategory(category: any) {
+    this.inputAccessble = false;
+    this.serachText = ""
   }
 
 
@@ -99,90 +111,113 @@ export class AppComponent implements OnChanges {
 
   }
 
-  // pushData() {
-
-  //   if (this.dataPush) {
-
-  //     _.each(this.mainData, element => {
-  //       _.each(this.updateDataedObjFromChild, childObjectEle => {
-
-  //         if (element.name == childObjectEle.name) {
-
-  //           element['Address'] = childObjectEle.address
-  //           element['city'] = childObjectEle.city
-
-  //           this.finalOutput = element;
-
-
-  //         }
-
-  //       })
-
-
-  //     })
-
-  //   }
-  // }
-
 
 
   searchUser() {
-    if (this.category == 'name') {
+    if (this.serachText != "") {
 
-      this.resulte = _.filter(this.mainData, element => {
-        return element.name == this.serachText;
-      })
+      if (this.category == 'name') {
 
-      if (this.resulte.length > 0) {
-        this.datatableFlag = true;
+        let regx = /^[0-9]*$/
 
-        _.each(this.resulte, element => {
+        if (!(regx.test(this.serachText))) {
 
-          this.modifyName.push(element.name)
-          this.modifyPhno.push(element.phno)
-          this.modifyCity.push(element.city)
-        })
+          this.inputAccessble = false
+          this.resulte = _.filter(this.mainData, element => {
+            return element.name == this.serachText;
+          })
 
+          console.log(typeof (this.category))
+          if (this.resulte.length > 0) {
+            this.datatableFlag = true;
+
+            _.each(this.resulte, element => {
+
+              this.modifyName.push(element.name)
+              this.modifyPhno.push(element.phno)
+              this.modifyCity.push(element.city)
+            })
+          }
+
+          else {
+            window.alert("Record Not Found!")
+          }
+        } else {
+          window.alert("Please Enter Text Only")
+        }
+      }
+      else if (this.category == 'phoneNo') {
+
+        let regxTenDigit = /^[0-9]{10}$/
+        let regxDigit = /^[0-9]$/
+
+        if ((regxTenDigit.test(this.serachText))) {
+          this.inputAccessble = false
+
+          this.resulte = _.filter(this.mainData, element => {
+            return element.phno == this.serachText;
+          })
+
+          if (this.resulte.length > 0) {
+            this.datatableFlag = true;
+
+            _.each(this.resulte, element => {
+
+              this.modifyName.push(element.name)
+              this.modifyPhno.push(element.phno)
+              this.modifyCity.push(element.city)
+            })
+
+          } else {
+            window.alert("Record Not Found!")
+          }
+        } else if (((regxDigit.test(this.serachText)))) {
+          window.alert("Please Enter Number Only")
+
+        } else {
+          window.alert("Please Enter 10 Digit Number Only")
+
+        }
+      }
+
+      else if (this.category == 'city') {
+
+        let regx = /^[0-9]*$/
+
+        if (!(regx.test(this.serachText))) {
+          this.inputAccessble = false
+
+          this.resulte = _.filter(this.mainData, element => {
+            return element.city == this.serachText;
+          })
+
+          if (this.resulte.length > 0) {
+            this.datatableFlag = true;
+
+            _.each(this.resulte, element => {
+
+
+              this.modifyName.push(element.name)
+              this.modifyPhno.push(element.phno)
+              this.modifyCity.push(element.city)
+            })
+
+          } else {
+            window.alert("Record Not Found!")
+          }
+        } else {
+          window.alert("Please Enter Text Only")
+        }
+      }
+      else {
+        window.alert("Please Select Option")
       }
     }
-
-    if (this.category == 'phoneNo') {
-
-      this.resulte = _.filter(this.mainData, element => {
-        return element.phno == this.serachText;
-      })
-
-      if (this.resulte.length > 0) {
-        this.datatableFlag = true;
-
-        _.each(this.resulte, element => {
-
-          this.modifyName.push(element.name)
-          this.modifyPhno.push(element.phno)
-          this.modifyCity.push(element.city)
-        })
-
-      }
-    }
-
-    if (this.category == 'city') {
-
-      this.resulte = _.filter(this.mainData, element => {
-        return element.city == this.serachText;
-      })
-
-      if (this.resulte.length > 0) {
-        this.datatableFlag = true;
-
-        _.each(this.resulte, element => {
-
-
-          this.modifyName.push(element.name)
-          this.modifyPhno.push(element.phno)
-          this.modifyCity.push(element.city)
-        })
-
-      }
+    else {
+      if (this.category == "")
+        window.alert("Please Search some Thing and Select Option")
+      else
+        window.alert("Please Search some Thing")
     }
   }
 

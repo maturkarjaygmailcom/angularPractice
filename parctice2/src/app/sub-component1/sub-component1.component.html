@@ -1,23 +1,24 @@
 <!-- <hr> -->
 
-<div><b>Address Details</b></div>
+<div class="mb-3"> <b>Address Details</b></div>
 
 <div class="input-group">
-    <input class="from-control ms-2 " type=" text" placeholder="Name" name="" id="" value={{obj.name}} disabled>
+    <input class="from-control ms-2 text-center" type=" text" placeholder="Name" name="" id="" value={{obj.name}}
+        disabled>
 
-    <input class="from-control ms-2 " type="text" placeholder="Address-1" id="" value={{address1}}
+    <input class="from-control ms-2  text-center" type="text" placeholder="Address-1" id="" value={{address1}}
         [(ngModel)]="address1">
 
 
-    <input class="from-control ms-2 " type="text" placeholder="Address-1" name="" id="" value={{address2}}
+    <input class="from-control ms-2  text-center" type="text" placeholder="Address-1" name="" id="" value={{address2}}
         [(ngModel)]="address2">
 
-    <select class="ms-3" id="" [(ngModel)]="obj.city">
+    <select class="ms-3 text-center" id="" [(ngModel)]="obj.city">
         <option value="" *ngFor="let city of citys" value={{city}}>{{city}}</option>
     </select>
 
 
-    <select class="ms-3" name="" id="" [(ngModel)]="selectedState">
+    <select class="ms-3 text-center" name="" id="" [(ngModel)]="selectedState">
         <option *ngFor="let state of states" value={{state}}>{{state}}</option>
     </select>
 

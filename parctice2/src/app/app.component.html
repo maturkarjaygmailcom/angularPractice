@@ -1,21 +1,22 @@
 <div class="container">
 
   <div class="form-check form-check-inline">
-    <input class="form-check-input" type="radio" name="search" id="name" value="name" [(ngModel)]="category">
+    <input class="form-check-input" type="radio" name="search" id="name" value="name" [(ngModel)]="category"
+      (ngModelChange)="inputCategory(category)" >
     <label class="form-check-label" for="flexRadioDefault1">
       Name
     </label>
   </div>
 
   <div class="form-check form-check-inline">
-    <input class="form-check-input" type="radio" name="search" id="phoneNo" value="phoneNo" [(ngModel)]="category">
+    <input class="form-check-input" type="radio" name="search" id="phoneNo" value="phoneNo" [(ngModel)]="category" (ngModelChange)="inputCategory(category)" >
     <label class="form-check-label" for="flexRadioDefault2">
       Phone_number
     </label>
   </div>
 
   <div class="form-check form-check-inline">
-    <input class="form-check-input" type="radio" name="search" id="city" value="city" [(ngModel)]="category">
+    <input class="form-check-input" type="radio" name="search" id="city" value="city" [(ngModel)]="category" (ngModelChange)="inputCategory(category)" >
     <label class="form-check-label" for="flexRadioDefault2">
       City
     </label>
@@ -25,24 +26,23 @@
   <div class="from-check">
     <br>
     <div class="input-group">
-      <input type="text" placeholder="Enter Your Name" class="from-control" aria-label="Example text with button addon"
-        aria-describedby="button-addon1" [(ngModel)]="serachText" id="searchInput">
-      <button (click)="searchUser()" class="btn btn-primary">Search</button>
+      <input type="text" placeholder="Enter Your Name" class="from-control text-center" aria-label="Example text with button addon"
+        aria-describedby="button-addon1" [(ngModel)]="serachText" id="searchInput" [disabled]="inputAccessble" >
+      <input (click)="searchUser()" class="btn btn-primary" value="Search" type="submit">
 
     </div>
 
 
     <div *ngIf="datatableFlag">
       <hr>
-      <div><b>User Details</b></div>
-      <br>
+      <div class="mb-3"><b>User Details</b></div>
       <table class="table table-hover table-striped table-primary table-striped">
-        <tr>
+        <tr class="thead">
           <th>Name</th>
           <th>Phone_number</th>
           <th>City</th>
         </tr>
-        <tr *ngFor="let data of resulte">
+        <tr *ngFor="let data of resulte" class="tbody">
           <td>{{data.name}}</td>
           <td>{{data.phno}}</td>
           <td>{{data.city}}</td>
@@ -58,11 +58,11 @@
 
       <div class="input-group mt-3" *ngFor="let data of resulte;index as i">
 
-        <input class="from-control ms-3" type="text" name="modifyName" id={{i}} [(ngModel)]="data.name"
+        <input class="from-control ms-3" class="text-center" type="text" name="modifyName" id={{i}} [(ngModel)]="data.name"
           (ngModelChange)="getModifedName(data.name,i)">
-        <input class="from-control ms-3" type="text" name="modifyphno" id={{i}} [(ngModel)]="data.phno"
+        <input class="from-control ms-3" class="text-center" type="text" name="modifyphno" id={{i}} [(ngModel)]="data.phno"
           (ngModelChange)="getModifedPhno(data.phno,i)">
-        <input class="from-control ms-3" type="text" name="modifycity" id={{i}} [(ngModel)]="data.city"
+        <input class="from-control ms-3" class="text-center" type="text" name="modifycity" id={{i}} [(ngModel)]="data.city"
           (ngModelChange)="getModifedCity(data.city,i)">
         <button (click)=" modifyUserDetails(i)" class="btn btn-primary">Next</button>
         <br>
