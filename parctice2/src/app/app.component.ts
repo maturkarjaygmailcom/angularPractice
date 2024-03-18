@@ -72,12 +72,13 @@ export class AppComponent implements OnChanges {
 
   }
 
-  pushData() {
 
+  updateMain(event: any) {
+    console.log(event)
     if (this.dataPush) {
 
       _.each(this.mainData, element => {
-        _.each(this.updateDataedObjFromChild, childObjectEle => {
+        _.each(event, childObjectEle => {
 
           if (element.name == childObjectEle.name) {
 
@@ -95,7 +96,33 @@ export class AppComponent implements OnChanges {
       })
 
     }
+
   }
+
+  // pushData() {
+
+  //   if (this.dataPush) {
+
+  //     _.each(this.mainData, element => {
+  //       _.each(this.updateDataedObjFromChild, childObjectEle => {
+
+  //         if (element.name == childObjectEle.name) {
+
+  //           element['Address'] = childObjectEle.address
+  //           element['city'] = childObjectEle.city
+
+  //           this.finalOutput = element;
+
+
+  //         }
+
+  //       })
+
+
+  //     })
+
+  //   }
+  // }
 
 
 

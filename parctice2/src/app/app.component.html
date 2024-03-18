@@ -70,17 +70,12 @@
     </div>
     <hr>
     <br>
-
+    <!-- 
     <app-sub-component1 (dataPushCheck)="dataPush=$event" (passingObjectToAppCom)="updateDataedObjFromChild=$event"
       *ngIf="userNameVisibility" [OBJ]="obj1"></app-sub-component1>
+       -->
 
-  </div>
+    <app-sub-component1 [output]="finalOutput" (dataPushCheck)="dataPush=$event"
+      (passingObjectToAppCom)="updateMain($event)" *ngIf="userNameVisibility" [OBJ]="obj1"></app-sub-component1>
 
-  <div *ngIf="dataPush" class="ms-3 mt-3">
-    <button class="btn btn-primary" (click)="pushData()">push</button>
-
-    <br>
-    <br>
-    <br>
-    {{finalOutput|json}}
   </div>

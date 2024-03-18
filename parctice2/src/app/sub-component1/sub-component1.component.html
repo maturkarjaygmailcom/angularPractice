@@ -1,30 +1,33 @@
 <!-- <hr> -->
 
 <div><b>Address Details</b></div>
+
 <div class="input-group">
-    <!-- <label for="">name</label> -->
     <input class="from-control ms-2 " type=" text" placeholder="Name" name="" id="" value={{obj.name}} disabled>
 
-    <!-- <label for="">adress-1</label> -->
     <input class="from-control ms-2 " type="text" placeholder="Address-1" id="" value={{address1}}
         [(ngModel)]="address1">
 
 
-    <!-- <label for="">adress-2</label> -->
     <input class="from-control ms-2 " type="text" placeholder="Address-1" name="" id="" value={{address2}}
         [(ngModel)]="address2">
 
-    <!-- <label for="">citys</label> -->
     <select class="ms-3" id="" [(ngModel)]="obj.city">
         <option value="" *ngFor="let city of citys" value={{city}}>{{city}}</option>
     </select>
 
 
-    <!-- <label for="">State</label> -->
     <select class="ms-3" name="" id="" [(ngModel)]="selectedState">
         <option *ngFor="let state of states" value={{state}}>{{state}}</option>
     </select>
-    <button class="btn btn-primary" (click)="save()">Save</button>
+
+    <input type="button" class="btn btn-primary" (click)="save()" value="save">
+
     <hr>
 
-</div>
+    <input type="button" *ngIf="showModifyData" (click)="pushtomainobj()" value="Push" class="btn btn-primary">
+
+
+    <div *ngIf=" showPushData" class="ms-3 mt-3">
+        {{output|json}}
+    </div>
