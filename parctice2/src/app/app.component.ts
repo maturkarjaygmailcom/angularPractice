@@ -2,7 +2,7 @@ import { Component, OnChanges, SimpleChange, SimpleChanges, input, numberAttribu
 import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import _, { isString } from "underscore"
+import _, { includes } from "underscore"
 import { SubComponent1Component } from './sub-component1/sub-component1.component';
 import { compileNgModule } from '@angular/compiler';
 
@@ -68,6 +68,7 @@ export class AppComponent implements OnChanges {
   finalOutput: any;
   inputAccessble = true;
 
+  specialCharectors = ['@', ' ', '/', ']', '[', '!', '#', '$', '%', '^', '&', '*', '(', ')', '}', '{', '|', '.']
   ngOnChanges(changes: SimpleChanges): void {
 
     if (this.category == "") {
@@ -79,11 +80,43 @@ export class AppComponent implements OnChanges {
     }
   }
 
+  checkSingleChar(serachText: string) {
+
+    if (_.contains(this.specialCharectors, serachText.slice(-1))) {
+      // console.log((serachText).slice(-1))
+      this.serachText = serachText.slice(0, serachText.length - 1)
+    }
+    if (this.category == 'name') {
+      if (this.isStringValid(this.serachText)) {
+        window.alert("Please Enter Text Only")
+      }
+    }
+    else if (this.category == 'phoneNo') {
+      if (!this.isStringValid(this.serachText) && this.serachText != "") {
+        window.alert("Please Enter Number Only")
+      }
+    }
+    else if (this.category == 'city') {
+      if (this.isStringValid(this.serachText)) {
+        window.alert("Please Enter Text Only")
+      }
+    }
+  }
+
   inputCategory(category: any) {
     this.inputAccessble = false;
     this.serachText = ""
   }
 
+  isStringValid(serachText: string): boolean {
+    let regx = /^[0-9]+$/
+    return regx.test(serachText)
+  }
+
+  isNumberValid(serachText: string): boolean {
+    let regxTenDigit = /^[0-9]{10}$/
+    return regxTenDigit.test(serachText)
+  }
 
   updateMain(event: any) {
     console.log(event)
@@ -118,9 +151,8 @@ export class AppComponent implements OnChanges {
 
       if (this.category == 'name') {
 
-        let regx = /^[0-9]*$/
 
-        if (!(regx.test(this.serachText))) {
+        if (!(this.isStringValid(this.serachText))) {
 
           this.inputAccessble = false
           this.resulte = _.filter(this.mainData, element => {
@@ -148,10 +180,8 @@ export class AppComponent implements OnChanges {
       }
       else if (this.category == 'phoneNo') {
 
-        let regxTenDigit = /^[0-9]{10}$/
-        let regxDigit = /^[0-9]$/
 
-        if ((regxTenDigit.test(this.serachText))) {
+        if ((this.isNumberValid(this.serachText))) {
           this.inputAccessble = false
 
           this.resulte = _.filter(this.mainData, element => {
@@ -171,9 +201,6 @@ export class AppComponent implements OnChanges {
           } else {
             window.alert("Record Not Found!")
           }
-        } else if (((regxDigit.test(this.serachText)))) {
-          window.alert("Please Enter Number Only")
-
         } else {
           window.alert("Please Enter 10 Digit Number Only")
 
@@ -184,7 +211,7 @@ export class AppComponent implements OnChanges {
 
         let regx = /^[0-9]*$/
 
-        if (!(regx.test(this.serachText))) {
+        if (!(this.isStringValid(this.serachText))) {
           this.inputAccessble = false
 
           this.resulte = _.filter(this.mainData, element => {
@@ -224,15 +251,43 @@ export class AppComponent implements OnChanges {
   getModifedName(name: string, index: number) {
     this.nameChangeState = true;
     this.modifyName[index] = name
+    if (_.contains(this.specialCharectors, name.slice(-1))) {
+      // console.log((serachText).slice(-1))
+      this.modifyName[index] = name.slice(0, name.length - 1)
+    }
+
+    if (name == "") {
+      window.alert("Please Fill Some Thing")
+    }
 
   }
   getModifedPhno(phno: string, index: number) {
     this.phnoChangeState = true;
     this.modifyPhno[index] = phno
+
+    if (_.contains(this.specialCharectors, phno.slice(-1))) {
+      // console.log((serachText).slice(-1))
+      this.modifyPhno[index] = phno.slice(0, phno.length - 1)
+    }
+
+    if (phno == "") {
+      window.alert("Please Fill Some Thing")
+    }
+
   }
   getModifedCity(city: string, index: number) {
     this.cityChangeState = true;
     this.modifyCity[index] = city
+
+    if (_.contains(this.specialCharectors, city.slice(-1))) {
+      // console.log((serachText).slice(-1))
+      this.modifyCity[index] = city.slice(0, city.length - 1)
+    }
+
+    if (city == "") {
+      window.alert("Please Fill Some Thing")
+    }
+
   }
 
   modifyUserDetails(btnIndex: number) {

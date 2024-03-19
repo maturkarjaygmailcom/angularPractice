@@ -3,15 +3,15 @@
 <div class="mb-3"> <b>Address Details</b></div>
 
 <div class="input-group">
-    <input class="from-control ms-2 text-center" type=" text" placeholder="Name" name="" id="" value={{obj.name}}
+    <input type=" text" class="from-control ms-2 text-center" placeholder="Name" name="" id="" value={{obj.name}}
         disabled>
 
-    <input class="from-control ms-2  text-center" type="text" placeholder="Address-1" id="" value={{address1}}
-        [(ngModel)]="address1">
+    <input type="text" class="from-control ms-2  text-center" placeholder="Address-1" id="" value={{address1}}
+        [(ngModel)]="address1" (keyup)="checkSingleChar(address1)">
 
 
-    <input class="from-control ms-2  text-center" type="text" placeholder="Address-1" name="" id="" value={{address2}}
-        [(ngModel)]="address2">
+    <input type="text" class="from-control ms-2  text-center" placeholder="Address-2" name="" id="" value={{address2}}
+        [(ngModel)]="address2" (keyup)="checkSingleChar(address2)">
 
     <select class="ms-3 text-center" id="" [(ngModel)]="obj.city">
         <option value="" *ngFor="let city of citys" value={{city}}>{{city}}</option>

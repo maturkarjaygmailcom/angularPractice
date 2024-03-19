@@ -3,7 +3,8 @@ import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AppComponent } from '../app.component';
-import { json } from 'stream/consumers';
+import _ from "underscore"
+
 @Component({
   selector: 'app-sub-component1',
   standalone: true,
@@ -30,7 +31,7 @@ export class SubComponent1Component implements OnChanges {
   @Output() passingObjectToAppCom = new EventEmitter()
   @Output() dataPushCheck = new EventEmitter()
   showModifyData = false;
-
+  specialCharectors = ['@', '', '/', ']', '[', '!', '#', '$', '%', '^', '&', '*', '(', ')', '}', '{', '|', '.']
   objArray: any = []
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -41,27 +42,52 @@ export class SubComponent1Component implements OnChanges {
       console.log(JSON.stringify(prop.previousValue))
     }
   }
+
+  checkSingleChar(serachText: string) {
+
+    if (_.contains(this.specialCharectors, serachText.slice(-1))) {
+      this.address1 = serachText.slice(0, serachText.length - 1)
+    }
+
+
+
+  }
+  // checkEmpty(address: string) {
+  //   if (address == "") {
+  //     window.alert("Please Fill Some Thing")
+  //   }
+  // }
+
+
+
   save() {
 
-    this.objArray = [];
-    this.fullAddess = this.address1 + " , " + this.address2 + " , " + this.obj.city + " , " + this.selectedState + ".";
-    // console.log(this.obj.city)
-    this.obj['address'] = this.fullAddess
+    if (this.address1 != "" && this.address2 != "") {
 
-    this.objArray.push(this.obj)
-    console.log(this.objArray);
+      this.objArray = [];
+      this.fullAddess = this.address1 + " , " + this.address2 + " , " + this.obj.city + " , " + this.selectedState + ".";
+      // console.log(this.obj.city)
+      this.obj['address'] = this.fullAddess
+
+      this.objArray.push(this.obj)
+      console.log(this.objArray);
 
 
-    this.showModifyData = true
-    // this.dataPushCheck.emit(this.showModifyData);
+      this.showModifyData = true
+      // this.dataPushCheck.emit(this.showModifyData);
 
-    // this.passingObjectToAppCom.emit(this.objArray);
+      // this.passingObjectToAppCom.emit(this.objArray);
+    }
+    else {
+      window.alert("Please Fill All Fileds")
 
+    }
 
 
   }
 
   pushtomainobj() {
+
 
     console.log("aaaaaaa")
     this.objArray = [];
@@ -78,6 +104,7 @@ export class SubComponent1Component implements OnChanges {
     this.dataPushCheck.emit(this.showModifyData);
 
     this.passingObjectToAppCom.emit(this.objArray);
+
   }
 
 
