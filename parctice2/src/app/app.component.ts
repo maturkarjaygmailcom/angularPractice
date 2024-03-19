@@ -60,7 +60,7 @@ export class AppComponent implements OnChanges {
   dataPushCheck: boolean = false;
 
   showModifyData = false;
-
+  errorStatus=false;
 
   obj1: any;
 
@@ -68,7 +68,7 @@ export class AppComponent implements OnChanges {
   finalOutput: any;
   inputAccessble = true;
 
-  specialCharectors = ['@', ' ', '/', ']', '[', '!', '#', '$', '%', '^', '&', '*', '(', ')', '}', '{', '|', '.']
+  specialCharectors = ['@', ' ', '/', ']', '[', '!', '#', '$', '%', '^', '&', '*', '(', ')', '}', '{', '|', '.', /^[0-9]+$/]
   ngOnChanges(changes: SimpleChanges): void {
 
     if (this.category == "") {
@@ -82,24 +82,33 @@ export class AppComponent implements OnChanges {
 
   checkSingleChar(serachText: string) {
 
+    console.log(serachText.slice(-1))
+
     if (_.contains(this.specialCharectors, serachText.slice(-1))) {
-      // console.log((serachText).slice(-1))
       this.serachText = serachText.slice(0, serachText.length - 1)
     }
     if (this.category == 'name') {
-      if (this.isStringValid(this.serachText)) {
-        window.alert("Please Enter Text Only")
+      if (this.isStringValid(serachText.slice(-1))) {
+        // window.alert("Please Enter Text Only");
+        this.serachText = serachText.slice(0, serachText.length - 1)
       }
+
+
+
     }
     else if (this.category == 'phoneNo') {
-      if (!this.isStringValid(this.serachText) && this.serachText != "") {
-        window.alert("Please Enter Number Only")
+      if (!this.isStringValid(serachText.slice(-1)) && this.serachText != "") {
+        // window.alert("Please Enter Number Only")
+        this.serachText = serachText.slice(0, serachText.length - 1)
+
       }
     }
     else if (this.category == 'city') {
-      if (this.isStringValid(this.serachText)) {
-        window.alert("Please Enter Text Only")
+      if (this.isStringValid(serachText.slice(-1))) {
+        // window.alert("Please Enter Text Only")
+        this.serachText = serachText.slice(0, serachText.length - 1)
       }
+
     }
   }
 
@@ -173,6 +182,7 @@ export class AppComponent implements OnChanges {
 
           else {
             window.alert("Record Not Found!")
+            this.errorStatus=true
           }
         } else {
           window.alert("Please Enter Text Only")

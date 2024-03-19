@@ -46,7 +46,8 @@ export class SubComponent1Component implements OnChanges {
   checkSingleChar(serachText: string) {
 
     if (_.contains(this.specialCharectors, serachText.slice(-1))) {
-      this.address1 = serachText.slice(0, serachText.length - 1)
+      this.address1 = serachText.slice(-1)
+      console.log(this.address1)
     }
 
 

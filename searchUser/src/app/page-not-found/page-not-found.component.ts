@@ -14,8 +14,9 @@ export class PageNotFoundComponent implements OnInit {
 
   constructor(private rout: ActivatedRoute) { }
   ngOnInit(): void {
-    // let id = this.rout.snapshot.paramMap.get(id)
+    // let id =  this.rout.snapshot.paramMap.get
     // this.idNo = id
+    console.log(this)
     
   }
 

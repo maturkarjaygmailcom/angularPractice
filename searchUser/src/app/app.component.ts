@@ -10,10 +10,9 @@ import { Router } from '@angular/router';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  data = [22, 2, 3, 43, 21, 11];
+  data = [22, 2, 3, 43, 21, 11,1111,22222];
   constructor(private routers: Router) { }
   gotoAddess() {
-    this.routers.navigate(['about'])
-    console.log("aaa")
+    this.routers.navigate(['/about'])
   }
 }

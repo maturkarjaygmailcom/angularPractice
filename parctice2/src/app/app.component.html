@@ -1,84 +1,92 @@
-<div class="container">
+<!-- http://localhost:4200/ -->
 
-  <div class="form-check form-check-inline">
-    <input class="form-check-input" type="radio" name="search" id="name" value="name" [(ngModel)]="category"
-      (ngModelChange)="inputCategory(category)">
-    <label class="form-check-label" for="flexRadioDefault1">
-      Name
-    </label>
-  </div>
+<br>
+<br>
+<div class="form-check form-check-inline ms-3">
+  <input class="form-check-input" type="radio" name="search" id="name" value="name" [(ngModel)]="category"
+    (ngModelChange)="inputCategory(category)">
+  <label class="form-check-label" for="flexRadioDefault1">
+    Name
+  </label>
+</div>
 
-  <div class="form-check form-check-inline">
-    <input class="form-check-input" type="radio" name="search" id="phoneNo" value="phoneNo" [(ngModel)]="category"
-      (ngModelChange)="inputCategory(category)">
-    <label class="form-check-label" for="flexRadioDefault2">
-      Phone_number
-    </label>
-  </div>
+<div class="form-check form-check-inline">
+  <input class="form-check-input" type="radio" name="search" id="phoneNo" value="phoneNo" [(ngModel)]="category"
+    (ngModelChange)="inputCategory(category)">
+  <label class="form-check-label" for="flexRadioDefault2">
+    Phone_number
+  </label>
+</div>
 
-  <div class="form-check form-check-inline">
-    <input class="form-check-input" type="radio" name="search" id="city" value="city" [(ngModel)]="category"
-      (ngModelChange)="inputCategory(category)">
-    <label class="form-check-label" for="flexRadioDefault2">
-      City
-    </label>
-  </div>
+<div class="form-check form-check-inline">
+  <input class="form-check-input" type="radio" name="search" id="city" value="city" [(ngModel)]="category"
+    (ngModelChange)="inputCategory(category)">
+  <label class="form-check-label" for="flexRadioDefault2">
+    City
+  </label>
+</div>
 
 
-  <div class="from-check">
+<div class="from-check ms-3" >
+  <br>
+  <div class="input-group">
+    <input type="text" placeholder="Enter Your Name" class="from-control text-center"
+      aria-label="Example text with button addon" aria-describedby="button-addon1" [(ngModel)]="serachText"
+      id="searchInput" [disabled]="inputAccessble" (keyup)="checkSingleChar(serachText)">
+
+   
+    <input (click)="searchUser()" class="btn btn-primary" value="Search" type="submit">
     <br>
-    <div class="input-group">
-      <input type="text" placeholder="Enter Your Name" class="from-control text-center"
-        aria-label="Example text with button addon" aria-describedby="button-addon1" [(ngModel)]="serachText"
-        id="searchInput" [disabled]="inputAccessble" (keyup)="checkSingleChar(serachText)">
-      <input (click)="searchUser()" class="btn btn-primary" value="Search" type="submit">
-
-    </div>
+    
+  </div>
+  <div *ngIf="errorStatus" class="alert alert-success col-2 ms-1 mt-2" role="alert">
+    Data Not Found
+  </div>
 
 
-    <div *ngIf="datatableFlag">
-      <hr>
-      <div class="mb-3"><b>User Details</b></div>
-      <table class="table table-hover table-striped table-primary table-striped">
-        <tr class="thead">
-          <th>Name</th>
-          <th>Phone_number</th>
-          <th>City</th>
-        </tr>
-        <tr *ngFor="let data of resulte" class="tbody">
-          <td>{{data.name}}</td>
-          <td>{{data.phno}}</td>
-          <td>{{data.city}}</td>
-        </tr>
-      </table>
-      <button (click)="showUserDetials()" class="btn btn-primary mb-3">Modify</button>
-    </div>
-
-    <div *ngIf="showModifyData">
-      <hr>
-
-      <div><b>Modify</b></div>
-
-      <div class="input-group mt-3" *ngFor="let data of resulte;index as i">
-
-        <input class="from-control ms-3" class="text-center" type="text" name="modifyName" id={{i}}
-          [(ngModel)]="data.name" (ngModelChange)="getModifedName(data.name,i)">
-        <input class="from-control ms-3" class="text-center" type="text" name="modifyphno" id={{i}}
-          [(ngModel)]="data.phno" (ngModelChange)="getModifedPhno(data.phno,i)">
-        <input class="from-control ms-3" class="text-center" type="text" name="modifycity" id={{i}}
-          [(ngModel)]="data.city" (ngModelChange)="getModifedCity(data.city,i)">
-        <button (click)=" modifyUserDetails(i)" class="btn btn-primary">Next</button>
-        <br>
-      </div>
-    </div>
+  <div *ngIf="datatableFlag">
     <hr>
-    <br>
-    <!-- 
+    <div class="mb-3"><b>User Details</b></div>
+    <table class="table table-hover table-striped table-primary table-striped">
+      <tr class="thead">
+        <th>Name</th>
+        <th>Phone_number</th>
+        <th>City</th>
+      </tr>
+      <tr *ngFor="let data of resulte" class="tbody">
+        <td>{{data.name}}</td>
+        <td>{{data.phno}}</td>
+        <td>{{data.city}}</td>
+      </tr>
+    </table>
+    <button (click)="showUserDetials()" class="btn btn-primary mb-3">Modify</button>
+  </div>
+
+  <div *ngIf="showModifyData">
+    <hr>
+
+    <div><b>Modify</b></div>
+
+    <div class="input-group mt-3" *ngFor="let data of resulte;index as i">
+
+      <input class="from-control ms-3" class="text-center" type="text" name="modifyName" id={{i}}
+        [(ngModel)]="data.name" (ngModelChange)="getModifedName(data.name,i)">
+      <input class="from-control ms-3" class="text-center" type="text" name="modifyphno" id={{i}}
+        [(ngModel)]="data.phno" (ngModelChange)="getModifedPhno(data.phno,i)">
+      <input class="from-control ms-3" class="text-center" type="text" name="modifycity" id={{i}}
+        [(ngModel)]="data.city" (ngModelChange)="getModifedCity(data.city,i)">
+      <button (click)=" modifyUserDetails(i)" class="btn btn-primary">Next</button>
+      <br>
+    </div>
+  </div>
+  <hr>
+  <br>
+  <!-- 
     <app-sub-component1 (dataPushCheck)="dataPush=$event" (passingObjectToAppCom)="updateDataedObjFromChild=$event"
       *ngIf="userNameVisibility" [OBJ]="obj1"></app-sub-component1>
        -->
 
-    <app-sub-component1 [output]="finalOutput" (dataPushCheck)="dataPush=$event"
-      (passingObjectToAppCom)="updateMain($event)" *ngIf="userNameVisibility" [OBJ]="obj1"></app-sub-component1>
+  <app-sub-component1 [output]="finalOutput" (dataPushCheck)="dataPush=$event"
+    (passingObjectToAppCom)="updateMain($event)" *ngIf="userNameVisibility" [OBJ]="obj1"></app-sub-component1>
 
-  </div>
+</div>
