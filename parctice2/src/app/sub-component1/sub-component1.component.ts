@@ -43,14 +43,13 @@ export class SubComponent1Component implements OnChanges {
     }
   }
 
-  checkSingleChar(serachText: string) {
-
-    if (_.contains(this.specialCharectors, serachText.slice(-1))) {
-      this.address1 = serachText.slice(-1)
-      console.log(this.address1)
-    }
-
-
+  checkSingleChar(serachValue: string) {
+    // console.log(serachValue.slice(-1))
+    // if (_.contains(this.specialCharectors, serachValue.slice(-1))) {
+    //   this.address1 = this.address1.slice(0, (this.address1.length) - 1)
+    //   console.log(this.address1)
+    //   console.log(this.address1)
+    // }
 
   }
   // checkEmpty(address: string) {
@@ -59,8 +58,7 @@ export class SubComponent1Component implements OnChanges {
   //   }
   // }
 
-
-
+  
   save() {
 
     if (this.address1 != "" && this.address2 != "") {

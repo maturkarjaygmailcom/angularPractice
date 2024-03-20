@@ -60,7 +60,7 @@ export class AppComponent implements OnChanges {
   dataPushCheck: boolean = false;
 
   showModifyData = false;
-  errorStatus=false;
+  errorStatus = false;
 
   obj1: any;
 
@@ -92,9 +92,6 @@ export class AppComponent implements OnChanges {
         // window.alert("Please Enter Text Only");
         this.serachText = serachText.slice(0, serachText.length - 1)
       }
-
-
-
     }
     else if (this.category == 'phoneNo') {
       if (!this.isStringValid(serachText.slice(-1)) && this.serachText != "") {
@@ -181,8 +178,11 @@ export class AppComponent implements OnChanges {
           }
 
           else {
-            window.alert("Record Not Found!")
-            this.errorStatus=true
+            // window.alert("Record Not Found!")
+            this.errorStatus = true
+            setTimeout(() => {
+              this.errorStatus = false
+            }, 1000)
           }
         } else {
           window.alert("Please Enter Text Only")
@@ -261,42 +261,17 @@ export class AppComponent implements OnChanges {
   getModifedName(name: string, index: number) {
     this.nameChangeState = true;
     this.modifyName[index] = name
-    if (_.contains(this.specialCharectors, name.slice(-1))) {
-      // console.log((serachText).slice(-1))
-      this.modifyName[index] = name.slice(0, name.length - 1)
-    }
-
-    if (name == "") {
-      window.alert("Please Fill Some Thing")
-    }
-
   }
   getModifedPhno(phno: string, index: number) {
     this.phnoChangeState = true;
     this.modifyPhno[index] = phno
 
-    if (_.contains(this.specialCharectors, phno.slice(-1))) {
-      // console.log((serachText).slice(-1))
-      this.modifyPhno[index] = phno.slice(0, phno.length - 1)
-    }
-
-    if (phno == "") {
-      window.alert("Please Fill Some Thing")
-    }
 
   }
   getModifedCity(city: string, index: number) {
     this.cityChangeState = true;
     this.modifyCity[index] = city
 
-    if (_.contains(this.specialCharectors, city.slice(-1))) {
-      // console.log((serachText).slice(-1))
-      this.modifyCity[index] = city.slice(0, city.length - 1)
-    }
-
-    if (city == "") {
-      window.alert("Please Fill Some Thing")
-    }
 
   }
 
@@ -316,7 +291,28 @@ export class AppComponent implements OnChanges {
 
     }
   }
+  checkSingleCharectorOfName(Name: string, index: number) {
+    if (Name == "") {
+      window.alert("Please Fill Some Thing")
+    }
 
+  }
+  checkSingleCharectorOfPhno(Phno: string, index: number) {
+
+
+    if (Phno == "") {
+      window.alert("Please Fill Some Thing")
+    }
+
+  }
+  checkSingleCharectorOfCity(city: string, index: number) {
+
+
+    if (city == "") {
+      window.alert("Please Fill Some Thing")
+    }
+
+  }
   showUserDetials() {
     this.showModifyData = true
   }

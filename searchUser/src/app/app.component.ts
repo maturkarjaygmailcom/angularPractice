@@ -1,7 +1,10 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Router, RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { EmpdataService } from './empdata.service';
+import { RouterModule } from '@angular/router';
+import { routingComponents } from './app.routes';
+
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -9,10 +12,21 @@ import { Router } from '@angular/router';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent {
-  data = [22, 2, 3, 43, 21, 11,1111,22222];
-  constructor(private routers: Router) { }
+export class AppComponent implements OnInit {
+  public empArray: any = [];
+
+  constructor(private _empData: EmpdataService,route:Router) { }
+
+
+  ngOnInit(): void {
+    this._empData.getData().subscribe((data) => {
+      this.empArray = data
+    })
+
+  }
+
+
   gotoAddess() {
-    this.routers.navigate(['/about'])
+
   }
 }

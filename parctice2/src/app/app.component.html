@@ -27,19 +27,20 @@
 </div>
 
 
-<div class="from-check ms-3" >
+<div class="from-check ms-3">
   <br>
   <div class="input-group">
     <input type="text" placeholder="Enter Your Name" class="from-control text-center"
       aria-label="Example text with button addon" aria-describedby="button-addon1" [(ngModel)]="serachText"
       id="searchInput" [disabled]="inputAccessble" (keyup)="checkSingleChar(serachText)">
 
-   
+
     <input (click)="searchUser()" class="btn btn-primary" value="Search" type="submit">
     <br>
-    
+
   </div>
-  <div *ngIf="errorStatus" class="alert alert-success col-2 ms-1 mt-2" role="alert">
+
+  <div *ngIf="errorStatus" class="alert alert-success col-3 ms-1 mt-2" role="alert">
     Data Not Found
   </div>
 
@@ -70,17 +71,23 @@
     <div class="input-group mt-3" *ngFor="let data of resulte;index as i">
 
       <input class="from-control ms-3" class="text-center" type="text" name="modifyName" id={{i}}
-        [(ngModel)]="data.name" (ngModelChange)="getModifedName(data.name,i)">
+        [(ngModel)]="data.name" (ngModelChange)="getModifedName(data.name,i)"
+        (keyup)="checkSingleCharectorOfName(data.name,i)">
       <input class="from-control ms-3" class="text-center" type="text" name="modifyphno" id={{i}}
-        [(ngModel)]="data.phno" (ngModelChange)="getModifedPhno(data.phno,i)">
+        [(ngModel)]="data.phno" (ngModelChange)="getModifedPhno(data.phno,i)"
+        (keyup)="checkSingleCharectorOfPhno(data.city,i)">
       <input class="from-control ms-3" class="text-center" type="text" name="modifycity" id={{i}}
-        [(ngModel)]="data.city" (ngModelChange)="getModifedCity(data.city,i)">
+        [(ngModel)]="data.city" (ngModelChange)="getModifedCity(data.city,i)"
+        (keyup)="checkSingleCharectorOfCity(data.city,i)">
+
       <button (click)=" modifyUserDetails(i)" class="btn btn-primary">Next</button>
       <br>
     </div>
   </div>
   <hr>
   <br>
+
+
   <!-- 
     <app-sub-component1 (dataPushCheck)="dataPush=$event" (passingObjectToAppCom)="updateDataedObjFromChild=$event"
       *ngIf="userNameVisibility" [OBJ]="obj1"></app-sub-component1>
