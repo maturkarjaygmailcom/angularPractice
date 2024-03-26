@@ -1,0 +1,28 @@
+<div class="container-fluid">
+
+    <div *ngFor="let product of productobject" class="card ms-5 mt-1 mb-1" style="width: 22rem; display: inline-block">
+        <div class="card-body">
+
+
+            <img src="{{product['images'][0]}}" alt="ProductImages" class="card-img-top" style="width: 18rem;">
+            <br>
+            <div class="card-title mt-2">
+                <b>Product name:</b>
+                {{product["title"]}}
+            </div>
+
+            <div class="card-text mt-2 mb-2">
+                <b>Description:</b>
+                {{product["description"]}}
+            </div>
+
+            <b>Price:</b>
+            {{product["price"]|currency}}
+            <br>
+            <b>Rating:</b>
+            {{product["rating"]}}
+            <br>
+            <button class="btn btn-primary mt-2"><b>Add to Cart</b></button>
+        </div>
+    </div>
+</div>

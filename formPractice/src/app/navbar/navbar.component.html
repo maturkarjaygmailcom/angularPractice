@@ -1,0 +1,61 @@
+<!-- <nav>
+    <a routerLink="/category" routerLinkActive="active">Category</a>
+    <a routerLink="/brand" routerLinkActive="active">Brand</a>
+    <a routerLink="/discount" routerLinkActive="active">Discount</a>
+    <a routerLink="/rating" routerLinkActive="active">Rating</a>
+    <a routerLink="/price" routerLinkActive="active">Price</a>
+</nav>
+
+<router-outlet></router-outlet>
+<div class="container-fluid">
+    <router-outlet></router-outlet>
+</div>
+ -->
+
+<nav class="navbar ms-2 me-2">
+    <button class="navbar-togger btn btn-outline-primary" (click)="showCategory()">Category</button>
+    <button class="navbar-togger btn btn-outline-primary" (click)="showBrand()">Brand</button>
+    <button class="navbar-togger btn btn-outline-primary" (click)="showDiscount()">Discount</button>
+    <button class="navbar-togger btn btn-outline-primary" (click)="showRating()">Rating</button>
+    <button class="navbar-togger btn btn-outline-primary" (click)="showPrice()">Price</button>
+</nav>
+
+<div class="container-fluid" *ngIf="VisibalityCategory">
+
+    <div class="d-inline p-1" *ngFor="let category of categories;let i=index">
+        <input type="checkbox" value="{{category}}" class="p-2" name="{{category}}" (change)="onChange($event,i)">
+        <label class="p-2">{{category}}</label>
+    </div>
+</div>
+
+<div class="container-fluid d-inline" *ngIf="VisibalityBrand">
+    VisibalityBrandss
+    <div class="d-inline" *ngFor="let brand of brandes">
+        <input type="checkbox" value="brand" class="p-2">
+        <label class="p-2">{{brand}}</label>
+    </div>
+</div>
+
+<div class="container-fluid " *ngIf="VisibalityDiscount">
+    <div class="d-inline" *ngFor="let discountPercentag of discountPercentages">
+        <input type="checkbox" value="category" class="p-2">
+        <label class="p-2">{{discountPercentag}}</label>
+
+    </div>
+</div>
+
+<div class="container-fluid" *ngIf="VisibalityRanting">
+    <div class="d-inline" *ngFor="let rating of ratinges">
+        <input type="checkbox" value="category" class="p-2">
+        <label class="p-2">{{rating}}</label>
+    </div>
+</div>
+
+<div class="container-fluid" *ngIf="VisibalityPrice">
+    <div class="d-inline" *ngFor="let price of prices">
+        <input type="checkbox" value="category" class="p-2">
+        <label class="p-2">{{price}}</label>
+    </div>
+</div>
+
+<app-dashboard [productobject]="result"></app-dashboard>
