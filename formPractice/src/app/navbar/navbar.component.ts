@@ -5,7 +5,7 @@ import { Router, RouterOutlet, RouterLink, RouterLinkWithHref, RouterLinkActive 
 import { routingComponent } from '../app.routes';
 import { DashboardComponent } from '../dashboard/dashboard.component';
 import _, { indexOf } from "underscore"
-import { log } from 'console';
+import { count, log } from 'console';
 import { producerUpdateValueVersion } from '@angular/core/primitives/signals';
 import { stringify } from 'querystring';
 @Component({
@@ -19,7 +19,6 @@ export class NavbarComponent implements OnInit {
 
   @Input() public productDetails: any
   public categoryes: any
-
   VisibalityCategory: boolean = false;
   VisibalityBrand: boolean = false;
   VisibalityDiscount: boolean = false;
@@ -33,14 +32,19 @@ export class NavbarComponent implements OnInit {
   ratinges: any
   prices: any
 
-  visiableCategoryData: string[] = []
-  visiableBrandData = []
-  visiableDiscountData = []
-  visiableDiscountpercentageData = []
-  visiableRatingData = []
-  visiablePriceData = []
+  selectedCategoryArray: string[] = []
+  selectedBrandArray: string[] = []
+  selectedDiscountArray: any
+  selectedRatingArray: string[] = []
+  selectedPriceArray: string[] = []
 
-  result: any[] = [];
+  resultObject: any;
+  categoryResulte: string[] = []
+  brandResulte: string[] = []
+  discountResulte: string[] = []
+  ratingResulte: string[] = []
+  priceResulte: string[] = []
+
   ngOnInit(): void {
     this.VisibalityCategory = false;
     this.VisibalityBrand = false;
@@ -48,12 +52,13 @@ export class NavbarComponent implements OnInit {
     this.VisibalityRanting = false;
     this.VisibalityPrice = false;
     this.categories = _.uniq(_.pluck(this.productDetails, 'category'))
+    // console.log(this.categories)
     this.brandes = _.uniq(_.pluck(this.productDetails, 'brand'))
     this.discountPercentages = _.uniq(_.pluck(this.productDetails, 'discountPercentage'))
     this.ratinges = _.uniq(_.pluck(this.productDetails, 'rating'))
     this.prices = _.uniq(_.pluck(this.productDetails, 'price'))
 
-    this.result = this.productDetails;
+    this.resultObject = this.productDetails;
 
   }
   showCategory() {
@@ -102,29 +107,369 @@ export class NavbarComponent implements OnInit {
     // console.log(this.prices);
 
   }
-  onChange(event: any, index: any) {
 
-    let checked: string = event.target.value
-    if (_.contains(this.categories, checked) && !_.contains(this.visiableCategoryData, checked))
-      this.visiableCategoryData.push(checked)
+  onSelectCategory(event: any, category: any) {
 
-    else if (_.contains(this.visiableCategoryData, checked))
-      this.visiableCategoryData.splice(this.visiableCategoryData.indexOf(checked), 1)
+    let checked: string = event.target.checked
+    if (checked) {
+      this.selectedCategoryArray.push(category)
+    }
+    else {
+      let index = this.selectedCategoryArray.indexOf(category)
+      this.selectedCategoryArray.splice(index, 1)
+    }
 
-    console.log(this.visiableCategoryData)
-
-    this.result = _.filter(this.productDetails, elements => {
-      return _.contains(this.visiableCategoryData, elements.category)
+    this.resultObject = _.filter(this.productDetails, elements => {
+      return _.contains(this.selectedCategoryArray, elements.category)
     })
 
-    console.log(this.result);
+    // console.log(this.resultObject)
+    // // this.resultObject.push({ "category": this.selectedCategoryArray })
 
-    if(this.visiableCategoryData.length<1){
-      this.result = this.productDetails;
-
+    if (this.selectedCategoryArray.length < 1) {
+      this.resultObject = this.productDetails;
     }
+
+  }
+
+
+  onSelectBrand(event: any, brand: any) {
+
+    let checked: string = event.target.checked
+    if (checked) {
+      this.selectedBrandArray.push(brand)
+    }
+    else {
+      let index = this.selectedBrandArray.indexOf(brand)
+      this.selectedBrandArray.splice(index, 1)
+    }
+
+    // this.resultObject.push({ "barnd": this.selectedBrandArray })
+    // console.log(this.selectedBrandArray.length);
+
+    this.resultObject = _.filter(this.productDetails, elements => {
+      return _.contains(this.selectedBrandArray, elements.brand)
+    })
+    console.log(this.resultObject, this.selectedBrandArray);
+
+    if (this.selectedBrandArray.length <= 0) {
+      this.resultObject = this.productDetails
+    }
+
+    // if (this.selectedBrandArray.length <= 0) {
+    //   this.resultObject = this.productDetails;
+    // }
+    // else {
+
+    //   if (this.selectedCategoryArray.length >= 1) {
+    //     this.resultObject = _.filter(this.resultObject, elements => {
+    //       return _.contains(this.selectedBrandArray, elements.brand)
+    //     })
+    //   }
+    //   // else {
+    //   //     this.resultObject = _.filter(this.productDetails, elements => {
+    //   //       return _.contains(this.selectedBrandArray, elements.brand)
+    //   //       console.log(this.resultObject)
+    //   //     })
+    //   //   }
+    // }
+
   }
 
 
 
+  onSelectDiscount(event: any) {
+
+    let checked: string = event.target.checked
+    let discount: string = event.target.value
+    console.log(discount);
+    var data = []
+
+    if (checked) {
+      if (discount == '0-5') {
+
+        data = _.filter(this.productDetails, elements => {
+          return elements.discountPercentage > 0 && elements.discountPercentage < 5
+        })
+        console.log(data)
+        this.selectedDiscountArray = _.union(this.selectedDiscountArray, data)
+      }
+      if (discount == '5-10') {
+
+        data = _.filter(this.productDetails, elements => {
+          return elements.discountPercentage > 5 && elements.discountPercentage < 10
+        })
+        console.log(data)
+        this.selectedDiscountArray = _.union(this.selectedDiscountArray, data)
+      }
+      if (discount == '10-15') {
+
+        data = _.filter(this.productDetails, elements => {
+          return elements.discountPercentage > 10 && elements.discountPercentage < 15
+        })
+        console.log(data)
+        this.selectedDiscountArray = _.union(this.selectedDiscountArray, data)
+      }
+      if (discount == '15-20') {
+
+
+        data = _.filter(this.productDetails, elements => {
+          return elements.discountPercentage > 15 && elements.discountPercentage < 20
+        })
+        console.log(data)
+        this.selectedDiscountArray = _.union(this.selectedDiscountArray, data)
+      }
+
+
+      this.resultObject = this.selectedDiscountArray
+    }
+    else {
+
+      if (discount == '0-5') {
+
+        data = _.filter(this.productDetails, elements => {
+          return elements.discountPercentage > 0 && elements.discountPercentage < 5
+        })
+        console.log(data)
+        this.selectedDiscountArray = _.difference(this.selectedDiscountArray, data)
+      }
+      if (discount == '5-10') {
+
+        data = _.filter(this.productDetails, elements => {
+          return elements.discountPercentage > 5 && elements.discountPercentage < 10
+        })
+        console.log(data)
+        this.selectedDiscountArray = _.difference(this.selectedDiscountArray, data)
+      }
+      if (discount == '10-15') {
+
+        data = _.filter(this.productDetails, elements => {
+          return elements.discountPercentage > 10 && elements.discountPercentage < 15
+        })
+        console.log(data)
+        this.selectedDiscountArray = _.difference(this.selectedDiscountArray, data)
+      }
+      if (discount == '15-20') {
+
+
+        data = _.filter(this.productDetails, elements => {
+          return elements.discountPercentage > 15 && elements.discountPercentage < 20
+        })
+        console.log(data)
+        this.selectedDiscountArray = _.difference(this.selectedDiscountArray, data)
+      }
+
+      this.resultObject = this.selectedDiscountArray
+
+    }
+
+
+    if (this.selectedDiscountArray.length < 1) {
+      this.resultObject = this.productDetails;
+    }
+
+  }
+
+  onSelectRating(event: any) {
+
+    let checked: boolean = event.target.checked
+    let rating: string = event.target.value
+
+    var data = []
+
+    if (checked) {
+      if (rating == '1') {
+
+        data = _.filter(this.productDetails, elements => {
+          return elements.rating > 0 && elements.rating < 2
+        })
+        console.log(data)
+        this.selectedRatingArray = _.union(this.selectedRatingArray, data)
+      }
+      if (rating == '2') {
+
+        data = _.filter(this.productDetails, elements => {
+          return elements.rating >= 2 && elements.rating < 3
+        })
+        console.log(data)
+        this.selectedRatingArray = _.union(this.selectedRatingArray, data)
+      }
+      if (rating == '3') {
+
+        data = _.filter(this.productDetails, elements => {
+          return elements.rating >= 3 && elements.rating < 4
+        })
+        console.log(data)
+        this.selectedRatingArray = _.union(this.selectedRatingArray, data)
+      }
+      if (rating == '4') {
+
+
+        data = _.filter(this.productDetails, elements => {
+          return elements.rating >= 4 && elements.rating < 5
+        })
+        console.log(data)
+        this.selectedRatingArray = _.union(this.selectedRatingArray, data)
+      }
+
+      if (rating == '5') {
+
+        data = _.filter(this.productDetails, elements => {
+          return elements.rating >= 5 && elements.rating < 6
+        })
+        console.log(data)
+        this.selectedRatingArray = _.union(this.selectedRatingArray, data)
+      }
+
+      this.resultObject = this.selectedRatingArray
+    }
+    else {
+
+      if (rating == '1') {
+
+        data = _.filter(this.productDetails, elements => {
+          return elements.rating > 0 && elements.rating < 2
+        })
+        console.log(data)
+        this.selectedRatingArray = _.difference(this.selectedRatingArray, data)
+      }
+      if (rating == '2') {
+
+        data = _.filter(this.productDetails, elements => {
+          return elements.rating >= 2 && elements.rating < 3
+        })
+        console.log(data)
+        this.selectedRatingArray = _.difference(this.selectedRatingArray, data)
+      }
+      if (rating == '3') {
+
+        data = _.filter(this.productDetails, elements => {
+          return elements.rating >= 3 && elements.rating < 4
+        })
+        console.log(data)
+        this.selectedRatingArray = _.difference(this.selectedRatingArray, data)
+      }
+      if (rating == '4') {
+
+
+        data = _.filter(this.productDetails, elements => {
+          return elements.rating >= 4 && elements.rating < 5
+        })
+        console.log(data)
+        this.selectedRatingArray = _.difference(this.selectedRatingArray, data)
+      }
+      if (rating == '5') {
+
+
+        data = _.filter(this.productDetails, elements => {
+          return elements.rating >= 5 && elements.rating < 6
+        })
+        console.log(data)
+        this.selectedRatingArray = _.difference(this.selectedRatingArray, data)
+      }
+
+      this.resultObject = this.selectedRatingArray
+
+
+
+    }
+
+  }
+  onSelectPrice(event: any) {
+
+    let checked: string = event.target.checked
+    let price: string = event.target.value
+    var data = []
+
+    if (checked) {
+
+      if (price == '0-100') {
+        data = _.filter(this.productDetails, elements => {
+          return elements.price > 0 && elements.price <= 100
+        })
+        console.log(data)
+        this.selectedPriceArray = _.union(this.selectedPriceArray, data)
+      }
+      if (price == '100-500') {
+
+        data = _.filter(this.productDetails, elements => {
+          return elements.price > 100 && elements.price <= 500
+        })
+        console.log(data)
+        this.selectedPriceArray = _.union(this.selectedPriceArray, data)
+      }
+      if (price == '500-1000') {
+
+        data = _.filter(this.productDetails, elements => {
+          return elements.price > 500 && elements.price <= 1000
+        })
+        console.log(data)
+        this.selectedPriceArray = _.union(this.selectedPriceArray, data)
+      }
+
+      this.resultObject = this.selectedPriceArray
+    }
+    else {
+
+      if (price == '0-100') {
+        data = _.filter(this.productDetails, elements => {
+          return elements.price > 0 && elements.price <= 100
+        })
+        console.log(data)
+        this.selectedPriceArray = _.difference(this.selectedPriceArray, data)
+      }
+      if (price == '100-500') {
+
+        data = _.filter(this.productDetails, elements => {
+          return elements.price > 100 && elements.price <= 500
+        })
+        console.log(data)
+        this.selectedPriceArray = _.difference(this.selectedPriceArray, data)
+      }
+      if (price == '500-1000') {
+
+        data = _.filter(this.productDetails, elements => {
+          return elements.price > 500 && elements.price <= 1000
+        })
+        console.log(data)
+        this.selectedPriceArray = _.difference(this.selectedPriceArray, data)
+      }
+
+      this.resultObject = this.selectedPriceArray
+      console.log(this.resultObject, this.selectedPriceArray);
+
+      // if (this.selectedPriceArray.length <= 0) {
+      //   this.resultObject = this.productDetails
+      // }
+
+    }
+
+    // this.resultObject.push({ "price": this.selectedPriceArray })
+
+
+    if (this.selectedPriceArray.length <= 0) {
+      this.resultObject = this.productDetails
+    }
+  }
+
+  // filter() {
+  //   if (this.selectedCategoryArray["'category'"]) {
+
+  //   } else {
+  //     this.resultObject.push({ "category": this.selectedCategoryArray })
+  //   }
+  //   this.resultObject.push({ "barnd": this.selectedBrandArray })
+  //   this.resultObject.push({ "discount": this.selectedDiscountArray })
+  //   this.resultObject.push({ "rating": this.selectedRatingArray })
+  //   this.resultObject.push({ "price": this.selectedPriceArray })
+  //   console.log(this.resultObject)
+  // }
 }
+
+
+// if (_.contains(this.categories, checked) && !_.contains(this.selectedCategoryArray, checked))
+//   this.selectedCategoryArray.push(checked)
+
+// else if (_.contains(this.selectedCategoryArray, checked))
+//   this.selectedCategoryArray.splice(this.selectedCategoryArray.indexOf(checked), 1)
+
