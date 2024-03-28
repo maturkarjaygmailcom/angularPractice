@@ -1,0 +1,5 @@
+<div class="container mb-5"  *ngIf="footerVisibility"
+    style="position:sticky;bottom:0;border:solid white 8px;opacity: 20px;box-shadow: 1px 2px 3px 4px rgba(12, 12, 12, 0.2); border-radius:10px;height: inherit;width: 90%;background-color: white;">
+    <div class="ms-5"><b>Count : {{count}}</b></div>
+    <button *ngIf="addtocartBtnVisibility" (click)="addToCart()" class="btn btn-primary"><b>Add To Cart</b></button>
+</div>

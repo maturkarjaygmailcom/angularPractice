@@ -1,17 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit, ViewRef } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Router, RouterOutlet, RouterLink, RouterLinkWithHref, RouterLinkActive } from '@angular/router';
-import { routingComponent } from '../app.routes';
 import { DashboardComponent } from '../dashboard/dashboard.component';
-import _, { indexOf } from "underscore"
-import { count, log } from 'console';
-import { producerUpdateValueVersion } from '@angular/core/primitives/signals';
-import { stringify } from 'querystring';
+import _ from "underscore"
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterOutlet, RouterLink, RouterLinkActive, routingComponent, DashboardComponent],
+  imports: [CommonModule, FormsModule, DashboardComponent],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss'
 })
@@ -24,6 +19,9 @@ export class NavbarComponent implements OnInit {
   VisibalityDiscount: boolean = false;
   VisibalityRanting: boolean = false;
   VisibalityPrice: boolean = false;
+  navbarVisibility = false
+
+  searchText: string = ""
 
   categories: any
   brandes: any
@@ -61,12 +59,17 @@ export class NavbarComponent implements OnInit {
     this.resultObject = this.productDetails;
 
   }
+  showNavbar() {
+    this.navbarVisibility = !this.navbarVisibility
+  }
   showCategory() {
     this.VisibalityCategory = (!this.VisibalityCategory);
     this.VisibalityBrand = false;
     this.VisibalityDiscount = false;
     this.VisibalityRanting = false;
     this.VisibalityPrice = false;
+
+
 
   }
   showBrand() {
@@ -75,7 +78,7 @@ export class NavbarComponent implements OnInit {
     this.VisibalityDiscount = false;
     this.VisibalityRanting = false;
     this.VisibalityPrice = false;
-    // console.log(this.brandes, this.VisibalityBrand,this.VisibalityDiscount,
+    console.log(this.VisibalityBrand, this.VisibalityDiscount,)
     //   this.VisibalityRanting,
     //   this.VisibalityPrice);
 
@@ -112,7 +115,7 @@ export class NavbarComponent implements OnInit {
 
     let checked: string = event.target.checked
     if (checked) {
-      this.selectedCategoryArray.push(category)
+      this.selectedCategoryArray.unshift(category)
     }
     else {
       let index = this.selectedCategoryArray.indexOf(category)
@@ -124,7 +127,7 @@ export class NavbarComponent implements OnInit {
     })
 
     // console.log(this.resultObject)
-    // // this.resultObject.push({ "category": this.selectedCategoryArray })
+    // // this.resultObject.unshift({ "category": this.selectedCategoryArray })
 
     if (this.selectedCategoryArray.length < 1) {
       this.resultObject = this.productDetails;
@@ -132,19 +135,18 @@ export class NavbarComponent implements OnInit {
 
   }
 
-
   onSelectBrand(event: any, brand: any) {
 
     let checked: string = event.target.checked
     if (checked) {
-      this.selectedBrandArray.push(brand)
+      this.selectedBrandArray.unshift(brand)
     }
     else {
       let index = this.selectedBrandArray.indexOf(brand)
       this.selectedBrandArray.splice(index, 1)
     }
 
-    // this.resultObject.push({ "barnd": this.selectedBrandArray })
+    // this.resultObject.unshift({ "barnd": this.selectedBrandArray })
     // console.log(this.selectedBrandArray.length);
 
     this.resultObject = _.filter(this.productDetails, elements => {
@@ -175,8 +177,6 @@ export class NavbarComponent implements OnInit {
     // }
 
   }
-
-
 
   onSelectDiscount(event: any) {
 
@@ -444,7 +444,7 @@ export class NavbarComponent implements OnInit {
 
     }
 
-    // this.resultObject.push({ "price": this.selectedPriceArray })
+    // this.resultObject.unshift({ "price": this.selectedPriceArray })
 
 
     if (this.selectedPriceArray.length <= 0) {
@@ -452,23 +452,24 @@ export class NavbarComponent implements OnInit {
     }
   }
 
+
   // filter() {
   //   if (this.selectedCategoryArray["'category'"]) {
 
   //   } else {
-  //     this.resultObject.push({ "category": this.selectedCategoryArray })
+  //     this.resultObject.unshift({ "category": this.selectedCategoryArray })
   //   }
-  //   this.resultObject.push({ "barnd": this.selectedBrandArray })
-  //   this.resultObject.push({ "discount": this.selectedDiscountArray })
-  //   this.resultObject.push({ "rating": this.selectedRatingArray })
-  //   this.resultObject.push({ "price": this.selectedPriceArray })
+  //   this.resultObject.unshift({ "barnd": this.selectedBrandArray })
+  //   this.resultObject.unshift({ "discount": this.selectedDiscountArray })
+  //   this.resultObject.unshift({ "rating": this.selectedRatingArray })
+  //   this.resultObject.unshift({ "price": this.selectedPriceArray })
   //   console.log(this.resultObject)
   // }
 }
 
 
 // if (_.contains(this.categories, checked) && !_.contains(this.selectedCategoryArray, checked))
-//   this.selectedCategoryArray.push(checked)
+//   this.selectedCategoryArray.unshift(checked)
 
 // else if (_.contains(this.selectedCategoryArray, checked))
 //   this.selectedCategoryArray.splice(this.selectedCategoryArray.indexOf(checked), 1)

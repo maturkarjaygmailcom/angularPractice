@@ -1,10 +1,12 @@
-<div class="container-fluid">
+<div class="container-fluid" *ngIf="dashboradVisibility" class="mt-2">
 
-    <div *ngFor="let product of productobject" class="card ms-5 mt-1 mb-1" style="width: 22rem; display: inline-block">
-        <div class="card-body">
+    <div *ngFor="let product of searchdataArray;let i=index" class="card ms-5  mt-3 mb-1 product-hover"
+        style="display: inline-block;">
+        <div class="card-body" style="width: 22rem; ">
 
 
-            <img src="{{product['thumbnail']}}" alt="ProductImages" class="card-img-top mt-2">
+            <img src="{{product['thumbnail']}}" alt="ProductImages" class="card-img-top mt-2"
+                style="width: 20rem;height: 17rem;">
             <br>
             <div class="card-title mt-2">
                 <b>Product name:</b>
@@ -22,7 +24,13 @@
             <b>Rating:</b>
             {{product["rating"]}}
             <br>
-            <button class="btn btn-primary mt-2"><b>Add to Cart</b></button>
+            <button class="btn btn-primary mt-2" (click)="onClick(product,i)"><b>Add to Cart</b></button>
         </div>
     </div>
 </div>
+
+<app-footer *ngIf="dashboradVisibility" (hideEvent)="hideDashborad($event)" [buttonState]="btnState"
+    [addTocartProduct]="addToCartProductArray"></app-footer>
+
+
+<app-product-details *ngIf="!dashboradVisibility" [addedProduct]="addToCartProductArray"></app-product-details>

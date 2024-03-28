@@ -1,0 +1,32 @@
+<!-- {{addedProduct}} -->
+
+<div class="container-fluid">
+
+    <div *ngFor="let product of addedProduct;let i=index" class="card ms-5  mb-1 product-hover"
+        style="width: 22rem; display: inline-block;">
+        <div class="card-body">
+
+
+            <img src="{{product['thumbnail']}}" alt="ProductImages" class="card-img-top mt-2">
+            <br>
+            <div class="card-title mt-2">
+                <b>Product name:</b>
+                {{product["title"]}}
+            </div>
+
+            <div class="card-text mt-2 mb-2">
+                <b>Description:</b>
+                {{product["description"]}}
+            </div>
+
+            <b>Price:</b>
+            {{product["price"]|currency}}
+            <br>
+            <b>Rating:</b>
+            {{product["rating"]}}
+            <br>
+            <!-- <button class="btn btn-primary mt-2" (click)="onClick(product,i)"><b>Add to Cart</b></button> -->
+        </div>
+    </div>
+</div>
+
