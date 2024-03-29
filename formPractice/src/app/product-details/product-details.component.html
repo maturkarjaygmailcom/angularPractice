@@ -75,12 +75,16 @@
             <!-- </div> -->
         </div>
     </div>
-    <button *ngIf="addedProduct.length>0;else elsePart" class="btn btn-primary mt-3" (click)="payment()"><b>Payment</b></button>
+    <div *ngIf="addedProduct.length>0;else elsePart" class="d-flex justify-content-center mb-3">
+        <button class="btn btn-outline-primary mt-3 " (click)="payment()"><b>Payment</b></button>
+    </div>
 
     <ng-template #elsePart>
-        <h1><b>No Item Selected</b></h1>
-        <div>
-            <button class="btn btn-outline-primary" >goto Home</button>
+        <div class="d-flex justify-content-center mb-3">
+
+            <h1><b>No Item Selected</b></h1>
+            <button class="btn btn-outline-primary">goto Home</button>
+    
         </div>
 
     </ng-template>

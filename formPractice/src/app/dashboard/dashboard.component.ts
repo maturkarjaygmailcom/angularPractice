@@ -46,7 +46,7 @@ export class DashboardComponent implements OnChanges {
 
       this.searchdataArray = _.filter(this.productobject, Products => {
         console.log(Products)
-        return Products.title.includes(this.serachValue)
+        return Products.title.toLowerCase().includes(this.serachValue)
       })
       console.log(this.productArray)
     }

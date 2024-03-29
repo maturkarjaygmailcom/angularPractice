@@ -457,7 +457,6 @@ export class NavbarComponent implements OnInit {
   }
 
   home() {
-    console.log("sas")
     this.dashboradVisibility = !this.dashboradVisibility
   }
 
