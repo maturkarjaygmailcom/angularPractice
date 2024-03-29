@@ -20,6 +20,7 @@ export class NavbarComponent implements OnInit {
   VisibalityRanting: boolean = false;
   VisibalityPrice: boolean = false;
   navbarVisibility = false
+  dashboradVisibility = false
 
   searchText: string = ""
 
@@ -44,11 +45,14 @@ export class NavbarComponent implements OnInit {
   priceResulte: string[] = []
 
   ngOnInit(): void {
+    this.dashboradVisibility = true
+
     this.VisibalityCategory = false;
     this.VisibalityBrand = false;
     this.VisibalityDiscount = false;
     this.VisibalityRanting = false;
     this.VisibalityPrice = false;
+
     this.categories = _.uniq(_.pluck(this.productDetails, 'category'))
     // console.log(this.categories)
     this.brandes = _.uniq(_.pluck(this.productDetails, 'brand'))
@@ -452,6 +456,10 @@ export class NavbarComponent implements OnInit {
     }
   }
 
+  home() {
+    console.log("sas")
+    this.dashboradVisibility = !this.dashboradVisibility
+  }
 
   // filter() {
   //   if (this.selectedCategoryArray["'category'"]) {

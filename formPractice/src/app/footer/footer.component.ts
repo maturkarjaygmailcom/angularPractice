@@ -36,6 +36,8 @@ export class FooterComponent implements OnChanges {
 
   addToCart() {
     this.hideEvent.emit(this.dashboradVisbility)
+    console.log("Dsdsd");
+    
     this.addtocartPageVisibility = true
     this.footerVisibility=false
   }

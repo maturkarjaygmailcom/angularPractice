@@ -37,7 +37,7 @@ export class DashboardComponent implements OnChanges {
 
   ngOnInit(): void {
 
-    this.searchdataArray = this.productobject
+    this.searchdataArray = _.shuffle(this.productobject)
     // console.log(this.productArray)
   }
   ngOnChanges(changes: SimpleChanges): void {
@@ -62,6 +62,7 @@ export class DashboardComponent implements OnChanges {
     this.btnState = !this.btnState;
   }
   hideDashborad(event: boolean) {
+    // this.dashboardVisibility = true
     this.dashboradVisibility = event
   }
 }

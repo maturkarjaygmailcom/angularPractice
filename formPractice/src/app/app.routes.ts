@@ -8,6 +8,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 
 export const routes: Routes = [
     // { path: "", redirectTo: "/dashborad", pathMatch: "full" },
+    // { path: "dashborad", component: DashboardComponent }
     // {
     //     path: "dashborad", component: DashboardComponent, children: [
     //         { path: "category", component: CategoryComponent },

@@ -2,31 +2,85 @@
 
 <div class="container-fluid">
 
-    <div *ngFor="let product of addedProduct;let i=index" class="card ms-5  mb-1 product-hover"
-        style="width: 22rem; display: inline-block;">
-        <div class="card-body">
+    <!-- <div *ngFor="let product of addedProduct;let i=index" class=" ms-5  mb-1 product-hover" -->
+    <!-- style="width: 22rem; display:block;"> -->
 
 
-            <img src="{{product['thumbnail']}}" alt="ProductImages" class="card-img-top mt-2">
-            <br>
-            <div class="card-title mt-2">
-                <b>Product name:</b>
-                {{product["title"]}}
-            </div>
+    <div class="container card mt-2 mb-2 product-hover" *ngFor="let product of addedProduct;let i=index">
+        <div class="row">
+            <div class="col sm-8">
 
-            <div class="card-text mt-2 mb-2">
+                <div class="mt-4 ">
+                    <b>Product name:</b>
+                    {{product["title"]}}
+                </div>
+                <br><br>
+
                 <b>Description:</b>
                 {{product["description"]}}
+
+                <br>
+                <br>
+                <b>Price:</b>
+                {{product["price"]|currency}}
+
+                <br> <br>
+                <b>Rating:</b>
+                {{product["rating"]}}
+
+                <br> <br>
+                <span>
+
+                    <b>Quantity:</b>
+                    <input type="text" [(ngModel)]="product['quantity']" name="" id="" value="{{product['quantity']}}"
+                        class="input-form ms-2" style="width: 5%;">
+                    <button class="btn btn-primary ms-3" (click)="onclickIncreament(product['quantity'],i)">+</button>
+                    <button class="btn btn-primary ms-2" (click)="onclickDecreament(product['quantity'],i)">
+                        <b>-</b>
+                    </button>
+                </span>
+                <br>
+                <button class="btn btn-outline-danger mt-2 mb-3" (click)="deleteItem(i)"><b>Delete</b></button>
             </div>
 
-            <b>Price:</b>
-            {{product["price"]|currency}}
-            <br>
-            <b>Rating:</b>
-            {{product["rating"]}}
-            <br>
+            <div class="col">
+                <img src="{{product['thumbnail']}}" alt="ProductImages" class=" mt-2"
+                    style="height:95%; width: 55%;margin-left: 40%;margin-bottom: 2%;">
+            </div>
+            <div class="w-200"></div>
+
+            <!-- </div> -->
+            <!-- <div class="card-body"> -->
+
+
+            <!-- <img src="{{product['thumbnail']}}" alt="ProductImages" class="card-img-top mt-2"> -->
+            <!-- <br>
+                <div class="card-title mt-2">
+                    <b>Product name:</b>
+                    {{product["title"]}}
+                </div>
+
+                <div class="card-text mt-2 mb-2">
+                    <b>Description:</b>
+                    {{product["description"]}}
+                </div>
+
+                <b>Price:</b>
+                {{product["price"]|currency}}
+                <br>
+                <b>Rating:</b>
+                {{product["rating"]}}
+                <br> -->
             <!-- <button class="btn btn-primary mt-2" (click)="onClick(product,i)"><b>Add to Cart</b></button> -->
+            <!-- </div> -->
         </div>
     </div>
-</div>
+    <button *ngIf="addedProduct.length>0;else elsePart" class="btn btn-primary mt-3" (click)="payment()"><b>Payment</b></button>
 
+    <ng-template #elsePart>
+        <h1><b>No Item Selected</b></h1>
+        <div>
+            <button class="btn btn-outline-primary" >goto Home</button>
+        </div>
+
+    </ng-template>
