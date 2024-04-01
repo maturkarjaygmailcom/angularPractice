@@ -1,32 +1,3 @@
-<!-- <nav>
-    <a routerLink="/category" routerLinkActive="active">Category</a>
-    <a routerLink="/brand" routerLinkActive="active">Brand</a>
-    <a routerLink="/discount" routerLinkActive="active">Discount</a>
-    <a routerLink="/rating" routerLinkActive="active">Rating</a>
-    <a routerLink="/price" routerLinkActive="active">Price</a>
-</nav>
-
-<router-outlet></router-outlet>
-<div class="container-fluid">
-    <router-outlet></router-outlet>
-</div>
- -->
-<!-- 
-<div class="container-fluid" style="
-position: sticky;
- top:0;
- padding: 20px;
- z-index: 1;"> -->
-<!-- 
-<nav class="navbar ms-2 me-2">
-    <button class="navbar-togger btn btn-outline-primary" (click)="showCategory()">Category</button>
-    <button class="navbar-togger btn btn-outline-primary" (click)="showBrand()">Brand</button>
-    <button class="navbar-togger btn btn-outline-primary" (click)="showDiscount()">Discount</button>
-    <button class="navbar-togger btn btn-outline-primary" (click)="showRating()">Rating</button>
-    <button class="navbar-togger btn btn-outline-primary" (click)="showPrice()">Price</button>
-</nav> -->
-
-<!-- </div> -->
 <div class="" style="position:sticky;top:0;z-index: 1;">
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -54,242 +25,128 @@ position: sticky;
                         <a class="dropdown-item" href="#">Something else here</a>
                     </div>
                 </li>
-                
+
             </ul>
             <input class="form-control search" type="search" placeholder="Search" aria-label="Search"
-            [(ngModel)]="searchText">
+                [(ngModel)]="searchText">
             <button class="btn btn-primary" (click)="showNavbar()" style="margin-left: 34%;"><b>Filter</b></button>
-            </div>
-   
+        </div>
+
     </nav>
-</div>
-<div class="d-felx justify-content-end">
 </div>
 
 
 <div class="container" *ngIf="navbarVisibility">
+    <div class="row">
+        <div class="col-sm">
+            <p>
+                <button class="btn btn-primary" (click)="showCategory()">Categories</button>
+            </p>
+            <p>
+                <button class="btn btn-primary" (click)="showBrand()">Brands</button>
+            </p>
+            <p>
+                <button class="btn btn-primary" (click)="showDiscount()">Discount</button>
+            </p>
 
-    <div id="accordion" *ngIf="navbarVisibility">
-        <div class="card">
-            <div class="card-header" id="headingOne">
-                <h5 class="mb-0">
-                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseOne"
-                        aria-controls="collapseOne">
-                        <b>Categories</b>
-                    </button>
-                </h5>
-            </div>
+            <p>
+                <button class="btn btn-primary" (click)="showRating()">Ratings</button>
+            </p>
 
-            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-                <div class="card-body">
-                    <div class="d-inline" *ngFor="let category of categories;let i=index">
-                        <input type="checkbox" value="{{category}}" class="p-2" name="{{category}}"
-                            (change)="onSelectCategory($event,category)">
-                        <label class="p-2">{{category}}</label>
-                    </div>
+            <p>
+                <button class="btn btn-primary" (click)="showPrice()">Prices</button>
+            </p>
+        </div>
+        <!-- Second Column (Single Item) -->
+        <div class="col-sm">
+            <div class="" *ngIf="VisibalityCategory">
+
+                <div class="" *ngFor="let category of categories;let i=index">
+                    <input type="checkbox" value="{{category.name}}" class="p-2" name="{{category}}"
+                        (change)="onSelectCategory($event)" [checked]="category.status">
+                    <label class="p-2">{{category.name}}</label>
                 </div>
             </div>
-        </div>
-        <div class="card">
-            <div class="card-header" id="headingTwo">
-                <h5 class="mb-0">
-                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo"
-                        aria-expanded="false" aria-controls="collapseTwo">
-                        <b>
-                            Brands
-                        </b>
-                    </button>
-                </h5>
-            </div>
-            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-                <div class="card-body">
-                    <div class="d-inline" *ngFor="let brand of brandes">
-                        <input type="checkbox" value="brand" class="p-2" (change)="onSelectBrand($event,brand)">
-                        <label class="p-2">{{brand}}</label>
-                    </div>
+
+            <div *ngIf="VisibalityBrand">
+
+                <div class="d-inline" *ngFor="let brand of brandes">
+                    <input type="checkbox" value="{{brand.name}}" class="p-2" (change)="onSelectBrand($event)"
+                        [checked]="brand.status">
+                    <label class="p-2">{{brand.name}}</label>
                 </div>
             </div>
-        </div>
 
-        <div class="card">
-            <div class="card-header" id="headingThree">
-                <h5 class="mb-0">
-                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree"
-                        aria-expanded="false" aria-controls="collapseThree">
-                        <b>Discount</b>
-                    </button>
-                </h5>
-            </div>
-            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
-                <div class="card-body">
-                    <div class="container-fluid d-felx justify-content-center">
-                        <div class="d-inline">
-                            <input type="checkbox" value="0-5" class="p-2" (change)="onSelectDiscount($event)">
-                            <label class="p-2">0-5</label>
-                        </div>
-                        <div class="d-inline">
-                            <input type="checkbox" value="5-10" class="p-2" (change)="onSelectDiscount($event)">
-                            <label class="p-2">5-10</label>
-                        </div>
-                        <div class="d-inline">
-                            <input type="checkbox" value="10-15" class="p-2" (change)="onSelectDiscount($event)">
-                            <label class="p-2">10-15</label>
-                        </div>
-                        <div class="d-inline">
-                            <input type="checkbox" value="15-20" class="p-2" (change)="onSelectDiscount($event)">
-                            <label class="p-2">15-20</label>
-                        </div>
-                    </div>
-
+            <div *ngIf="VisibalityDiscount">
+                <div class="d-inline">
+                    <input type="checkbox" value="0-5" class="p-2" (change)="onSelectDiscount($event)">
+                    <label class="p-2">0-5</label>
+                </div>
+                <div class="d-inline">
+                    <input type="checkbox" value="5-10" class="p-2" (change)="onSelectDiscount($event)">
+                    <label class="p-2">5-10</label>
+                </div>
+                <div class="d-inline">
+                    <input type="checkbox" value="10-15" class="p-2" (change)="onSelectDiscount($event)">
+                    <label class="p-2">10-15</label>
+                </div>
+                <div class="d-inline">
+                    <input type="checkbox" value="15-20" class="p-2" (change)="onSelectDiscount($event)">
+                    <label class="p-2">15-20</label>
                 </div>
             </div>
-        </div>
-        <div class="card">
-            <div class="card-header" id="headingThree">
-                <h5 class="mb-0">
-                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFour"
-                        aria-expanded="false" aria-controls="collapseFour">
-                        <b>Rating</b>
-                    </button>
-                </h5>
-            </div>
-            <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
-                <div class="card-body">
-                    <div class="container-fluid d-flex justify-content-center">
-                        <div class="d-inline">
-                            <input type="checkbox" value="1" class="p-2" (change)="onSelectRating($event)">
-                            <label class="p-2">1</label>
-                        </div>
-                        <div class="d-inline">
-                            <input type="checkbox" value="2" class="p-2" (change)="onSelectRating($event)">
-                            <label class="p-2">2</label>
-                        </div>
-                        <div class="d-inline">
-                            <input type="checkbox" value="3" class="p-2" (change)="onSelectRating($event)">
-                            <label class="p-2">3</label>
-                        </div>
-                        <div class="d-inline">
-                            <input type="checkbox" value="4" class="p-2" (change)="onSelectRating($event)">
-                            <label class="p-2">4</label>
-                        </div>
-                        <div class="d-inline">
-                            <input type="checkbox" value="5" class="p-2" (change)="onSelectRating($event)">
-                            <label class="p-2">5</label>
-                        </div>
-                    </div>
 
+
+
+            <div class="" *ngIf="VisibalityRanting">
+                <div class="d-inline">
+                    <input type="checkbox" value="1" class="p-2" (change)="onSelectRating($event)">
+                    <label class="p-2">1</label>
+                </div>
+                <div class="d-inline">
+                    <input type="checkbox" value="2" class="p-2" (change)="onSelectRating($event)">
+                    <label class="p-2">2</label>
+                </div>
+                <div class="d-inline">
+                    <input type="checkbox" value="3" class="p-2" (change)="onSelectRating($event)">
+                    <label class="p-2">3</label>
+                </div>
+                <div class="d-inline">
+                    <input type="checkbox" value="4" class="p-2" (change)="onSelectRating($event)">
+                    <label class="p-2">4</label>
+                </div>
+                <div class="d-inline">
+                    <input type="checkbox" value="5" class="p-2" (change)="onSelectRating($event)">
+                    <label class="p-2">5</label>
                 </div>
             </div>
-        </div>
-        <div class="card">
-            <div class="card-header" id="headingFive">
-                <h5 class="mb-0">
-                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFive"
-                        aria-expanded="false" aria-controls="collapseFive">
-                        <b>Price</b> </button>
-                </h5>
-            </div>
-            <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordion">
-                <div class="card-body">
 
-                    <div class="container-fluid d-felx justify-content-center">
-                        <div class="d-inline">
-                            <input type="checkbox" value="0-100" class="p-2" (change)="onSelectPrice($event)">
-                            <label class="p-2">0-100</label>
-                        </div>
-                        <div class="d-inline">
-                            <input type="checkbox" value="100-500" class="p-2" (change)="onSelectPrice($event)">
-                            <label class="p-2">100-500</label>
-                        </div>
-                        <div class="d-inline">
-                            <input type="checkbox" value="500-1000" class="p-2" (change)="onSelectPrice($event)">
-                            <label class="p-2">500-1000</label>
-                        </div>
-                    </div>
 
+            <div *ngIf="VisibalityPrice">
+                <div class="d-inline">
+                    <input type="checkbox" value="0-100" class="p-2" (change)="onSelectPrice($event)">
+                    <label class="p-2">0-100</label>
+                </div>
+                <div class="d-inline">
+                    <input type="checkbox" value="100-500" class="p-2" (change)="onSelectPrice($event)">
+                    <label class="p-2">100-500</label>
+                </div>
+                <div class="d-inline">
+                    <input type="checkbox" value="500-1000" class="p-2" (change)="onSelectPrice($event)">
+                    <label class="p-2">500-1000</label>
                 </div>
             </div>
+
+
+            <!-- ///// -->
         </div>
+
     </div>
 </div>
 
-<div>
-    <div class="container-fluid d-felx justify-content-center" *ngIf="VisibalityCategory">
-        <div class="d-inline" *ngFor="let category of categories;let i=index">
-            <input type="checkbox" value="{{category}}" class="p-2" name="{{category}}"
-                (change)="onSelectCategory($event,category)">
-            <label class="p-2">{{category}}</label>
-        </div>
-    </div>
-
-    <div class="container-fluid d-felx justify-content-center" *ngIf="VisibalityBrand">
-
-        <div class="d-inline" *ngFor="let brand of brandes">
-            <input type="checkbox" value="brand" class="p-2" (change)="onSelectBrand($event,brand)">
-            <label class="p-2">{{brand}}</label>
-        </div>
-    </div>
-
-    <div class="container-fluid d-felx justify-content-center" *ngIf="VisibalityDiscount">
-        <div class="d-inline">
-            <input type="checkbox" value="0-5" class="p-2" (change)="onSelectDiscount($event)">
-            <label class="p-2">0-5</label>
-        </div>
-        <div class="d-inline">
-            <input type="checkbox" value="5-10" class="p-2" (change)="onSelectDiscount($event)">
-            <label class="p-2">5-10</label>
-        </div>
-        <div class="d-inline">
-            <input type="checkbox" value="10-15" class="p-2" (change)="onSelectDiscount($event)">
-            <label class="p-2">10-15</label>
-        </div>
-        <div class="d-inline">
-            <input type="checkbox" value="15-20" class="p-2" (change)="onSelectDiscount($event)">
-            <label class="p-2">15-20</label>
-        </div>
-    </div>
-
-    <div class="container-fluid d-flex justify-content-center" *ngIf="VisibalityRanting">
-        <div class="d-inline">
-            <input type="checkbox" value="1" class="p-2" (change)="onSelectRating($event)">
-            <label class="p-2">1</label>
-        </div>
-        <div class="d-inline">
-            <input type="checkbox" value="2" class="p-2" (change)="onSelectRating($event)">
-            <label class="p-2">2</label>
-        </div>
-        <div class="d-inline">
-            <input type="checkbox" value="3" class="p-2" (change)="onSelectRating($event)">
-            <label class="p-2">3</label>
-        </div>
-        <div class="d-inline">
-            <input type="checkbox" value="4" class="p-2" (change)="onSelectRating($event)">
-            <label class="p-2">4</label>
-        </div>
-        <div class="d-inline">
-            <input type="checkbox" value="5" class="p-2" (change)="onSelectRating($event)">
-            <label class="p-2">5</label>
-        </div>
-    </div>
-
-    <div class="container-fluid d-felx justify-content-center" *ngIf="VisibalityPrice">
-        <div class="d-inline">
-            <input type="checkbox" value="0-100" class="p-2" (change)="onSelectPrice($event)">
-            <label class="p-2">0-100</label>
-        </div>
-        <div class="d-inline">
-            <input type="checkbox" value="100-500" class="p-2" (change)="onSelectPrice($event)">
-            <label class="p-2">100-500</label>
-        </div>
-        <div class="d-inline">
-            <input type="checkbox" value="500-1000" class="p-2" (change)="onSelectPrice($event)">
-            <label class="p-2">500-1000</label>
-        </div>
-    </div>
-    <!-- <button (click)="filter()" class="btn btn-primary">Filter</button> -->
-</div>
+<!-- 
 
 
-<app-dashboard  [serachValue]="searchText" [productobject]="resultObject" [categoryArray]="selectedCategoryArray"
+<app-dashboard [serachValue]="searchText" [productobject]="resultObject" [categoryArray]="selectedCategoryArray"
     [brandArray]="selectedBrandArray" [discountArray]="selectedDiscountArray" [ratingArray]="selectedRatingArray"
-    [priceArray]="selectedPriceArray" [allselectedValues]="resultObject"></app-dashboard>
+    [priceArray]="selectedPriceArray" [allselectedValues]="resultObject"></app-dashboard> -->

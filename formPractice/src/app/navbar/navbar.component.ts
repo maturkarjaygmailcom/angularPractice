@@ -3,6 +3,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DashboardComponent } from '../dashboard/dashboard.component';
 import _ from "underscore"
+import { Console } from 'node:console';
 @Component({
   selector: 'app-navbar',
   standalone: true,
@@ -31,7 +32,7 @@ export class NavbarComponent implements OnInit {
   ratinges: any
   prices: any
 
-  selectedCategoryArray: string[] = []
+  selectedCategoryArray: any[] = []
   selectedBrandArray: string[] = []
   selectedDiscountArray: any
   selectedRatingArray: string[] = []
@@ -53,28 +54,55 @@ export class NavbarComponent implements OnInit {
     this.VisibalityRanting = false;
     this.VisibalityPrice = false;
 
-    this.categories = _.uniq(_.pluck(this.productDetails, 'category'))
+    this.categories = _.map(_.uniq(_.pluck(this.productDetails, 'category')), category => {
+      let categoryObject: any = { "name": category, "status": false }
+      return categoryObject
+    })
     // console.log(this.categories)
-    this.brandes = _.uniq(_.pluck(this.productDetails, 'brand'))
-    this.discountPercentages = _.uniq(_.pluck(this.productDetails, 'discountPercentage'))
-    this.ratinges = _.uniq(_.pluck(this.productDetails, 'rating'))
-    this.prices = _.uniq(_.pluck(this.productDetails, 'price'))
+
+    this.brandes = _.map(_.uniq(_.pluck(this.productDetails, 'brand')), brand => {
+      let brandObject: any = { "name": brand, "status": false }
+      return brandObject
+    })
+    this.discountPercentages = _.map(_.uniq(_.pluck(this.productDetails, 'discountPercentage')), discount => {
+      let discountObject: any = { "name": discount, "status": false }
+      return discountObject
+    })
+
+    this.ratinges = _.map(_.uniq(_.pluck(this.productDetails, 'rating')), rating => {
+      let ratingObject: any = { "name": rating, "status": false }
+      return ratingObject
+    })
+    this.prices = _.map(_.uniq(_.pluck(this.productDetails, 'price')), price => {
+      let priceObject: any = { "name": price, "status": false }
+      return priceObject
+    })
+
+    // console.log((this.categories))
+    // console.log((this.brandes))
+    // console.log((this.discountPercentages))
+    // console.log((this.ratinges))
+    // console.log((this.prices))
+    // // this.brandes = _.uniq(_.pluck(this.productDetails, 'brand'))
+
+    // this.discountPercentages = _.uniq(_.pluck(this.productDetails, 'discountPercentage'))
+    // this.ratinges = _.uniq(_.pluck(this.productDetails, 'rating'))
+    // this.prices = _.uniq(_.pluck(this.productDetails, 'price'))
 
     this.resultObject = this.productDetails;
 
   }
   showNavbar() {
     this.navbarVisibility = !this.navbarVisibility
+    this.VisibalityCategory = true
   }
   showCategory() {
-    this.VisibalityCategory = (!this.VisibalityCategory);
+    this.VisibalityCategory = !this.VisibalityCategory;
     this.VisibalityBrand = false;
     this.VisibalityDiscount = false;
     this.VisibalityRanting = false;
     this.VisibalityPrice = false;
-
-
-
+    console.log("dshgjh")
   }
   showBrand() {
     this.VisibalityCategory = false;
@@ -115,9 +143,17 @@ export class NavbarComponent implements OnInit {
 
   }
 
-  onSelectCategory(event: any, category: any) {
+  onSelectCategory(event: any) {
 
+    let category: string = event.target.value
     let checked: string = event.target.checked
+
+    _.map(this.categories, element => {
+      if (element.name == category) {
+        element.status = checked
+      }
+    })
+
     if (checked) {
       this.selectedCategoryArray.unshift(category)
     }
@@ -139,9 +175,17 @@ export class NavbarComponent implements OnInit {
 
   }
 
-  onSelectBrand(event: any, brand: any) {
+  onSelectBrand(event: any) {
 
     let checked: string = event.target.checked
+    let brand: string = event.target.value
+
+    _.map(this.brandes, element => {
+      if (element.name == brand) {
+        element.status = checked
+      }
+    })
+
     if (checked) {
       this.selectedBrandArray.unshift(brand)
     }
@@ -156,7 +200,7 @@ export class NavbarComponent implements OnInit {
     this.resultObject = _.filter(this.productDetails, elements => {
       return _.contains(this.selectedBrandArray, elements.brand)
     })
-    console.log(this.resultObject, this.selectedBrandArray);
+
 
     if (this.selectedBrandArray.length <= 0) {
       this.resultObject = this.productDetails
@@ -188,6 +232,13 @@ export class NavbarComponent implements OnInit {
     let discount: string = event.target.value
     console.log(discount);
     var data = []
+
+    // _.map(this.discountPercentages, element => {
+    //   if (element.name == discount) {
+    //     element.status = checked
+    //   }
+    // })
+
 
     if (checked) {
       if (discount == '0-5') {
