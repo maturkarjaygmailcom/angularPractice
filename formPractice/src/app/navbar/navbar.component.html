@@ -1,35 +1,17 @@
 <div class="" style="position:sticky;top:0;z-index: 1;">
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" routerLink="/">Navbar</a>
+        <a class="navbar-brand ms-2" routerLink="/" (click)="show_dashboard()">Shopify</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Home</a>
-                </li>
-
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Dropdown
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                    </div>
-                </li>
-
-            </ul>
-            <input class="form-control search" type="search" placeholder="Search" aria-label="Search"
+            
+            <input class="form-control search" style="margin-left: 32%; width: 32%;" type="search" placeholder="Search" aria-label="Search"
                 [(ngModel)]="searchText">
-            <button class="btn btn-primary" (click)="showNavbar()" style="margin-left: 34%;"><b>Filter</b></button>
+            <button class="btn btn-primary" (click)="showNavbar()" style="margin-left: 30%;"><b>Filter</b></button>
         </div>
 
     </nav>
@@ -37,8 +19,18 @@
 
 
 <div class="container" *ngIf="navbarVisibility">
-    <div class="row">
-        <div class="col-sm">
+    <div class="ss" style="background-color: black;" (click)="navbarVisibility=false"></div>
+    <!-- <div class="modal"> -->
+    <div class="row" style="position: fixed;
+    margin: 3% 5% 5% 7%;
+    z-index: 1;
+    border-radius: 20px;
+    background-color: white;
+    width: 67%;
+    border: 10px solid rgba(242, 235, 235, 0.263);
+    box-shadow: 1px 2px 3px 4px rgba(12, 12, 12, 0.2);
+    ">
+        <div class="col-sm" style="margin-top: 10%;margin-bottom: 10%;">
             <p>
                 <button class="btn btn-primary" (click)="showCategory()">Categories</button>
             </p>
@@ -58,7 +50,7 @@
             </p>
         </div>
         <!-- Second Column (Single Item) -->
-        <div class="col-sm">
+        <div class="col-sm" style="margin-top: 10%; margin-bottom: 10%; margin-left: 2%;">
             <div class="" *ngIf="VisibalityCategory">
 
                 <div class="" *ngFor="let category of categories;let i=index">
@@ -70,7 +62,7 @@
 
             <div *ngIf="VisibalityBrand">
 
-                <div class="d-inline" *ngFor="let brand of brandes">
+                <div class="" *ngFor="let brand of brandes">
                     <input type="checkbox" value="{{brand.name}}" class="p-2" (change)="onSelectBrand($event)"
                         [checked]="brand.status">
                     <label class="p-2">{{brand.name}}</label>
@@ -78,19 +70,19 @@
             </div>
 
             <div *ngIf="VisibalityDiscount">
-                <div class="d-inline">
+                <div class="">
                     <input type="checkbox" value="0-5" class="p-2" (change)="onSelectDiscount($event)">
                     <label class="p-2">0-5</label>
                 </div>
-                <div class="d-inline">
+                <div class="">
                     <input type="checkbox" value="5-10" class="p-2" (change)="onSelectDiscount($event)">
                     <label class="p-2">5-10</label>
                 </div>
-                <div class="d-inline">
+                <div class="">
                     <input type="checkbox" value="10-15" class="p-2" (change)="onSelectDiscount($event)">
                     <label class="p-2">10-15</label>
                 </div>
-                <div class="d-inline">
+                <div class="">
                     <input type="checkbox" value="15-20" class="p-2" (change)="onSelectDiscount($event)">
                     <label class="p-2">15-20</label>
                 </div>
@@ -99,23 +91,23 @@
 
 
             <div class="" *ngIf="VisibalityRanting">
-                <div class="d-inline">
+                <div class="">
                     <input type="checkbox" value="1" class="p-2" (change)="onSelectRating($event)">
                     <label class="p-2">1</label>
                 </div>
-                <div class="d-inline">
+                <div class="">
                     <input type="checkbox" value="2" class="p-2" (change)="onSelectRating($event)">
                     <label class="p-2">2</label>
                 </div>
-                <div class="d-inline">
+                <div class="">
                     <input type="checkbox" value="3" class="p-2" (change)="onSelectRating($event)">
                     <label class="p-2">3</label>
                 </div>
-                <div class="d-inline">
+                <div class="">
                     <input type="checkbox" value="4" class="p-2" (change)="onSelectRating($event)">
                     <label class="p-2">4</label>
                 </div>
-                <div class="d-inline">
+                <div class="">
                     <input type="checkbox" value="5" class="p-2" (change)="onSelectRating($event)">
                     <label class="p-2">5</label>
                 </div>
@@ -123,15 +115,15 @@
 
 
             <div *ngIf="VisibalityPrice">
-                <div class="d-inline">
+                <div class="">
                     <input type="checkbox" value="0-100" class="p-2" (change)="onSelectPrice($event)">
                     <label class="p-2">0-100</label>
                 </div>
-                <div class="d-inline">
+                <div class="">
                     <input type="checkbox" value="100-500" class="p-2" (change)="onSelectPrice($event)">
                     <label class="p-2">100-500</label>
                 </div>
-                <div class="d-inline">
+                <div class="">
                     <input type="checkbox" value="500-1000" class="p-2" (change)="onSelectPrice($event)">
                     <label class="p-2">500-1000</label>
                 </div>
@@ -142,11 +134,12 @@
         </div>
 
     </div>
+    <!-- </div> -->
+
 </div>
 
-<!-- 
 
 
-<app-dashboard [serachValue]="searchText" [productobject]="resultObject" [categoryArray]="selectedCategoryArray"
+<app-dashboard *ngIf="dashboradVisibility" [serachValue]="searchText" [productobject]="resultObject" [categoryArray]="selectedCategoryArray"
     [brandArray]="selectedBrandArray" [discountArray]="selectedDiscountArray" [ratingArray]="selectedRatingArray"
-    [priceArray]="selectedPriceArray" [allselectedValues]="resultObject"></app-dashboard> -->
+    [priceArray]="selectedPriceArray" [allselectedValues]="resultObject"></app-dashboard>

@@ -94,7 +94,7 @@ export class NavbarComponent implements OnInit {
   }
   showNavbar() {
     this.navbarVisibility = !this.navbarVisibility
-    this.VisibalityCategory = true
+    this.VisibalityCategory = !this.VisibalityCategory
   }
   showCategory() {
     this.VisibalityCategory = !this.VisibalityCategory;
@@ -510,7 +510,9 @@ export class NavbarComponent implements OnInit {
   home() {
     this.dashboradVisibility = !this.dashboradVisibility
   }
+  show_dashboard(){
 
+  }
   // filter() {
   //   if (this.selectedCategoryArray["'category'"]) {
 

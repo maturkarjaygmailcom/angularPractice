@@ -65,5 +65,11 @@ export class DashboardComponent implements OnChanges {
     // this.dashboardVisibility = true
     this.dashboradVisibility = event
   }
+
+  show_dashborad(event:any) {
+    this.dashboradVisibility=event
+
+  }
 }
+
 

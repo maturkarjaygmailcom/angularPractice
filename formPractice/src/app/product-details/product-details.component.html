@@ -1,6 +1,6 @@
 <!-- {{addedProduct}} -->
 
-<div class="container-fluid">
+<div class="container-fluid" *ngIf="!visibility_payment">
 
     <!-- <div *ngFor="let product of addedProduct;let i=index" class=" ms-5  mb-1 product-hover" -->
     <!-- style="width: 22rem; display:block;"> -->
@@ -10,37 +10,56 @@
         <div class="row">
             <div class="col sm-8">
 
-                <div class="mt-4 ">
-                    <b>Product name:</b>
-                    {{product["title"]}}
+                <div class="mt-4">
+                    <span class="fs-5">
+
+                        <b>Product name:</b>
+                    </span>
+                    <span class="fs-4">
+                        {{product["title"]}}
+                    </span>
                 </div>
                 <br><br>
 
-                <b>Description:</b>
-                {{product["description"]}}
+                <span class="fs-5">
+                    <b>Description:</b>
+                    {{product["description"]}}
+                </span>
 
                 <br>
                 <br>
+
                 <b>Price:</b>
-                {{product["price"]|currency}}
+                <span class="fs-4" [class.text-decoration-line-through]="product['quantity']>1">
+                    {{product.price - (product.price*(product.discountPercentage/100))|currency}}
+                </span>
+                <span class="fs-3">
+                    {{(product['quantity']>1)?'$'+product["DiscountPrice"]+".00":null | number:'1.2-2'}}
+                </span>
 
                 <br> <br>
-                <b>Rating:</b>
-                {{product["rating"]}}
+                <span class="fs-5">
+                    <b>Rating:</b>
+                    {{product["rating"]}}
+                </span>
 
                 <br> <br>
                 <span>
+                    <span class="fs-5">
 
-                    <b>Quantity:</b>
+                        <b>Quantity:</b>
+                    </span>
                     <input type="text" [(ngModel)]="product['quantity']" name="" id="" value="{{product['quantity']}}"
-                        class="input-form ms-2" style="width: 5%;">
-                    <button class="btn btn-primary ms-3" (click)="onclickIncreament(product['quantity'],i)">+</button>
-                    <button class="btn btn-primary ms-2" (click)="onclickDecreament(product['quantity'],i)">
+                        class="input-form ms-2 fs-5" style="width: 5%;">
+                    <button class="btn btn-primary ms-3"
+                        (click)="onclickIncreament(product['quantity'],product['price'],i)">+</button>
+                    <button class="btn btn-primary ms-2"
+                        (click)="onclickDecreament(product['quantity'],product['price'],i)">
                         <b>-</b>
                     </button>
                 </span>
                 <br>
-                <button class="btn btn-outline-danger mt-2 mb-3" (click)="deleteItem(i)"><b>Delete</b></button>
+                <button class="btn btn-outline-danger mt-2 mb-3" (click)="deleteItem(i)"><b>Remove</b></button>
             </div>
 
             <div class="col">
@@ -48,43 +67,37 @@
                     style="height:95%; width: 55%;margin-left: 40%;margin-bottom: 2%;">
             </div>
             <div class="w-200"></div>
-
-            <!-- </div> -->
-            <!-- <div class="card-body"> -->
-
-
-            <!-- <img src="{{product['thumbnail']}}" alt="ProductImages" class="card-img-top mt-2"> -->
-            <!-- <br>
-                <div class="card-title mt-2">
-                    <b>Product name:</b>
-                    {{product["title"]}}
-                </div>
-
-                <div class="card-text mt-2 mb-2">
-                    <b>Description:</b>
-                    {{product["description"]}}
-                </div>
-
-                <b>Price:</b>
-                {{product["price"]|currency}}
-                <br>
-                <b>Rating:</b>
-                {{product["rating"]}}
-                <br> -->
-            <!-- <button class="btn btn-primary mt-2" (click)="onClick(product,i)"><b>Add to Cart</b></button> -->
-            <!-- </div> -->
         </div>
+
     </div>
+
+    <!-- <table class="table">
+        <tr class="tbody">
+            <td class="fs-3">
+                {{count}}
+            </td>
+            <td>
+                {{total_price|number:'1.2-2'}}
+            </td>
+        </tr>
+    </table> -->
     <div *ngIf="addedProduct.length>0;else elsePart" class="d-flex justify-content-center mb-3">
         <button class="btn btn-outline-primary mt-3 " (click)="payment()"><b>Payment</b></button>
     </div>
 
-    <ng-template #elsePart>
-        <div class="d-flex justify-content-center mb-3">
 
-            <h1><b>No Item Selected</b></h1>
-            <button class="btn btn-outline-primary">goto Home</button>
-    
-        </div>
+</div>
 
-    </ng-template>
+<ng-template #elsePart>
+    <div class=" mb-3" style="margin-left: 40%;">
+
+        <h1><b>No Item Selected</b></h1>
+        <p>
+            <button class="btn btn-outline-primary" style="margin-left: 10%" (click)="goto_home()">goto Home</button>
+        </p>
+
+    </div>
+
+</ng-template>
+
+<app-price *ngIf="visibility_payment" [ADDEDPRODUCT]="addedProduct" [TOTAL_PRICE]="total_price" [COUNT]="count"></app-price>

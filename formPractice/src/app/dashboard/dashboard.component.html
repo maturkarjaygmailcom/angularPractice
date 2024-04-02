@@ -19,13 +19,17 @@
             </div>
 
             <b>Price:</b>
-            {{product["price"]|currency}}
+            <span class="text-decoration-line-through fs-6">
+                {{product["price"]|currency}}
+            </span>
+            <span class="fs-5 ms-1">
+                {{product.price - (product.price*(product.discountPercentage/100))|currency}}
+            </span>
             <br>
             <b>Rating:</b>
             {{product["rating"]}}
             <br>
-            <button class="btn btn-primary mt-2 addToCartBtn"
-                (click)="onClick(product,i)"><b>Add to Cart</b></button>
+            <button class="btn btn-primary mt-2 addToCartBtn" (click)="onClick(product,i)"><b>Add to Cart</b></button>
         </div>
     </div>
 </div>
@@ -34,4 +38,4 @@
     [addTocartProduct]="addToCartProductArray"></app-footer>
 
 
-<app-product-details *ngIf="!dashboradVisibility" [addedProduct]="addToCartProductArray"></app-product-details>
+<app-product-details  *ngIf="!dashboradVisibility" (show_dashborad)="show_dashborad($event)" [addedProduct]="addToCartProductArray"></app-product-details>
