@@ -22,7 +22,7 @@ export class NavbarComponent implements OnInit {
   VisibalityPrice: boolean = false;
   navbarVisibility = false
   dashboradVisibility = false
-
+  newBrandes: any[] = []
   searchText: string = ""
 
   categories: any
@@ -64,6 +64,7 @@ export class NavbarComponent implements OnInit {
       let brandObject: any = { "name": brand, "status": false }
       return brandObject
     })
+
     this.discountPercentages = _.map(_.uniq(_.pluck(this.productDetails, 'discountPercentage')), discount => {
       let discountObject: any = { "name": discount, "status": false }
       return discountObject
@@ -102,7 +103,6 @@ export class NavbarComponent implements OnInit {
     this.VisibalityDiscount = false;
     this.VisibalityRanting = false;
     this.VisibalityPrice = false;
-    console.log("dshgjh")
   }
   showBrand() {
     this.VisibalityCategory = false;
@@ -114,6 +114,27 @@ export class NavbarComponent implements OnInit {
     //   this.VisibalityRanting,
     //   this.VisibalityPrice);
 
+    console.log(this.brandes)
+
+
+    console.log("dsdsd1")
+    if (this.selectedCategoryArray.length <= 0) {
+      console.log("if")
+
+      this.newBrandes = _.map(_.uniq(_.pluck(this.productDetails, 'brand')), brand => {
+        let brandObject: any = { "name": brand, "status": false }
+        return brandObject
+      })
+      console.log(this.brandes)
+    } else {
+      console.log("Else")
+      this.newBrandes = _.filter(_.uniq(this.productDetails, element => {
+        console.log(element.category, this.selectedCategoryArray, element.brand)
+        return _.contains(this.selectedCategoryArray, element.category) ? element.brand : null
+      }))
+      console.log(this.newBrandes)
+    }
+    console.log("otter")
   }
   showDiscount() {
     this.VisibalityCategory = false;
@@ -176,6 +197,7 @@ export class NavbarComponent implements OnInit {
   }
 
   onSelectBrand(event: any) {
+    console.log("dsdsd")
 
     let checked: string = event.target.checked
     let brand: string = event.target.value
@@ -510,9 +532,10 @@ export class NavbarComponent implements OnInit {
   home() {
     this.dashboradVisibility = !this.dashboradVisibility
   }
-  show_dashboard(){
+  show_dashboard() {
 
   }
+
   // filter() {
   //   if (this.selectedCategoryArray["'category'"]) {
 

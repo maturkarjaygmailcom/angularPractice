@@ -1,4 +1,5 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { FormBuilder, MaxLengthValidator, MinLengthValidator, RequiredValidator } from '@angular/forms';
 
 @Component({
   selector: 'app-price',
@@ -11,8 +12,21 @@ export class PriceComponent implements OnChanges, OnInit {
   @Input('ADDEDPRODUCT') public paymentDetails: any[] = []
   @Input('TOTAL_PRICE') public total_price = 0
   @Input('COUNT') public count = 0
-  constructor() {
+
+  constructor(private fb: FormBuilder) {
+
   }
+
+  // registartionForm = this.fb.group({
+  //   address1: ['',RequiredValidator,MinLengthValidator],
+  //   address2: ['nvs'],
+  //   city: ['navsari'],
+  //   state: ['gujarat'],
+  //   quantity: [0],
+  //   total_amount: [0]
+  // })
+
+  
   ngOnInit(): void {
     console.log(this.paymentDetails)
   }
@@ -23,5 +37,6 @@ export class PriceComponent implements OnChanges, OnInit {
     console.log(this.total_price)
 
   }
+
 
 }

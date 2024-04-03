@@ -1,6 +1,7 @@
-<div class="" style="position:sticky;top:0;z-index: 1;">
+<div class="mt-3 container-fluid" style="position:sticky;top:0;z-index: 1; ">
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light"
+        style="border-radius: 20px;box-shadow: 1px 2px 3px 4px rgba(12, 12, 12, 0.2);">
         <a class="navbar-brand ms-2" routerLink="/" (click)="show_dashboard()">Shopify</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -8,49 +9,52 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            
-            <input class="form-control search" style="margin-left: 32%; width: 32%;" type="search" placeholder="Search" aria-label="Search"
-                [(ngModel)]="searchText">
-            <button class="btn btn-primary" (click)="showNavbar()" style="margin-left: 30%;"><b>Filter</b></button>
+
+            <input class="form-control search" style="margin-left: 32%; width: 32%;" type="search" placeholder="Search"
+                aria-label="Search" [(ngModel)]="searchText">
+            <button class="btn btn-primary" (click)="showNavbar()" style="margin-left: 29%;"><b>Filter</b></button>
         </div>
 
     </nav>
 </div>
 
 
-<div class="container" *ngIf="navbarVisibility">
+<div class="container" *ngIf="navbarVisibility" style="">
     <div class="ss" style="background-color: black;" (click)="navbarVisibility=false"></div>
-    <!-- <div class="modal"> -->
-    <div class="row" style="position: fixed;
-    margin: 3% 5% 5% 7%;
+    <!-- <div class="modal"></div> -->
+    <div (blur)="navbarVisibility=false" class="row" style="position: fixed;
+    margin: 6% 5% 5% 10%;
     z-index: 1;
     border-radius: 20px;
     background-color: white;
     width: 67%;
+    height: 44%;
     border: 10px solid rgba(242, 235, 235, 0.263);
     box-shadow: 1px 2px 3px 4px rgba(12, 12, 12, 0.2);
     ">
-        <div class="col-sm" style="margin-top: 10%;margin-bottom: 10%;">
-            <p>
-                <button class="btn btn-primary" (click)="showCategory()">Categories</button>
-            </p>
-            <p>
-                <button class="btn btn-primary" (click)="showBrand()">Brands</button>
-            </p>
-            <p>
-                <button class="btn btn-primary" (click)="showDiscount()">Discount</button>
-            </p>
+        <div class="col-sm" style="margin-top: 2%;margin-bottom: 2%; ">
 
-            <p>
-                <button class="btn btn-primary" (click)="showRating()">Ratings</button>
-            </p>
+            <ul class="list-group">
+                <li class="list-group-item list-group-item-active active" (click)="showCategory()">
+                    Categories
+                </li>
+                <li class=" list-group-item list-group-item-active" (click)="showBrand()">
+                    Brands
+                </li>
+                <li class="list-group-item list-group-item-active" (click)="showDiscount()">
+                    Discount
+                </li>
+                <li class="list-group-item list-group-item-active" (click)="showRating()">
+                    Ratings
+                </li>
+                <li class="list-group-item list-group-item-active" (click)="showPrice()">
+                    Prices
+                </li>
+            </ul>
 
-            <p>
-                <button class="btn btn-primary" (click)="showPrice()">Prices</button>
-            </p>
         </div>
         <!-- Second Column (Single Item) -->
-        <div class="col-sm" style="margin-top: 10%; margin-bottom: 10%; margin-left: 2%;">
+        <div class="col-sm" style="margin-top: 0%; margin-bottom: 2%; margin-left: 2%;">
             <div class="" *ngIf="VisibalityCategory">
 
                 <div class="" *ngFor="let category of categories;let i=index">
@@ -60,9 +64,9 @@
                 </div>
             </div>
 
-            <div *ngIf="VisibalityBrand">
+            <div *ngIf="VisibalityBrand" style="overflow-y: scroll; height: 22%;">
 
-                <div class="" *ngFor="let brand of brandes">
+                <div class="" *ngFor="let brand of newBrandes">
                     <input type="checkbox" value="{{brand.name}}" class="p-2" (change)="onSelectBrand($event)"
                         [checked]="brand.status">
                     <label class="p-2">{{brand.name}}</label>
@@ -140,6 +144,7 @@
 
 
 
-<app-dashboard *ngIf="dashboradVisibility" [serachValue]="searchText" [productobject]="resultObject" [categoryArray]="selectedCategoryArray"
-    [brandArray]="selectedBrandArray" [discountArray]="selectedDiscountArray" [ratingArray]="selectedRatingArray"
-    [priceArray]="selectedPriceArray" [allselectedValues]="resultObject"></app-dashboard>
+<app-dashboard *ngIf="dashboradVisibility" [serachValue]="searchText" [productobject]="resultObject"
+    [categoryArray]="selectedCategoryArray" [brandArray]="selectedBrandArray" [discountArray]="selectedDiscountArray"
+    [ratingArray]="selectedRatingArray" [priceArray]="selectedPriceArray"
+    [allselectedValues]="resultObject"></app-dashboard>

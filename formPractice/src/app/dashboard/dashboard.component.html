@@ -1,4 +1,5 @@
-<div class="container-fluid" *ngIf="dashboradVisibility" class="mt-2">
+<div class="" *ngIf="dashboradVisibility"
+    style="margin-top: 20px;margin-left: 20px;margin-right: 20px;padding-bottom: 20px; border-radius: 20px;box-shadow: 1px 2px 3px 4px rgba(12, 12, 12, 0.2);">
 
     <div *ngFor="let product of searchdataArray;let i=index" class="card ms-5  mt-3 mb-1 product-hover"
         style="display: inline-block;">
@@ -38,4 +39,5 @@
     [addTocartProduct]="addToCartProductArray"></app-footer>
 
 
-<app-product-details  *ngIf="!dashboradVisibility" (show_dashborad)="show_dashborad($event)" [addedProduct]="addToCartProductArray"></app-product-details>
+<app-product-details *ngIf="!dashboradVisibility" (show_dashborad)="show_dashborad($event)"
+    [addedProduct]="addToCartProductArray"></app-product-details>
