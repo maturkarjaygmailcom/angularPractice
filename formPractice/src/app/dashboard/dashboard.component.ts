@@ -43,12 +43,9 @@ export class DashboardComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
 
     if (this.serachValue != "") {
-
       this.searchdataArray = _.filter(this.productobject, Products => {
-        console.log(Products)
         return Products.title.toLowerCase().includes(this.serachValue)
       })
-      console.log(this.productArray)
     }
     else {
       this.searchdataArray = this.productobject
@@ -58,7 +55,6 @@ export class DashboardComponent implements OnChanges {
   }
   onClick(product: any, i: number) {
     this.addToCartProductArray.push(product)
-    // console.log(product, i, this.addToCartProductArray)
     this.btnState = !this.btnState;
   }
   hideDashborad(event: boolean) {
@@ -66,8 +62,8 @@ export class DashboardComponent implements OnChanges {
     this.dashboradVisibility = event
   }
 
-  show_dashborad(event:any) {
-    this.dashboradVisibility=event
+  show_dashborad(event: any) {
+    this.dashboradVisibility = event
 
   }
 }

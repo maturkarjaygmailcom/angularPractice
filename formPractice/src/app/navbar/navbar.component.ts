@@ -116,8 +116,6 @@ export class NavbarComponent implements OnInit {
 
     console.log(this.brandes)
 
-
-    console.log("dsdsd1")
     if (this.selectedCategoryArray.length <= 0) {
       console.log("if")
 
@@ -128,14 +126,23 @@ export class NavbarComponent implements OnInit {
       console.log(this.brandes)
     } else {
       console.log("Else")
-      this.newBrandes = _.filter(_.uniq(this.productDetails, element => {
-        console.log(element.category, this.selectedCategoryArray, element.brand)
-        return _.contains(this.selectedCategoryArray, element.category) ? element.brand : null
-      }))
+      let tempBrands = _.map((this.productDetails), element => {
+        if (_.contains(this.selectedCategoryArray, element.category))
+          return ({ "name": element.brand, "status": false })
+        return element
+      })
+
+      this.newBrandes = _.uniq(tempBrands, (element) => {
+        return element.name
+      })
+
+      console.log("otter")
       console.log(this.newBrandes)
     }
-    console.log("otter")
+
+
   }
+
   showDiscount() {
     this.VisibalityCategory = false;
     this.VisibalityBrand = false;
@@ -202,7 +209,7 @@ export class NavbarComponent implements OnInit {
     let checked: string = event.target.checked
     let brand: string = event.target.value
 
-    _.map(this.brandes, element => {
+    _.map(this.newBrandes, element => {
       if (element.name == brand) {
         element.status = checked
       }
