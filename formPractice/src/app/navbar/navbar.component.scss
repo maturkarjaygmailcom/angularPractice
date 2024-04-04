@@ -20,3 +20,12 @@
     z-index: 1;
     background-color: #000;
 }
+
+ul.list-group li:focus{
+    background-color: rgba(11, 152, 219,0.6);
+
+}
+ul.list-group li:active{
+    background-color: rgba(52, 152, 219,0.6);
+
+}

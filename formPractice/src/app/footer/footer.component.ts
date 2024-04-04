@@ -5,7 +5,7 @@ import { ProductDetailsComponent } from '../product-details/product-details.comp
 @Component({
   selector: 'app-footer',
   standalone: true,
-  imports: [CommonModule,ProductDetailsComponent],
+  imports: [CommonModule, ProductDetailsComponent],
   templateUrl: './footer.component.html',
   styleUrl: './footer.component.scss'
 })
@@ -18,7 +18,7 @@ export class FooterComponent implements OnChanges {
   addtocartBtnVisibility = false
   dashboradVisbility = false
   addtocartPageVisibility = false
-  footerVisibility=false
+  footerVisibility = false
   count = 0
   constructor() {
     this.count = 0;
@@ -27,18 +27,18 @@ export class FooterComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     this.count = this.addTocartProduct.length
     // console.log(this.count, this.addTocartProduct)
-
     if (this.addTocartProduct.length >= 1) {
       this.addtocartBtnVisibility = true
       this.footerVisibility = true
+      console.log(this.addTocartProduct)
     }
   }
 
   addToCart() {
     this.hideEvent.emit(this.dashboradVisbility)
     console.log("Dsdsd");
-    
+
     this.addtocartPageVisibility = true
-    this.footerVisibility=false
+    this.footerVisibility = false
   }
 }

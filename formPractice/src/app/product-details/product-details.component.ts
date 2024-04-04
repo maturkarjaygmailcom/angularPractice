@@ -27,6 +27,7 @@ export class ProductDetailsComponent implements OnChanges {
   }
   ngOnChanges(changes: SimpleChanges): void {
 
+    console.log(this.addedProduct)
 
     this.data = _.groupBy(this.addedProduct, 'id')
 
@@ -34,55 +35,72 @@ export class ProductDetailsComponent implements OnChanges {
     _.each(this.data, (element, i) => {
       let key: any = _.keys(this.data[i])
       console.log(element[key])
+      let DiscountPrice = (element[0].price - (element[0].price * (element[0].discountPercentage / 100)))
 
       if (element.length > 1) {
         element[0]["quantity"] = element.length
-        element[0]["DiscountPrice"] = parseInt(element[0].price) * parseInt(element[0].quantity)
+        element[0]["DiscountPrice"] = DiscountPrice * parseInt(element[0].quantity)
         this.newArray.push(element[0])
+
+        this.total_price = this.total_price + DiscountPrice
+        console.log(this.total_price);
+
       }
       else {
         let key: any = _.keys(this.data[i])
         element[0]["quantity"] = 1
-        element[0]["DiscountPrice"] = element[0].price * element[0].quantity
+        element[0]["DiscountPrice"] = DiscountPrice * element[0].quantity
         this.newArray.push(element[key])
+
+        this.total_price = this.total_price + DiscountPrice
+        console.log(this.total_price);
+
       }
 
     })
+
     this.addedProduct = this.newArray
     this.count = this.addedProduct.length
+
     if (this.addedProduct.length > 1) {
       this.count = _.reduce(this.addedProduct, (x, y) => {
         return x.quantity + y.quantity
       })
       this.total_price = _.reduce(this.addedProduct, (x, y) => {
-        return (x.price - (x.price * (x.discountPercentage / 100))) + (y.price - (y.price * (y.discountPercentage / 100)))
+        return ((x.price - (x.price * (x.discountPercentage / 100))) * x.quantity) + ((y.price - (y.price * (y.discountPercentage / 100))) * y.quantity)
       })
+
+      console.log(this.total_price);
+
     }
     else {
+
+      // let DiscountPrice = (this.addedProduct[0].price - (this.addedProduct[0].price * (this.addedProduct[0].discountPercentage / 100)))
+
       this.count = this.addedProduct[0].quantity
-      this.total_price = this.addedProduct[0].price - (this.addedProduct[0].price * (this.addedProduct[0].discountPercentage / 100))
-      console.log(this.total_price)
+      this.total_price = this.addedProduct[0].DiscountPrice
+
+      // this.total_price = this.total_price * this.addedProduct.quantity
+      // console.log(this.total_price)
     }
     console.log(this.newArray)
   }
 
   onclickIncreament(quantity: number, price: any, index: number) {
     let orignal_price = this.addedProduct[index].price - (this.addedProduct[index].price * (this.addedProduct[index].discountPercentage / 100))
-    // let orignal_price = this.addedProduct[index].price;
-
-    // let orignal_price2 = parseInt(orignal_price) / quantity
 
     this.addedProduct[index].quantity = quantity + 1
-    // console.log(orignal_price,this.addedProduct[index].quantity)
 
     this.addedProduct[index].DiscountPrice = orignal_price * this.addedProduct[index].quantity
 
-    // this.addedProduct[index].price = orignal_price2 * this.addedProduct[index].quantity
-
     if (this.addedProduct.length > 1) {
+
       this.total_price = _.reduce(this.addedProduct, (x, y) => {
+
         return (x.price - (x.price * (x.discountPercentage / 100))) + (y.price - (y.price * (y.discountPercentage / 100)))
       })
+      console.log(this.total_price)
+
     }
     else {
       this.count = this.addedProduct[0].quantity
@@ -92,7 +110,9 @@ export class ProductDetailsComponent implements OnChanges {
   }
   onclickDecreament(quantity: number, price: number, index: number) {
     let orignal_price = (this.addedProduct[index].price - (this.addedProduct[index].price * (this.addedProduct[index].discountPercentage / 100)))
+
     this.addedProduct[index].quantity = this.addedProduct[index].quantity - 1
+
     this.addedProduct[index].DiscountPrice = orignal_price * this.addedProduct[index].quantity
 
     if (this.addedProduct.length > 1) {
@@ -110,7 +130,10 @@ export class ProductDetailsComponent implements OnChanges {
 
   deleteItem(index: number) {
     this.addedProduct.splice(index, 1)
+    // this.total_price = _.each(this.addedProduct, element => { this.total_price = this.total_price + element.DiscountPrice })
+    // console.log(this.total_price)
   }
+
   payment() {
     this.visibility_payment = !this.visibility_payment
     console.log(this.addedProduct)

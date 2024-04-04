@@ -30,11 +30,12 @@
                 <br>
 
                 <b>Price:</b>
-                <span class="fs-4" [class.text-decoration-line-through]="product['quantity']>1">
-                    {{product.price - (product.price*(product.discountPercentage/100))|currency}}
+                <span class="fs-4 text-decoration-line-through text-danger">
+                    <!-- class.text-decoration-line-through]="product['quantity']>1" -->
+                    {{(product.price*product.quantity)|currency}}
                 </span>
                 <span class="fs-3">
-                    {{(product['quantity']>1)?'$'+product["DiscountPrice"]+".00":null | number:'1.2-2'}}
+                    {{product["DiscountPrice"] | currency}}
                 </span>
 
                 <br> <br>
@@ -54,7 +55,8 @@
                     <button class="btn btn-primary ms-3"
                         (click)="onclickIncreament(product['quantity'],product['price'],i)">+</button>
                     <button class="btn btn-primary ms-2"
-                        (click)="onclickDecreament(product['quantity'],product['price'],i)">
+                        (click)="onclickDecreament(product['quantity'],product['price'],i)"
+                        [disabled]="product['quantity']<=1">
                         <b>-</b>
                     </button>
                 </span>
@@ -91,7 +93,7 @@
 <ng-template #elsePart>
     <div class=" mb-3" style="margin-left: 40%;">
 
-        <h1><b>No Item Selected</b></h1>
+        <!-- <h1><b>No Item Selected</b></h1> -->
         <p>
             <button class="btn btn-outline-primary" style="margin-left: 10%" (click)="goto_home()">goto Home</button>
         </p>
@@ -100,4 +102,5 @@
 
 </ng-template>
 
-<app-price *ngIf="visibility_payment" [ADDEDPRODUCT]="addedProduct" [TOTAL_PRICE]="total_price" [COUNT]="count"></app-price>
+<app-price *ngIf="visibility_payment" [ADDEDPRODUCT]="addedProduct" [TOTAL_PRICE]="total_price"
+    [COUNT]="count"></app-price>

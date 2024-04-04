@@ -12,7 +12,7 @@
 
             <input class="form-control search" style="margin-left: 32%; width: 32%;" type="search" placeholder="Search"
                 aria-label="Search" [(ngModel)]="searchText">
-            <button class="btn btn-primary" (click)="showNavbar()" style="margin-left: 29%;"><b>Filter</b></button>
+            <button class="btn btn-primary" (click)="showNavbar()" style="margin-left: 490px;"><b>Filter</b></button>
         </div>
 
     </nav>
@@ -34,8 +34,9 @@
     ">
         <div class="col-sm" style="margin-top: 2%;margin-bottom: 2%; ">
 
+            <!-- Second Column (First Item) -->
             <ul class="list-group">
-                <li class="list-group-item list-group-item-active active" (click)="showCategory()">
+                <li class="list-group-item list-group-item-active  active" (click)="showCategory()">
                     Categories
                 </li>
                 <li class=" list-group-item list-group-item-active" (click)="showBrand()">
@@ -74,11 +75,13 @@
             </div>
 
             <div *ngIf="VisibalityDiscount">
-                <div class="">
-                    <input type="checkbox" value="0-5" class="p-2" (change)="onSelectDiscount($event)">
-                    <label class="p-2">0-5</label>
+                <div class="" *ngFor="let discount of discountArray">
+                    <input type="checkbox" value="{{discount.name}}" class="p-2" (change)="onSelectDiscount($event)"
+                        [checked]="discount.status">
+                    <label class="p-2">{{discount.name}}</label>
                 </div>
-                <div class="">
+
+                <!-- <div class="">
                     <input type="checkbox" value="5-10" class="p-2" (change)="onSelectDiscount($event)">
                     <label class="p-2">5-10</label>
                 </div>
@@ -89,16 +92,19 @@
                 <div class="">
                     <input type="checkbox" value="15-20" class="p-2" (change)="onSelectDiscount($event)">
                     <label class="p-2">15-20</label>
-                </div>
+                </div> -->
+
             </div>
 
 
 
             <div class="" *ngIf="VisibalityRanting">
-                <div class="">
-                    <input type="checkbox" value="1" class="p-2" (change)="onSelectRating($event)">
-                    <label class="p-2">1</label>
+                <div class="" *ngFor="let rating of ratingArray">
+                    <input type="checkbox" value="{{rating.name}}" class="p-2" (change)="onSelectRating($event)"
+                        [checked]="rating.status">
+                    <label class="p-2">{{rating.name}}</label>
                 </div>
+                <!--                 
                 <div class="">
                     <input type="checkbox" value="2" class="p-2" (change)="onSelectRating($event)">
                     <label class="p-2">2</label>
@@ -114,28 +120,33 @@
                 <div class="">
                     <input type="checkbox" value="5" class="p-2" (change)="onSelectRating($event)">
                     <label class="p-2">5</label>
-                </div>
+                </div> -->
+
             </div>
 
 
             <div *ngIf="VisibalityPrice">
-                <div class="">
-                    <input type="checkbox" value="0-100" class="p-2" (change)="onSelectPrice($event)">
-                    <label class="p-2">0-100</label>
+                <div class="" *ngFor="let price of priceArray">
+                    <input type="checkbox" value="{{price.name}}" class="p-2" (change)="onSelectPrice($event)"
+                        [checked]="price.status">
+                    <label class="p-2">{{price.name}}</label>
                 </div>
-                <div class="">
+
+                <!-- <div class="">
                     <input type="checkbox" value="100-500" class="p-2" (change)="onSelectPrice($event)">
                     <label class="p-2">100-500</label>
                 </div>
                 <div class="">
                     <input type="checkbox" value="500-1000" class="p-2" (change)="onSelectPrice($event)">
                     <label class="p-2">500-1000</label>
-                </div>
+                </div> -->
+
             </div>
 
 
             <!-- ///// -->
         </div>
+        <button class="primary" (click)="Filter()">Filter</button>
 
     </div>
     <!-- </div> -->
@@ -144,7 +155,7 @@
 
 
 
-<app-dashboard *ngIf="dashboradVisibility" [serachValue]="searchText" [productobject]="resultObject"
+<app-dashboard *ngIf="dashboradVisibility" [GETDATA]="getData" [serachValue]="searchText" [productobject]="resultObject"
     [categoryArray]="selectedCategoryArray" [brandArray]="selectedBrandArray" [discountArray]="selectedDiscountArray"
     [ratingArray]="selectedRatingArray" [priceArray]="selectedPriceArray"
     [allselectedValues]="resultObject"></app-dashboard>

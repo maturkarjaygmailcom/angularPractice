@@ -1,0 +1,4 @@
+  _.each(this.productDetails, element => {
+      this.selectedCategoryIds.push({ 'id': element.id, "name": element.category, "status": false })
+    })
+    console.log(this.selectedCategoryIds)
