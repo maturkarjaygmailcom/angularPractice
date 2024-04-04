@@ -5,7 +5,7 @@ import { FooterComponent } from '../footer/footer.component';
 import { ProductDetailsComponent } from '../product-details/product-details.component';
 import { ProductsService } from '../products.service';
 
-import _ from "underscore"
+import _, { isEmpty } from "underscore"
 
 @Component({
   selector: 'app-dashboard',
@@ -16,6 +16,9 @@ import _ from "underscore"
 })
 export class DashboardComponent implements OnChanges {
 
+  public array1: any[] | void = []
+  public array2: any[] | void = []
+  public array3: any[] | void = []
 
   categorysIdsArray: any[] = []
   brandsIdsArray: any[] = []
@@ -25,11 +28,11 @@ export class DashboardComponent implements OnChanges {
 
   @Input() public productobject: any
 
-  @Input() public categoryArray: string[] = []
-  @Input() public brandArray: string[] = []
-  @Input() public discountArray: string[] = []
-  @Input() public ratingArray: string[] = []
-  @Input() public priceArray: string[] = []
+  @Input() public categoryArray: any[] = []
+  @Input() public brandArray: any[] = []
+  @Input() public discountArray: any[] = []
+  @Input() public ratingArray: any[] = []
+  @Input() public priceArray: any[] = []
 
   @Input() public allselectedValues: any
 
@@ -49,18 +52,17 @@ export class DashboardComponent implements OnChanges {
   ngOnInit(): void {
 
     this.searchdataArray = _.shuffle(this.productobject)
-    // console.log(this.productArray)
+    // //console.log(this.productArray)
   }
   ngOnChanges(changes: SimpleChanges): void {
 
-    // console.log(
-    //   this.categoryArray
-    //   , this.brandArray
-    //   , this.discountArray
-    //   , this.ratingArray
-    //   , this.priceArray)
 
-    // console.log(_.union(
+    this.priceArray = _.pluck(this.priceArray, 'id')
+    //console.log(this.priceArray)
+
+    console.log(this.categoryArray, this.brandArray, this.discountArray, this.ratingArray, this.priceArray)
+
+    // //console.log(_.union(
     //   this.categoryArray
     //   , this.brandArray
     //   , this.discountArray
@@ -69,51 +71,65 @@ export class DashboardComponent implements OnChanges {
 
     if (this.categoryArray.length > 0) {
       this.categorysIdsArray = _.map(this.productobject, Products => {
+        // //console.log(this.categoryArray, Products.category);
+
         return (_.contains(this.categoryArray, Products.category)) ? Products.id : null
       })
-      console.log(this.categorysIdsArray, "categoryArryIds")
+      // //console.log(this.categorysIdsArray, "categoryArryIds")
     }
     if (this.brandArray.length > 0) {
       this.brandsIdsArray = _.map(this.productobject, brand => {
         return (_.contains(this.brandArray, brand.brand)) ? brand.id : null
       })
-      console.log(this.brandsIdsArray, "brandArryIds")
+      // //console.log(this.brandsIdsArray, "brandArryIds")
     }
 
     // if (this.discountArray.length > 0) {
     //   this.discountIdsArray = _.map(this.productobject, discount => {
     //     return (_.contains(this.categoryArray, discount.category)) ? discount.id : null
     //   })
-    //   console.log(this.discountIdsArray)
+    //   //console.log(this.discountIdsArray)
     // }
 
     if (this.ratingArray.length > 0) {
       this.ratingIdsArray = _.map(this.productobject, rating => {
-        return (_.contains(this.categoryArray, rating.rating)) ? rating.id : null
+        return (_.contains(this.ratingArray, rating.rating)) ? rating.id : null
       })
-      console.log(this.ratingIdsArray, "ratingsArryIds")
+      // //console.log(this.ratingIdsArray, "ratingsArryIds")
     }
 
     if (this.priceArray.length > 0) {
       this.priceIdsArray = _.map(this.productobject, price => {
-        // console.log(price)
-        return (_.contains(this.categoryArray, price.id)) ? price.id : null
+        //console.log(price.id, this.priceArray)
+        return (_.contains(this.priceArray, price.id)) ? price.id : null
       })
-      console.log(this.priceArray, "priceArryIds")
+      //console.log(this.priceIdsArray, "priceArryIds")
     }
 
-    console.log((this.categorysIdsArray.length > 1) ? this.categorysIdsArray : "")
-    console.log(_.intersection((this.categorysIdsArray.length > 1) ? this.categorysIdsArray : "", this.brandsIdsArray.length > 1 ? this.brandsIdsArray : "", this.ratingIdsArray.length > 1 ? this.ratingIdsArray : "", this.priceIdsArray.length ? this.priceIdsArray : ""), "intersection")
+    //console.log((this.categorysIdsArray.length > 1) ? this.categorysIdsArray : "")
+    //console.log(_.intersection((this.categorysIdsArray.length > 0) ? this.categorysIdsArray : [-1], this.brandsIdsArray.length > 0 ?this.brandsIdsArray : [-1], this.ratingIdsArray.length > 0 ? this.ratingIdsArray : [-1], this.priceIdsArray.length > 0 ? this.priceIdsArray : [-1]), "intersection")
 
-    console.log(_.intersection((this.categorysIdsArray.length > 1) ? this.categorysIdsArray : "", (this.priceIdsArray.length > 1) ? this.priceIdsArray : ""), "intersection")
+    //console.log((this.categorysIdsArray.length > 0) ? this.categorysIdsArray : -1);
 
-    if (this.filterStatus = !this.filterStatus)
-      this.searchdataArray = _.filter(this.productobject, ids => {
-        // console.log(ids.id, _.intersection(this.categorysIdsArray, this.brandsIdsArray, this.ratingIdsArray, this.priceIdsArray))
-        return (_.contains(_.intersection(this.categorysIdsArray, this.brandsIdsArray, this.ratingIdsArray, this.priceIdsArray), ids.id))
-      })
+    this.array1 = (this.categorysIdsArray.length > 0) ? this.categorysIdsArray : [-1]
+    this.array2 = (this.priceIdsArray.length > 0) ? this.categorysIdsArray : [-1]
+    this.array3 = (this.brandsIdsArray.length > 0) ? this.categorysIdsArray : [-1]
 
-    console.log(this.searchdataArray)
+    //console.log(_.intersection(this.array1, this.array2, this.array3))
+
+    // //console.log(_.intersection((this.categorysIdsArray.length > 0) ? this.categorysIdsArray : [-1], (this.priceIdsArray.length > 0) ? this.priceIdsArray : [-1]), "intersection")
+    // //console.log(_.intersection([1, 2], [2, 3],[]);
+    // //console.log(_.extend([1, 2], [2, 3]));
+    // //console.log(_.difference([1, 2], [2, 3]));
+
+
+    // if (this.filterStatus = !this.filterStatus)
+    this.searchdataArray = _.filter(this.productobject, ids => {
+      // //console.log(ids.id, _.intersection(this.categorysIdsArray, this.brandsIdsArray, this.ratingIdsArray, this.priceIdsArray))
+      return (_.contains((_.intersection(this.categorysIdsArray, this.brandsIdsArray, this.ratingIdsArray, this.priceIdsArray)), ids.id))
+    })
+
+    //console.log(this.searchdataArray)
 
 
     if (this.serachValue != "") {

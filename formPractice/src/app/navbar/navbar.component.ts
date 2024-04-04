@@ -39,10 +39,16 @@ export class NavbarComponent implements OnInit {
   selectedCategoryIds: any[] = []
 
   selectedCategoryArray: any[] = []
-  selectedBrandArray: string[] = []
-  selectedDiscountArray: any
+  selectedBrandArray: any[] = []
+  selectedDiscountArray: any[] = []
   selectedRatingArray: string[] = []
   selectedPriceArray: string[] = []
+
+  emptyCategoryArray = false
+  emptyBrandArray = false
+  emptyDiscountArray = false
+  emptyRatingArray = false
+  emptyPriceArray = false
 
   resultObject: any;
   categoryResulte: string[] = []
@@ -84,11 +90,11 @@ export class NavbarComponent implements OnInit {
       let categoryObject: any = { "name": category, "status": false }
       return categoryObject
     })
-    // console.log(this.categories)
+    // //console.log(this.categories)
     _.each(this.productDetails, element => {
       this.selectedCategoryIds.push({ 'id': element.id, "name": element.category, "status": false })
     })
-    console.log(this.selectedCategoryIds)
+    //console.log(this.selectedCategoryIds)
 
     this.brandes = _.map(_.uniq(_.pluck(this.productDetails, 'brand')), brand => {
       let brandObject: any = { "name": brand, "status": false }
@@ -109,11 +115,11 @@ export class NavbarComponent implements OnInit {
       return priceObject
     })
 
-    // console.log((this.categories))
-    // console.log((this.brandes))
-    // console.log((this.discountPercentages))
-    // console.log((this.ratinges))
-    // console.log((this.prices))
+    // //console.log((this.categories))
+    // //console.log((this.brandes))
+    // //console.log((this.discountPercentages))
+    // //console.log((this.ratinges))
+    // //console.log((this.prices))
     // // this.brandes = _.uniq(_.pluck(this.productDetails, 'brand'))
 
     // this.discountPercentages = _.uniq(_.pluck(this.productDetails, 'discountPercentage'))
@@ -145,22 +151,22 @@ export class NavbarComponent implements OnInit {
     this.VisibalityDiscount = false;
     this.VisibalityRanting = false;
     this.VisibalityPrice = false;
-    console.log(this.VisibalityBrand, this.VisibalityDiscount)
+    //console.log(this.VisibalityBrand, this.VisibalityDiscount)
     //   this.VisibalityRanting,
     //   this.VisibalityPrice);
 
-    console.log(this.brandes)
+    //console.log(this.brandes)
 
     if (this.selectedCategoryArray.length <= 0) {
-      console.log("if")
+      //console.log("if")
 
       this.newBrandes = _.map(_.uniq(_.pluck(this.productDetails, 'brand')), brand => {
         let brandObject: any = { "name": brand, "status": false }
         return brandObject
       })
-      console.log(this.brandes)
+      //console.log(this.brandes)
     } else if (this.tempBrands.length <= 0) {
-      console.log("Else")
+      //console.log("Else")
 
 
       _.map((this.productDetails), (element, index) => {
@@ -172,8 +178,8 @@ export class NavbarComponent implements OnInit {
         return element.name
       })
 
-      console.log("otter")
-      console.log(this.newBrandes)
+      //console.log("otter")
+      //console.log(this.newBrandes)
     }
 
 
@@ -185,7 +191,7 @@ export class NavbarComponent implements OnInit {
     this.VisibalityDiscount = true;
     this.VisibalityRanting = false;
     this.VisibalityPrice = false;
-    // console.log(this.discountPercentages);
+    // //console.log(this.discountPercentages);
 
   }
   showRating() {
@@ -194,7 +200,7 @@ export class NavbarComponent implements OnInit {
     this.VisibalityDiscount = false;
     this.VisibalityRanting = true;
     this.VisibalityPrice = false;
-    // console.log(this.ratinges);
+    // //console.log(this.ratinges);
 
   }
   showPrice() {
@@ -203,9 +209,10 @@ export class NavbarComponent implements OnInit {
     this.VisibalityDiscount = false;
     this.VisibalityRanting = false;
     this.VisibalityPrice = true;
-    // console.log(this.prices);
+    // //console.log(this.prices);
 
   }
+
 
   onSelectCategory(event: any) {
 
@@ -231,30 +238,41 @@ export class NavbarComponent implements OnInit {
 
     //   if (_.contains(this.selectedCategoryArray, element.categories)) {
 
-    //     console.log(element.categories,this.selectedCategoryArray)
+    //     //console.log(element.categories,this.selectedCategoryArray)
     //     this.selectedCategoryIds.push(element.id)
 
     //   }
 
 
     // })
+    if (this.resultObject.length == this.productDetails.length) {
+      this.resultObject = _.filter(this.productDetails, elements => {
+        return _.contains(this.selectedCategoryArray, elements.category)
+      })
 
-    this.resultObject = _.filter(this.productDetails, elements => {
-      return _.contains(this.selectedCategoryArray, elements.category)
-    })
+    }
+    else {
 
-    // console.log(this.resultObject)
+      if (this.selectedBrandArray.length > 0 || this.selectedPriceArray.length > 0 || this.selectedRatingArray.length > 0) {
+        this.resultObject = _.filter(this.resultObject, elements => {
+          return _.contains(this.selectedCategoryArray, elements.category)
+        })
+      }
+    }
+
+    // //console.log(this.resultObject)
     // // this.resultObject.unshift({ "category": this.selectedCategoryArray })
 
-    if (this.selectedCategoryArray.length < 1) {
-      this.resultObject = this.productDetails;
-    }
+    ///////////
+    // if (this.selectedCategoryArray.length < 1) {
+    //   this.resultObject = this.productDetails;
+    // }
 
 
   }
 
   onSelectBrand(event: any) {
-    console.log("dsdsd")
+    //console.log("dsdsd")
 
     let checked: string = event.target.checked
     let brand: string = event.target.value
@@ -271,14 +289,32 @@ export class NavbarComponent implements OnInit {
     else {
       let index = this.selectedBrandArray.indexOf(brand)
       this.selectedBrandArray.splice(index, 1)
+      
+      console.log(this.resultObject)
+
     }
 
     // this.resultObject.unshift({ "barnd": this.selectedBrandArray })
-    // console.log(this.selectedBrandArray.length);
+    // //console.log(this.selectedBrandArray.length);
 
     this.resultObject = _.filter(this.productDetails, elements => {
       return _.contains(this.selectedBrandArray, elements.brand)
     })
+
+    if (this.resultObject.length == this.productDetails.length) {
+      this.resultObject = _.filter(this.productDetails, elements => {
+        return _.contains(this.selectedBrandArray, elements.brand)
+      })
+
+    }
+    else {
+
+      if (this.selectedBrandArray.length > 0 || this.selectedPriceArray.length > 0 || this.selectedRatingArray.length > 0 || this.selectedDiscountArray.length > 0) {
+        this.resultObject = _.filter(this.resultObject, elements => {
+          return _.contains(this.selectedBrandArray, elements.brand)
+        })
+      }
+    }
 
 
     if (this.selectedBrandArray.length <= 0) {
@@ -298,7 +334,7 @@ export class NavbarComponent implements OnInit {
     //   // else {
     //   //     this.resultObject = _.filter(this.productDetails, elements => {
     //   //       return _.contains(this.selectedBrandArray, elements.brand)
-    //   //       console.log(this.resultObject)
+    //   //       //console.log(this.resultObject)
     //   //     })
     //   //   }
     // }
@@ -309,7 +345,7 @@ export class NavbarComponent implements OnInit {
 
     let checked: boolean = event.target.checked
     let discount: string = event.target.value
-    console.log(discount);
+    //console.log(discount);
     var data = []
 
     _.map(this.discountArray, element => {
@@ -326,7 +362,7 @@ export class NavbarComponent implements OnInit {
         data = _.filter(this.productDetails, elements => {
           return elements.discountPercentage > 0 && elements.discountPercentage < 5
         })
-        console.log(data)
+        //console.log(data)
         this.selectedDiscountArray = _.union(this.selectedDiscountArray, data)
       }
       if (discount == '5-10') {
@@ -334,7 +370,7 @@ export class NavbarComponent implements OnInit {
         data = _.filter(this.productDetails, elements => {
           return elements.discountPercentage > 5 && elements.discountPercentage < 10
         })
-        console.log(data)
+        //console.log(data)
         this.selectedDiscountArray = _.union(this.selectedDiscountArray, data)
       }
       if (discount == '10-15') {
@@ -342,7 +378,7 @@ export class NavbarComponent implements OnInit {
         data = _.filter(this.productDetails, elements => {
           return elements.discountPercentage > 10 && elements.discountPercentage < 15
         })
-        console.log(data)
+        //console.log(data)
         this.selectedDiscountArray = _.union(this.selectedDiscountArray, data)
       }
       if (discount == '15-20') {
@@ -351,12 +387,13 @@ export class NavbarComponent implements OnInit {
         data = _.filter(this.productDetails, elements => {
           return elements.discountPercentage > 15 && elements.discountPercentage < 20
         })
-        console.log(data)
+        //console.log(data)
         this.selectedDiscountArray = _.union(this.selectedDiscountArray, data)
       }
 
 
       this.resultObject = this.selectedDiscountArray
+
     }
     else {
 
@@ -365,7 +402,7 @@ export class NavbarComponent implements OnInit {
         data = _.filter(this.productDetails, elements => {
           return elements.discountPercentage > 0 && elements.discountPercentage < 5
         })
-        console.log(data)
+        //console.log(data)
         this.selectedDiscountArray = _.difference(this.selectedDiscountArray, data)
       }
       if (discount == '5-10') {
@@ -373,7 +410,7 @@ export class NavbarComponent implements OnInit {
         data = _.filter(this.productDetails, elements => {
           return elements.discountPercentage > 5 && elements.discountPercentage < 10
         })
-        console.log(data)
+        //console.log(data)
         this.selectedDiscountArray = _.difference(this.selectedDiscountArray, data)
       }
       if (discount == '10-15') {
@@ -381,7 +418,7 @@ export class NavbarComponent implements OnInit {
         data = _.filter(this.productDetails, elements => {
           return elements.discountPercentage > 10 && elements.discountPercentage < 15
         })
-        console.log(data)
+        //console.log(data)
         this.selectedDiscountArray = _.difference(this.selectedDiscountArray, data)
       }
       if (discount == '15-20') {
@@ -390,7 +427,7 @@ export class NavbarComponent implements OnInit {
         data = _.filter(this.productDetails, elements => {
           return elements.discountPercentage > 15 && elements.discountPercentage < 20
         })
-        console.log(data)
+        //console.log(data)
         this.selectedDiscountArray = _.difference(this.selectedDiscountArray, data)
       }
 
@@ -416,9 +453,9 @@ export class NavbarComponent implements OnInit {
     _.map(this.ratingArray, element => {
       if (element.name == rating) {
         element.status = checked
-        console.log(element.status, checked)
+        //console.log(element.status, checked)
       }
-      console.log(element.status, checked)
+      //console.log(element.status, checked)
     })
 
     if (checked) {
@@ -427,7 +464,7 @@ export class NavbarComponent implements OnInit {
         data = _.filter(this.productDetails, elements => {
           return elements.rating > 0 && elements.rating < 2
         })
-        console.log(data)
+        //console.log(data)
         this.selectedRatingArray = _.union(this.selectedRatingArray, data)
       }
       if (rating == '2') {
@@ -435,7 +472,7 @@ export class NavbarComponent implements OnInit {
         data = _.filter(this.productDetails, elements => {
           return elements.rating >= 2 && elements.rating < 3
         })
-        console.log(data)
+        //console.log(data)
         this.selectedRatingArray = _.union(this.selectedRatingArray, data)
       }
       if (rating == '3') {
@@ -443,7 +480,7 @@ export class NavbarComponent implements OnInit {
         data = _.filter(this.productDetails, elements => {
           return elements.rating >= 3 && elements.rating < 4
         })
-        console.log(data)
+        //console.log(data)
         this.selectedRatingArray = _.union(this.selectedRatingArray, data)
       }
       if (rating == '4') {
@@ -452,7 +489,7 @@ export class NavbarComponent implements OnInit {
         data = _.filter(this.productDetails, elements => {
           return elements.rating >= 4 && elements.rating < 5
         })
-        console.log(data)
+        //console.log(data)
         this.selectedRatingArray = _.union(this.selectedRatingArray, data)
       }
 
@@ -461,7 +498,7 @@ export class NavbarComponent implements OnInit {
         data = _.filter(this.productDetails, elements => {
           return elements.rating >= 5 && elements.rating < 6
         })
-        console.log(data)
+        //console.log(data)
         this.selectedRatingArray = _.union(this.selectedRatingArray, data)
       }
 
@@ -474,7 +511,7 @@ export class NavbarComponent implements OnInit {
         data = _.filter(this.productDetails, elements => {
           return elements.rating > 0 && elements.rating < 2
         })
-        console.log(data)
+        //console.log(data)
         this.selectedRatingArray = _.difference(this.selectedRatingArray, data)
       }
       if (rating == '2') {
@@ -482,7 +519,7 @@ export class NavbarComponent implements OnInit {
         data = _.filter(this.productDetails, elements => {
           return elements.rating >= 2 && elements.rating < 3
         })
-        console.log(data)
+        //console.log(data)
         this.selectedRatingArray = _.difference(this.selectedRatingArray, data)
       }
       if (rating == '3') {
@@ -490,7 +527,7 @@ export class NavbarComponent implements OnInit {
         data = _.filter(this.productDetails, elements => {
           return elements.rating >= 3 && elements.rating < 4
         })
-        console.log(data)
+        //console.log(data)
         this.selectedRatingArray = _.difference(this.selectedRatingArray, data)
       }
       if (rating == '4') {
@@ -499,7 +536,7 @@ export class NavbarComponent implements OnInit {
         data = _.filter(this.productDetails, elements => {
           return elements.rating >= 4 && elements.rating < 5
         })
-        console.log(data)
+        //console.log(data)
         this.selectedRatingArray = _.difference(this.selectedRatingArray, data)
       }
       if (rating == '5') {
@@ -508,7 +545,7 @@ export class NavbarComponent implements OnInit {
         data = _.filter(this.productDetails, elements => {
           return elements.rating >= 5 && elements.rating < 6
         })
-        console.log(data)
+        //console.log(data)
         this.selectedRatingArray = _.difference(this.selectedRatingArray, data)
       }
 
@@ -523,18 +560,18 @@ export class NavbarComponent implements OnInit {
 
     let checked: boolean = event.target.checked
     let price: string = event.target.value
-    console.log(price);
+    //console.log(price);
 
 
     var data = []
 
 
     _.map(this.priceArray, element => {
-      console.log(element);
+      //console.log(element);
 
       if (element.name == price) {
         element.status = checked
-        console.log(element.status, checked)
+        //console.log(element.status, checked)
       }
     })
 
@@ -544,7 +581,7 @@ export class NavbarComponent implements OnInit {
         data = _.filter(this.productDetails, elements => {
           return elements.price > 0 && elements.price <= 100
         })
-        console.log(data)
+        //console.log(data)
         this.selectedPriceArray = _.union(this.selectedPriceArray, data)
       }
       if (price == '100-500') {
@@ -552,7 +589,7 @@ export class NavbarComponent implements OnInit {
         data = _.filter(this.productDetails, elements => {
           return elements.price > 100 && elements.price <= 500
         })
-        console.log(data)
+        //console.log(data)
         this.selectedPriceArray = _.union(this.selectedPriceArray, data)
       }
       if (price == '500-1000') {
@@ -560,7 +597,7 @@ export class NavbarComponent implements OnInit {
         data = _.filter(this.productDetails, elements => {
           return elements.price > 500 && elements.price <= 1000
         })
-        // console.log(data)
+        // //console.log(data)
         this.selectedPriceArray = _.union(this.selectedPriceArray, data)
       }
 
@@ -572,7 +609,7 @@ export class NavbarComponent implements OnInit {
         data = _.filter(this.productDetails, elements => {
           return elements.price > 0 && elements.price <= 100
         })
-        console.log(data)
+        //console.log(data)
         this.selectedPriceArray = _.difference(this.selectedPriceArray, data)
       }
       if (price == '100-500') {
@@ -580,7 +617,7 @@ export class NavbarComponent implements OnInit {
         data = _.filter(this.productDetails, elements => {
           return elements.price > 100 && elements.price <= 500
         })
-        console.log(data)
+        //console.log(data)
         this.selectedPriceArray = _.difference(this.selectedPriceArray, data)
       }
       if (price == '500-1000') {
@@ -588,12 +625,12 @@ export class NavbarComponent implements OnInit {
         data = _.filter(this.productDetails, elements => {
           return elements.price > 500 && elements.price <= 1000
         })
-        console.log(data)
+        //console.log(data)
         this.selectedPriceArray = _.difference(this.selectedPriceArray, data)
       }
 
       this.resultObject = this.selectedPriceArray
-      console.log(this.resultObject, this.selectedPriceArray);
+      //console.log(this.resultObject, this.selectedPriceArray);
 
       // if (this.selectedPriceArray.length <= 0) {
       //   this.resultObject = this.productDetails
@@ -632,7 +669,7 @@ export class NavbarComponent implements OnInit {
   //   this.resultObject.unshift({ "discount": this.selectedDiscountArray })
   //   this.resultObject.unshift({ "rating": this.selectedRatingArray })
   //   this.resultObject.unshift({ "price": this.selectedPriceArray })
-  //   console.log(this.resultObject)
+  //   //console.log(this.resultObject)
   // }
 }
 
