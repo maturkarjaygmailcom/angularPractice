@@ -1,22 +1,22 @@
-<div class="container-fluid">
+<div class="container-fluid" *ngIf="address_componet">
 
     <form>
 
         <div class="form-group">
 
             <label for="">Address-1</label>
-            <input type="text"  formControlName="address1" class="input-form" >
+            <input type="text">
         </div>
 
         <div class="form-group">
             <label for="">Address-2</label>
-            <input type="text" class="input-form" formControlName="address2">
+            <input type="text" class="">
         </div>
 
 
         <div class="form-group">
             <label for="">City</label>
-            <input type="text" class="input-form" formControlName="city">
+            <input type="text" class="input-form">
         </div>
 
 
@@ -25,7 +25,7 @@
             <input type="text" class="input-form" formControlName="state">
         </div>
 
-        <div class="form-group">
+        <!-- <div class="form-group">
             <label for="">Quantity</label>
             <input type="text" class="input-form" value="{{count1}}" formControlName="quantity">
         </div>
@@ -33,11 +33,59 @@
         <div class="form-group">
             <label for="">total Amount</label>
             <input type="text" class="input-form" value="{{total_price1}}" formControlName="total_amount">
+        </div> -->
+
+
+        <input type="button" name="" id="" value="Deliver to this Addess" class="btn btn-primary"
+            (click)="addressComponent()">
+        <!--  -->
+    </form>
+
+
+    <div class="fs-3" *ngIf="Recommended">
+
+        <div>
+            Recommended
         </div>
 
+        <div class="list-group">
+            <div class="list-group-item list-group-item-active"><input type="checkbox" value="Amzon Pay"><label for=""
+                    class="ms-2 fs-5">Amzon
+                    Pay</label></div>
+            <div class="list-group-item list-group-item-active"><input type="radio" name="pay" id=""
+                    value="Cash on Delivery/Pay on Delivery"><label for="" class="ms-2 fs-5">Cash on Delivery/Pay on
+                    Delivery</label></div>
+            <div class="list-group-item list-group-item-active"><input type="radio" value=" Pay Upi" name="pay"><label
+                    for="" class="ms-2 fs-5">Pay Upi</label></div>
+        </div>
+        <div><button class="btn btn-primary" (click)="payment_component()">Payment</button></div>
+    </div>
 
-        <input type="button" name="" id="" value="Pay" class="btn btn-primary">
-<!--  -->
-    </form>
+
+    <div class="list" *ngIf="payment">
+        <div class="list-group-item"><b>
+                Shipping To : user1232 <span>{{address1}},{{address2}}</span>
+            </b>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col">Items</div>
+                <div class="col">{{count1}}</div>
+            </div>
+            <div class="row">
+                <div class="col">Delivery</div>
+                <div class="col">0.00</div>
+            </div>
+            <div class="row">
+                <div class="col">Total</div>
+                <div class="col">{{total_price1}}</div>
+            </div>
+            <div class="row">
+                <div class="col">Order Total</div>
+                <div class="col">{{total_price1}}</div>
+            </div>
+        </div>
+        <div><button class="btn btn-primary">Pay</button></div>
+    </div>
 
 </div>

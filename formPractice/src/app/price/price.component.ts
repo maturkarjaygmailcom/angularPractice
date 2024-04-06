@@ -1,11 +1,11 @@
+import { CommonModule } from '@angular/common';
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { FormBuilder, MaxLengthValidator, MinLengthValidator, RequiredValidator } from '@angular/forms';
-import { elementAt } from 'rxjs';
+
 import _ from "underscore"
 @Component({
   selector: 'app-price',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './price.component.html',
   styleUrl: './price.component.scss'
 })
@@ -15,11 +15,13 @@ export class PriceComponent implements OnChanges, OnInit {
   @Input('COUNT') public count = 0
   count1 = 0
   total_price1 = 0
-  
-  constructor(private fb: FormBuilder) {
+  address1=""
+  address2=""
+  Recommended=false
+  payment=false
+  address_componet=true
 
-  }
-
+ constructor(){}
   // registartionForm = this.fb.group({
   //   address1: ['',RequiredValidator,MinLengthValidator],
   //   address2: ['nvs'],
@@ -32,6 +34,10 @@ export class PriceComponent implements OnChanges, OnInit {
 
   ngOnInit(): void {
     console.log(this.paymentDetails)
+    this.payment=false
+    this.Recommended=false
+    this.address_componet=true
+
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -46,5 +52,16 @@ export class PriceComponent implements OnChanges, OnInit {
 
   }
 
+  addressComponent(){
+    this.Recommended=true
+    this.payment=false
+    this.address_componet=false
+  }
 
+  payment_component(){
+    this.Recommended=false
+    this.payment=true
+    this.address_componet=false
+
+  }
 }
