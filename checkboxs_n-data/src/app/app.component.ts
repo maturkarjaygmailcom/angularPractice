@@ -18,6 +18,9 @@ export class AppComponent implements OnChanges {
 
   category_btn = false
   brand_btn = false
+  discount_btn = false
+  rating_btn = false
+  price_btn = false
 
   categories: any[] = []
   brands: any[] = []
@@ -44,6 +47,9 @@ export class AppComponent implements OnChanges {
   ]
   selectedcategory: any[] = []
   selectedbrand: any[] = []
+  selecteddiscount: any[] = []
+  selectedrating: any[] = []
+  selectedprice: any[] = []
 
   constructor(private _product_data: MyDataService) { }
 
@@ -112,6 +118,16 @@ export class AppComponent implements OnChanges {
       }
     console.log(this.selectedcategory)
   }
+  show_discount() {
+    this.discount_btn = !this.discount_btn
+
+  }
+  show_rating() {
+    this.rating_btn = !this.rating_btn
+  }
+  show_price() {
+    this.price_btn = !this.price_btn
+  }
 
   onCheckCategory(event: any) {
     let checkedValue = event.target.value
@@ -132,7 +148,6 @@ export class AppComponent implements OnChanges {
     }
 
   }
-
   onCheckBrand(event: any) {
 
     let checkedValue = event.target.value;
@@ -150,6 +165,60 @@ export class AppComponent implements OnChanges {
     else {
       let index = this.selectedbrand.indexOf(checkedValue);
       this.selectedbrand.splice(index, 1)
+    }
+  }
+  onCheckDiscount(event: any) {
+    let checkedValue = event.target.value;
+    let checked = event.target.checked
+
+    _.each(this.discounts, element => {
+      if (element.name == checkedValue) {
+        element.status = checked
+      }
+    })
+
+    if (checked) {
+      this.selecteddiscount.push(checkedValue)
+    }
+    else {
+      let index = this.selecteddiscount.indexOf(checkedValue);
+      this.selecteddiscount.splice(index, 1)
+    }
+  }
+  onCheckRating(event: any) {
+    let checkedValue = event.target.value;
+    let checked = event.target.checked
+
+    _.each(this.ratings, element => {
+      if (element.name == checkedValue) {
+        element.status = checked
+      }
+    })
+
+    if (checked) {
+      this.selectedrating.push(checkedValue)
+    }
+    else {
+      let index = this.selectedrating.indexOf(checkedValue);
+      this.selectedrating.splice(index, 1)
+    }
+  }
+  onCheckPrice(event: any) {
+    let checkedValue = event.target.value;
+    let checked = event.target.checked
+
+    _.each(this.prices, element => {
+      if (element.name == checkedValue) {
+        element.status = checked
+      }
+    })
+
+    if (checked) {
+      this.selectedprice.push(checkedValue)
+    }
+    else {
+      let index = this.selectedprice.indexOf(checkedValue);
+      this.selectedprice.splice(index, 1)
     }
   }
 }

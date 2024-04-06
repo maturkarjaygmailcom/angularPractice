@@ -1,6 +1,10 @@
 <button (click)="getdata()">getData</button>
+
 <button (click)="show_category()">show_category</button>
-<button (click)="show_brand()">show_category</button>
+<button (click)="show_brand()">show_brand</button>
+<button (click)="show_discount()">show_discount</button>
+<button (click)="show_rating()">show_rating</button>
+<button (click)="show_price()">show_price</button>
 
 <div class="container" *ngIf="category_btn">
     <h1>category</h1>
@@ -15,5 +19,27 @@
     <div *ngFor="let brand of brands">
         <input type="checkbox" value="{{brand.name}}" (change)="onCheckBrand($event)" [checked]="brand.status">
         <label for="">{{brand.name}}</label>
+    </div>
+</div>
+
+<div class="container" *ngIf="discount_btn">
+    <h1>Brand</h1>
+    <div *ngFor="let discount of discounts">
+        <input type="checkbox" value="{{discount.name}}" (change)="onCheckDiscount($event)" [checked]="discount.status">
+        <label for="">{{discount.name}}</label>
+    </div>
+</div>
+<div class="container" *ngIf="rating_btn">
+    <h1>Brand</h1>
+    <div *ngFor="let rating of ratings">
+        <input type="checkbox" value="{{rating.name}}" (change)="onCheckRating($event)" [checked]="rating.status">
+        <label for="">{{rating.name}}</label>
+    </div>
+</div>
+<div class="container" *ngIf="price_btn">
+    <h1>Brand</h1>
+    <div *ngFor="let price of prices">
+        <input type="checkbox" value="{{price.name}}" (change)="onCheckPrice($event)" [checked]="price.status">
+        <label for="">{{price.name}}</label>
     </div>
 </div>
