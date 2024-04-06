@@ -1,0 +1,19 @@
+<button (click)="getdata()">getData</button>
+<button (click)="show_category()">show_category</button>
+<button (click)="show_brand()">show_category</button>
+
+<div class="container" *ngIf="category_btn">
+    <h1>category</h1>
+    <div *ngFor="let category of categories">
+        <input type="checkbox" value="{{category.name}}" (change)="onCheckCategory($event)" [checked]="category.status">
+        <label for="">{{category.name}}</label>
+    </div>
+</div>
+
+<div class="container" *ngIf="brand_btn">
+    <h1>Brand</h1>
+    <div *ngFor="let brand of brands">
+        <input type="checkbox" value="{{brand.name}}" (change)="onCheckBrand($event)" [checked]="brand.status">
+        <label for="">{{brand.name}}</label>
+    </div>
+</div>
