@@ -23,7 +23,7 @@
 </div>
 
 <div class="container" *ngIf="discount_btn">
-    <h1>Brand</h1>
+    <h1>Discount</h1>
     <div *ngFor="let discount of discounts">
         <input type="checkbox" value="{{discount.name}}" (change)="onCheckDiscount($event)" [checked]="discount.status">
         <label for="">{{discount.name}}</label>
@@ -43,3 +43,13 @@
         <label for="">{{price.name}}</label>
     </div>
 </div>
+
+<app-dashboard
+[PRODUCT_ARRAY]="product_array"
+[SEND_TO_CHILD]="send_to_child"
+[SELECTEDCATEGORY]="selectedcategory"
+[SELECTEDBRAND]="selectedbrand"
+[SELECTEDDISCOUNT]="selecteddiscount"
+[SELECTEDRATING]="selectedrating"
+[SELECTEDPRICE]="selectedprice"
+></app-dashboard>

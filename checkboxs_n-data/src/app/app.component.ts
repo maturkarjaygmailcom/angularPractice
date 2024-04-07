@@ -2,14 +2,14 @@ import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { MyDataService } from './my-data.service';
 import { CommonModule } from '@angular/common';
-
 import _ from "underscore"
 import { elementAt } from 'rxjs';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, CommonModule],
+  imports: [RouterOutlet, CommonModule, DashboardComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
@@ -51,6 +51,7 @@ export class AppComponent implements OnChanges {
   selectedrating: any[] = []
   selectedprice: any[] = []
 
+  send_to_child = false;
   constructor(private _product_data: MyDataService) { }
 
   ngOnInit(): void {
@@ -109,18 +110,22 @@ export class AppComponent implements OnChanges {
     }
     else
       if (this.selectedcategory.length <= 0 && this.selectedbrand.length <= 0) {
-        this.brands = this.temp_brand
+        this.brands = this.temp_brand;
+        this.brands = _.uniq(this.brands, element => { return element.name })
+        // console.log(this.brands);
       }
       else {
         if (this.selectedcategory.length <= 0) {
           this.brands = this.temp_brand
+          this.brands = _.uniq(this.brands, element => { return element.name })
+
         }
       }
-    console.log(this.selectedcategory)
+    console.log(this.selectedbrand)
   }
+
   show_discount() {
     this.discount_btn = !this.discount_btn
-
   }
   show_rating() {
     this.rating_btn = !this.rating_btn
@@ -147,6 +152,7 @@ export class AppComponent implements OnChanges {
       this.selectedcategory.splice(index, 1)
     }
 
+    this.send_to_child = !this.send_to_child
   }
   onCheckBrand(event: any) {
 
@@ -166,29 +172,105 @@ export class AppComponent implements OnChanges {
       let index = this.selectedbrand.indexOf(checkedValue);
       this.selectedbrand.splice(index, 1)
     }
+    console.log(this.selectedbrand);
+    this.send_to_child = !this.send_to_child
   }
   onCheckDiscount(event: any) {
     let checkedValue = event.target.value;
     let checked = event.target.checked
+    let data = []
 
-    _.each(this.discounts, element => {
+    _.map(this.discounts, element => {
       if (element.name == checkedValue) {
         element.status = checked
       }
     })
 
+
     if (checked) {
-      this.selecteddiscount.push(checkedValue)
+
+      //console.log('asdas')
+      if (checkedValue == '0%-5%') {
+
+        data = _.filter(this.product_array, elements => {
+          return elements.discountPercentage > 0 && elements.discountPercentage < 5
+        })
+        //console.log(data)
+        this.selecteddiscount = _.union(this.selecteddiscount, data)
+      }
+      if (checkedValue == '5%-10%') {
+
+        data = _.filter(this.product_array, elements => {
+          return elements.discountPercentage > 5 && elements.discountPercentage < 10
+        })
+        ////console.log(data)
+        this.selecteddiscount = _.union(this.selecteddiscount, data)
+      }
+      if (checkedValue == '10%-15%') {
+
+        data = _.filter(this.product_array, elements => {
+          return elements.discountPercentage > 10 && elements.discountPercentage < 15
+        })
+        ////console.log(data)
+        this.selecteddiscount = _.union(this.selecteddiscount, data)
+      }
+      if (checkedValue == '15%-20%') {
+        data = _.filter(this.product_array, elements => {
+          return elements.discountPercentage > 15 && elements.discountPercentage < 20
+        })
+        ////console.log(data)
+        this.selecteddiscount = _.union(this.selecteddiscount, data)
+      }
+
+
     }
     else {
-      let index = this.selecteddiscount.indexOf(checkedValue);
-      this.selecteddiscount.splice(index, 1)
+
+      if (checkedValue == '0%-5%') {
+
+        data = _.filter(this.product_array, elements => {
+          return elements.discountPercentage > 0 && elements.discountPercentage < 5
+        })
+        ////console.log(data)
+        this.selecteddiscount = _.difference(this.selecteddiscount, data)
+      }
+      if (checkedValue == '5%-10%') {
+
+        data = _.filter(this.product_array, elements => {
+          return elements.discountPercentage > 5 && elements.discountPercentage < 10
+        })
+        ////console.log(data)
+        this.selecteddiscount = _.difference(this.selecteddiscount, data)
+      }
+      if (checkedValue == '10%-15%') {
+
+        data = _.filter(this.product_array, elements => {
+          return elements.discountPercentage > 10 && elements.discountPercentage < 15
+        })
+        ////console.log(data)
+        this.selecteddiscount = _.difference(this.selecteddiscount, data)
+      }
+      if (checkedValue == '15%-20%') {
+
+
+        data = _.filter(this.product_array, elements => {
+          return elements.discountPercentage > 15 && elements.discountPercentage < 20
+        })
+        ////console.log(data)
+        this.selecteddiscount = _.difference(this.selecteddiscount, data)
+      }
     }
+
+    console.log(this.selecteddiscount)
+    this.send_to_child != this.send_to_child
+    // this.selecteddiscount = _.pluck(this.selecteddiscount, 'discountPercentage')
+    // console.log(this.selecteddiscount)
   }
+
   onCheckRating(event: any) {
     let checkedValue = event.target.value;
     let checked = event.target.checked
-
+    let data = []
     _.each(this.ratings, element => {
       if (element.name == checkedValue) {
         element.status = checked
@@ -196,16 +278,105 @@ export class AppComponent implements OnChanges {
     })
 
     if (checked) {
-      this.selectedrating.push(checkedValue)
+      if (checkedValue == '⭐') {
+
+        data = _.filter(this.product_array, elements => {
+          return elements.rating > 0 && elements.rating < 2
+        })
+        ////console.log(data)
+        this.selectedrating = _.union(this.selectedrating, data)
+      }
+      if (checkedValue == '⭐⭐') {
+
+        data = _.filter(this.product_array, elements => {
+          return elements.rating >= 2 && elements.rating < 3
+        })
+        ////console.log(data)
+        this.selectedrating = _.union(this.selectedrating, data)
+      }
+      if (checkedValue == '⭐⭐⭐') {
+
+        data = _.filter(this.product_array, elements => {
+          return elements.rating >= 3 && elements.rating < 4
+        })
+        ////console.log(data)
+        this.selectedrating = _.union(this.selectedrating, data)
+      }
+      if (checkedValue == '⭐⭐⭐⭐') {
+
+
+        data = _.filter(this.product_array, elements => {
+          return elements.rating >= 4 && elements.rating < 5
+        })
+        ////console.log(data)
+        this.selectedrating = _.union(this.selectedrating, data)
+      }
+
+      if (checkedValue == '⭐⭐⭐⭐⭐') {
+
+        data = _.filter(this.product_array, elements => {
+          return elements.rating >= 5 && elements.rating < 6
+        })
+        ////console.log(data)
+        this.selectedrating = _.union(this.selectedrating, data)
+      }
+
     }
+
     else {
-      let index = this.selectedrating.indexOf(checkedValue);
-      this.selectedrating.splice(index, 1)
+
+      if (checkedValue == '⭐') {
+
+        data = _.filter(this.product_array, elements => {
+          return elements.rating > 0 && elements.rating < 2
+        })
+        ////console.log(data)
+        this.selectedrating = _.difference(this.selectedrating, data)
+      }
+      if (checkedValue == '⭐⭐') {
+
+        data = _.filter(this.product_array, elements => {
+          return elements.rating >= 2 && elements.rating < 3
+        })
+        ////console.log(data)
+        this.selectedrating = _.difference(this.selectedrating, data)
+      }
+      if (checkedValue == '⭐⭐⭐') {
+
+        data = _.filter(this.product_array, elements => {
+          return elements.rating >= 3 && elements.rating < 4
+        })
+        ////console.log(data)
+        this.selectedrating = _.difference(this.selectedrating, data)
+      }
+      if (checkedValue == '⭐⭐⭐⭐') {
+
+
+        data = _.filter(this.product_array, elements => {
+          return elements.rating >= 4 && elements.rating < 5
+        })
+        ////console.log(data)
+        this.selectedrating = _.difference(this.selectedrating, data)
+      }
+      if (checkedValue == '⭐⭐⭐⭐⭐') {
+
+
+        data = _.filter(this.product_array, elements => {
+          return elements.rating >= 5 && elements.rating < 6
+        })
+        ////console.log(data)
+        this.selectedrating = _.difference(this.selectedrating, data)
+      }
+
     }
+    this.send_to_child != this.send_to_child
+    console.log(this.selectedrating)
   }
+
   onCheckPrice(event: any) {
     let checkedValue = event.target.value;
     let checked = event.target.checked
+    let data = []
 
     _.each(this.prices, element => {
       if (element.name == checkedValue) {
@@ -213,12 +384,64 @@ export class AppComponent implements OnChanges {
       }
     })
 
+    
     if (checked) {
-      this.selectedprice.push(checkedValue)
+
+      if (checkedValue == '0-100') {
+        data = _.filter(this.product_array, elements => {
+          return elements.price > 0 && elements.price <= 100
+        })
+        ////console.log(data)
+        this.selectedprice = _.union(this.selectedprice, data)
+      }
+      if (checkedValue == '100-500') {
+
+        data = _.filter(this.product_array, elements => {
+          return elements.price > 100 && elements.price <= 500
+        })
+        ////console.log(data)
+        this.selectedprice = _.union(this.selectedprice, data)
+      }
+      if (checkedValue == '500-1000') {
+
+        data = _.filter(this.product_array, elements => {
+          return elements.price > 500 && elements.price <= 1000
+        })
+        // ////console.log(data)
+        this.selectedprice = _.union(this.selectedprice, data)
+      }
+
+
     }
     else {
-      let index = this.selectedprice.indexOf(checkedValue);
-      this.selectedprice.splice(index, 1)
+
+      if (checkedValue == '0-100') {
+        data = _.filter(this.product_array, elements => {
+          return elements.price > 0 && elements.price <= 100
+        })
+        ////console.log(data)
+        this.selectedprice = _.difference(this.selectedprice, data)
+      }
+      if (checkedValue == '100-500') {
+
+        data = _.filter(this.product_array, elements => {
+          return elements.price > 100 && elements.price <= 500
+        })
+        ////console.log(data)
+        this.selectedprice = _.difference(this.selectedprice, data)
+      }
+      if (checkedValue == '500-1000') {
+
+        data = _.filter(this.product_array, elements => {
+          return elements.price > 500 && elements.price <= 1000
+        })
+        ////console.log(data)
+        this.selectedprice = _.difference(this.selectedprice, data)
+      }
+
     }
+    this.send_to_child != this.send_to_child
+    console.log(this.selectedprice);
+
   }
 }
