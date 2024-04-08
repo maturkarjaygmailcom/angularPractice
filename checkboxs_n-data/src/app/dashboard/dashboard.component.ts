@@ -103,6 +103,7 @@ export class DashboardComponent implements OnChanges {
         this.result = _.intersection(this.categoryResult, this.brandResult, this.discountResult, this.priceResult)
       } if (this.category.length > 0 && this.brand.length > 0 && this.discount.length > 0 && this.rating.length > 0 && this.price.length > 0) {
         this.result = _.intersection(this.categoryResult, this.brandResult, this.discountResult, this.ratingResult, this.priceResult)
+        console.log(this.result)
       }
       console.log(this.result)
     }

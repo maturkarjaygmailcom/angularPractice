@@ -5,15 +5,20 @@ import { CommonModule } from '@angular/common';
 import _ from "underscore"
 import { elementAt } from 'rxjs';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { HoverDirective } from './hover.directive';
+import { TestDirective } from './test.directive';
+import { AppIfDirective } from './app-if.directive';
+import { FromsComponent } from './froms/froms.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, CommonModule, DashboardComponent],
+  imports: [RouterOutlet, CommonModule, DashboardComponent, HoverDirective, TestDirective, AppIfDirective,FromsComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
 export class AppComponent implements OnChanges {
+  condition: boolean = true
   public product_array: any[] = []
 
   category_btn = false
@@ -43,7 +48,8 @@ export class AppComponent implements OnChanges {
   prices = [
     { 'name': '0-100', 'status': false },
     { 'name': '100-500', 'status': false },
-    { 'name': '500-1000', 'status': false }
+    { 'name': '500-1000', 'status': false },
+    { 'name': '>1000', 'status': false }
   ]
   selectedcategory: any[] = []
   selectedbrand: any[] = []
@@ -54,12 +60,16 @@ export class AppComponent implements OnChanges {
   send_to_child = false;
   constructor(private _product_data: MyDataService) { }
 
-  ngOnInit(): void {
-    this._product_data.getData()
-      .subscribe(data => {
-        this.product_array = data.products
-        console.log(this.product_array)
-      })
+  // ngOnInit(): void {
+  //   this._product_data.getData()
+  //     .subscribe(data => {
+  //       this.product_array = data.products
+  //       console.log(this.product_array)
+  //     })
+  // }
+  fun1() {
+    this.condition = !this.condition
+    console.log(this.condition)
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -384,7 +394,7 @@ export class AppComponent implements OnChanges {
       }
     })
 
-    
+
     if (checked) {
 
       if (checkedValue == '0-100') {
@@ -406,6 +416,14 @@ export class AppComponent implements OnChanges {
 
         data = _.filter(this.product_array, elements => {
           return elements.price > 500 && elements.price <= 1000
+        })
+        // ////console.log(data)
+        this.selectedprice = _.union(this.selectedprice, data)
+      }
+      if (checkedValue == '>1000') {
+
+        data = _.filter(this.product_array, elements => {
+          return elements.price > 1000
         })
         // ////console.log(data)
         this.selectedprice = _.union(this.selectedprice, data)
@@ -437,6 +455,15 @@ export class AppComponent implements OnChanges {
         })
         ////console.log(data)
         this.selectedprice = _.difference(this.selectedprice, data)
+      }
+
+      if (checkedValue == '>1000') {
+
+        data = _.filter(this.product_array, elements => {
+          return elements.price > 1000
+        })
+        // ////console.log(data)
+        this.selectedprice = _.union(this.selectedprice, data)
       }
 
     }

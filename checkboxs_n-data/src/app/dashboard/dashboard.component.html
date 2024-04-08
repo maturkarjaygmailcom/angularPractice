@@ -23,12 +23,17 @@
             </div> -->
 
             <b>Price:</b>
-            <span class="text-decoration-line-through fs-6 text-danger">
-                {{product["price"]}}
+            <span>
+                {{product["price"]|currency}}
             </span>
-            <span class="fs-5 ms-1">
+<br>
+            <b>Discount:</b>
+            <span>
+                {{product["discountPercentage"]|percent}}
+            </span>
+            <!-- <span class="fs-5 ms-1">
                 {{product.price - (product.price*(product.discountPercentage/100))}}
-            </span>
+            </span> -->
             <br>
             <b>Rating:</b>
             {{product["rating"]}}

@@ -1,55 +1,56 @@
-<button (click)="getdata()">getData</button>
+<!-- <p [appTest]="'orange'" >Online shop</p> -->
+<button (click)="fun1()">toogle</button>
 
-<button (click)="show_category()">show_category</button>
-<button (click)="show_brand()">show_brand</button>
-<button (click)="show_discount()">show_discount</button>
-<button (click)="show_rating()">show_rating</button>
-<button (click)="show_price()">show_price</button>
+<p *appAppIf="condition">Online shop</p>
+
+<app-froms></app-froms>
+<button class="btn btn-primary ms-2 mt-2" (click)="getdata()">getData</button>
+<button class="btn btn-primary ms-2 mt-2" (click)="show_category()">show_category</button>
+<button class="btn btn-primary ms-2 mt-2" (click)="show_brand()">show_brand</button>
+<button class="btn btn-primary ms-2 mt-2" (click)="show_discount()">show_discount</button>
+<button class="btn btn-primary ms-2 mt-2" (click)="show_rating()">show_rating</button>
+<button class="btn btn-primary ms-2 mt-2" (click)="show_price()">show_price</button>
 
 <div class="container" *ngIf="category_btn">
     <h1>category</h1>
-    <div *ngFor="let category of categories">
+    <div *ngFor="let category of categories" class="d-inline ms-3">
         <input type="checkbox" value="{{category.name}}" (change)="onCheckCategory($event)" [checked]="category.status">
-        <label for="">{{category.name}}</label>
+        <label class="ms-2" for="">{{category.name}}</label>
     </div>
 </div>
 
 <div class="container" *ngIf="brand_btn">
     <h1>Brand</h1>
-    <div *ngFor="let brand of brands">
+    <div *ngFor="let brand of brands" class="d-inline ms-3">
         <input type="checkbox" value="{{brand.name}}" (change)="onCheckBrand($event)" [checked]="brand.status">
-        <label for="">{{brand.name}}</label>
+        <label class="ms-2" for="">{{brand.name}}</label>
     </div>
 </div>
 
 <div class="container" *ngIf="discount_btn">
     <h1>Discount</h1>
-    <div *ngFor="let discount of discounts">
+    <div *ngFor="let discount of discounts" class="d-inline ms-3">
         <input type="checkbox" value="{{discount.name}}" (change)="onCheckDiscount($event)" [checked]="discount.status">
-        <label for="">{{discount.name}}</label>
+        <label class="ms-2" for="">{{discount.name}}</label>
     </div>
 </div>
 <div class="container" *ngIf="rating_btn">
-    <h1>Brand</h1>
-    <div *ngFor="let rating of ratings">
+    <h1>Rating</h1>
+    <div *ngFor="let rating of ratings" class="d-inline ms-3">
         <input type="checkbox" value="{{rating.name}}" (change)="onCheckRating($event)" [checked]="rating.status">
-        <label for="">{{rating.name}}</label>
+        <label class="ms-2" for="">{{rating.name}}</label>
     </div>
 </div>
 <div class="container" *ngIf="price_btn">
-    <h1>Brand</h1>
-    <div *ngFor="let price of prices">
+    <h1>Price</h1>
+    <div *ngFor="let price of prices" class="d-inline ms-3">
         <input type="checkbox" value="{{price.name}}" (change)="onCheckPrice($event)" [checked]="price.status">
-        <label for="">{{price.name}}</label>
+        <label class="ms-2" for="">{{price.name}}</label>
     </div>
 </div>
 
-<app-dashboard
-[PRODUCT_ARRAY]="product_array"
-[SEND_TO_CHILD]="send_to_child"
-[SELECTEDCATEGORY]="selectedcategory"
-[SELECTEDBRAND]="selectedbrand"
-[SELECTEDDISCOUNT]="selecteddiscount"
-[SELECTEDRATING]="selectedrating"
-[SELECTEDPRICE]="selectedprice"
-></app-dashboard>
+<br>
+<br>
+<app-dashboard [PRODUCT_ARRAY]="product_array" [SEND_TO_CHILD]="send_to_child" [SELECTEDCATEGORY]="selectedcategory"
+    [SELECTEDBRAND]="selectedbrand" [SELECTEDDISCOUNT]="selecteddiscount" [SELECTEDRATING]="selectedrating"
+    [SELECTEDPRICE]="selectedprice"></app-dashboard>=
