@@ -1,9 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { compileDeclareNgModuleFromMetadata } from '@angular/compiler';
-import { Component, Directive, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { elementAt } from 'rxjs';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { __makeTemplateObject } from 'tslib';
-import _, { result } from 'underscore';
+import _ from 'underscore';
 
 @Component({
   selector: 'app-dashboard',
