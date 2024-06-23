@@ -1,0 +1,153 @@
+<div class="mt-2 container-fluid" style="position:sticky;top:0;z-index: 1; ">
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light"
+        style="border-radius: 20px;box-shadow: 1px 2px 3px 4px rgba(12, 12, 12, 0.2);">
+        <a class="navbar-brand ms-2" routerLink="/">Shopify</a>
+
+
+        <div class="">
+            <div class="dropdown">
+                <button class="btn btn-outline-primary dropdown-toggle" type="button" data-toggle="dropdown"
+                    (click)="show_category()">categories
+                    <span class="caret"></span></button>
+                <ul class="dropdown-menu" *ngIf="category_btn">
+                    <li>
+                        <div *ngFor="let category of categories" class="form-check">
+                            <input type="checkbox" value="{{category.name}}" (change)="onCheckCategory($event)"
+                                [checked]="category.status">
+                            <label class="form-check-label" for="">{{category.name}}</label>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="">
+            <div class="dropdown">
+                <button class="btn btn-outline-primary dropdown-toggle" type="button" data-toggle="dropdown"
+                    (click)="show_brand()">Brands
+                    <span class="caret"></span></button>
+                <ul class="dropdown-menu" *ngIf="brand_btn">
+                    <li style="width:fit-content;">
+                        <div *ngFor="let brand of brands" class="form-check">
+                            <input type="checkbox" value="{{brand.name}}" (change)="onCheckBrand($event)"
+                                [checked]="brand.status">
+                            <label class="ms-2" for="">{{brand.name}}</label>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="">
+            <div class="dropdown">
+                <button class="btn btn-outline-primary dropdown-toggle" type="button" data-toggle="dropdown"
+                    (click)="show_discount()">Discount
+                    <span class="caret"></span></button>
+                <ul class="dropdown-menu" *ngIf="discount_btn">
+                    <li>
+                        <div *ngFor="let discount of discounts" class="form-check">
+                            <input type="checkbox" value="{{discount.name}}" (change)="onCheckDiscount($event)"
+                                [checked]="discount.status">
+                            <label class="ms-2" for="">{{discount.name}}</label>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="">
+            <div class="dropdown">
+                <button class="btn btn-outline-primary dropdown-toggle" type="button" data-toggle="dropdown"
+                    (click)="show_rating()">Rating
+                    <span class="caret"></span></button>
+                <ul class="dropdown-menu" *ngIf="rating_btn">
+                    <li>
+                        <div *ngFor="let rating of ratings" class="form-check">
+                            <input type="checkbox" value="{{rating.name}}" (change)="onCheckRating($event)"
+                                [checked]="rating.status">
+                            <label class="ms-2" for="">{{rating.name}}</label>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="">
+            <div class="dropdown">
+                <button class="btn btn-outline-primary dropdown-toggle" type="button" data-toggle="dropdown"
+                    (click)="show_price()">Price
+                    <span class="caret"></span></button>
+                <ul class="dropdown-menu" *ngIf="price_btn">
+                    <li>
+                        <div *ngFor="let price of prices" class="form-check">
+                            <input type="checkbox" value="{{price.name}}" (change)="onCheckPrice($event)"
+                                [checked]="price.status">
+                            <label class="ms-2" for="">{{price.name}}</label>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- <input class="form-control search" style="margin-left: 32%; width: 32%;" type="search" placeholder="Search"
+                aria-label="Search" [(ngModel)]="searchText">
+            <button class="btn btn-primary" (click)="showNavbar()" style="margin-left: 490px;"><b>Filter</b></button>
+             -->
+
+    </nav>
+</div>
+
+<!-- <button class="btn btn-primary ms-2 mt-2" (click)="getdata()">getData</button>
+<button class="btn btn-primary ms-2 mt-2" (click)="show_category()">show_category</button>
+<button class="btn btn-primary ms-2 mt-2" (click)="show_brand()">show_brand</button>
+<button class="btn btn-primary ms-2 mt-2" (click)="show_discount()">show_discount</button>
+<button class="btn btn-primary ms-2 mt-2" (click)="show_rating()">show_rating</button>
+<button class="btn btn-primary ms-2 mt-2" (click)="show_price()">show_price</button> -->
+<!-- 
+<div class="container" *ngIf="category_btn">
+    <h1>category</h1>
+    <div *ngFor="let category of categories" class="d-inline ms-3">
+        <input type="checkbox" value="{{category.name}}" (change)="onCheckCategory($event)" [checked]="category.status">
+        <label class="ms-2" for="">{{category.name}}</label>
+    </div>
+</div> -->
+<!-- 
+<div class="container" *ngIf="brand_btn">
+    <h1>Brand</h1>
+    <div *ngFor="let brand of brands" class="d-inline ms-3">
+        <input type="checkbox" value="{{brand.name}}" (change)="onCheckBrand($event)" [checked]="brand.status">
+        <label class="ms-2" for="">{{brand.name}}</label>
+    </div>
+</div>
+
+<div class="container" *ngIf="discount_btn">
+    <h1>Discount</h1>
+    <div *ngFor="let discount of discounts" class="d-inline ms-3">
+        <input type="checkbox" value="{{discount.name}}" (change)="onCheckDiscount($event)" [checked]="discount.status">
+        <label class="ms-2" for="">{{discount.name}}</label>
+    </div>
+</div>
+<div class="container" *ngIf="rating_btn">
+    <h1>Rating</h1>
+    <div *ngFor="let rating of ratings" class="d-inline ms-3">
+        <input type="checkbox" value="{{rating.name}}" (change)="onCheckRating($event)" [checked]="rating.status">
+        <label class="ms-2" for="">{{rating.name}}</label>
+    </div>
+</div>
+<div class="container" *ngIf="price_btn">
+    <h1>Price</h1>
+    <div *ngFor="let price of prices" class="d-inline ms-3">
+        <input type="checkbox" value="{{price.name}}" (change)="onCheckPrice($event)" [checked]="price.status">
+        <label class="ms-2" for="">{{price.name}}</label>
+    </div>
+</div> -->
+
+<br>
+<br>
+<app-dashboard [PRODUCT_ARRAY]="product_array" [SEND_TO_CHILD]="send_to_child" [SELECTEDCATEGORY]="selectedcategory"
+    [SELECTEDBRAND]="selectedbrand" [SELECTEDDISCOUNT]="selecteddiscount" [SELECTEDRATING]="selectedrating"
+    [SELECTEDPRICE]="selectedprice"></app-dashboard>
+
+<!-- <p [appTest]="'orange'" >Online shop</p> -->
+<!-- <button (click)="fun1()">toogle</button>
+
+<p *appAppIf="condition">Online shop</p>
+
+<app-froms></app-froms> -->

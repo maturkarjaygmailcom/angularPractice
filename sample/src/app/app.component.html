@@ -1,0 +1,9 @@
+
+<p-dropdown 
+    [options]="cities" 
+    [(ngModel)]="selectedCity" 
+    optionLabel="name" 
+    optionValue="name" 
+    placeholder="Select a City" 
+    (ngModelChange)="fun1($event)"
+    />

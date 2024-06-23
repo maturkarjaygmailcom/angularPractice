@@ -1,0 +1,1 @@
+ng generate module shop --route shop --module app.module

@@ -1,6 +1,26 @@
-<!-- http://localhost:4200/ -->
+{{internetTime}}
+<div class="card flex justify-content-center">
+  <p-calendar [(ngModel)]="internetDate" />
+</div>
 
-<br>
+<div class="row">
+
+  <div *ngIf="showBtn">
+    <div class="col">
+      <p-calendar inputId="calendar-timeonly" [(ngModel)]="internetTime" [style]="{ minWidth: '14rem' }"
+        [timeOnly]="true" />
+    </div>
+ 
+  <div class="col">
+    <button (click)="give()">getserverdateTime</button>
+    <div *ngIf="!showBtn">
+      <p-cascadeSelect [loading]="true" [style]="{ minWidth: '14rem' }" placeholder="Loading..." />
+    </div>
+  </div>
+</div>
+ </div> 
+
+<!-- <br>
 <br>
 <div class="form-check form-check-inline ms-3">
   <input class="form-check-input" type="radio" name="search" id="name" value="name" [(ngModel)]="category"
@@ -85,15 +105,15 @@
     </div>
   </div>
   <hr>
-  <br>
+  <br> -->
 
 
-  <!-- 
+<!-- 
     <app-sub-component1 (dataPushCheck)="dataPush=$event" (passingObjectToAppCom)="updateDataedObjFromChild=$event"
       *ngIf="userNameVisibility" [OBJ]="obj1"></app-sub-component1>
        -->
 
-  <app-sub-component1 [output]="finalOutput" (dataPushCheck)="dataPush=$event"
+<!-- <app-sub-component1 [output]="finalOutput" (dataPushCheck)="dataPush=$event"
     (passingObjectToAppCom)="updateMain($event)" *ngIf="userNameVisibility" [OBJ]="obj1"></app-sub-component1>
 
-</div>
+</div> -->

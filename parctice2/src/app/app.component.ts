@@ -1,19 +1,21 @@
-import { Component, OnChanges, SimpleChange, SimpleChanges, input, numberAttribute } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChange, SimpleChanges, input, numberAttribute } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import _, { includes } from "underscore"
 import { SubComponent1Component } from './sub-component1/sub-component1.component';
-import { compileNgModule } from '@angular/compiler';
-
+import { GivetimeService } from './givetime.service';
+import { CalendarModule } from 'primeng/calendar';
+import { CascadeSelectModule } from 'primeng/cascadeselect';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, CommonModule, FormsModule, SubComponent1Component],
+  imports: [RouterOutlet, CommonModule, FormsModule, SubComponent1Component, CalendarModule,CascadeSelectModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent implements OnChanges {
+export class AppComponent implements OnInit, OnChanges {
+
   public mainData: any = [{
     name: "jay",
     phno: "9825108987",
@@ -69,6 +71,44 @@ export class AppComponent implements OnChanges {
   inputAccessble = true;
 
   specialCharectors = ['@', ' ', '/', ']', '[', '!', '#', '$', '%', '^', '&', '*', '(', ')', '}', '{', '|', '.', /^[0-9]+$/]
+  internetTime: Date | any;
+  internetDate: Date | any;
+  showBtn = true
+  // Date shifting for IST timezone (+5 hours and 30 minutes)
+  constructor(private givetime: GivetimeService) { }
+  ngOnInit(): void {
+    // this.internetTime = new Date();
+    this.give();
+    // this.internetTime=new Date().toUTCString()
+    console.log(new Date());
+    // console.log(new Date().toUTCString());
+
+  }
+
+  give() {
+    this.showBtn = false
+    let data11: any
+    this.givetime.getdate().subscribe({
+
+      next: (data) => {
+        data11 = data
+        console.log(data11?.datetime);
+
+        if (data11)
+          this.internetDate = new Date(data11?.datetime);
+        this.internetTime = new Date(data11?.datetime);
+        console.log(this.internetDate);
+        },
+        complete: () => {
+          this.showBtn = true
+          
+      },
+    }
+    )
+  }
+
+
+
   ngOnChanges(changes: SimpleChanges): void {
 
     if (this.category == "") {

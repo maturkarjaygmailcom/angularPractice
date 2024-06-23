@@ -1,0 +1,39 @@
+<!-- <div class="" style="margin-top: 18px;margin-left: 20px;margin-right: 20px;padding-bottom: 20px; border-radius: 20px;box-shadow: 1px 2px 3px 4px rgba(12, 12, 12, 0.2); max-height: 698px;overflow-y: scroll;"> -->
+
+<!-- <div *ngIf="loading">loading...../div> -->
+<div *ngFor="let product of finalResult;let i=index" class="card ms-5  mt-3 mb-1 product-hover"
+    style="display: inline-block;">
+    <div class="card-body" style="width: 22rem; ">
+
+
+        <img src="{{product['thumbnail']}}" alt="ProductImages" class="card-img-top mt-2"
+            style="width: 20rem;height: 17rem;">
+        <br>
+        <div class="card-title mt-2" style=" width: 100%; text-align: justify; overflow: hidden; white-space: nowrap;">
+            <b>Product name:</b>
+            {{product["title"]}}
+        </div>
+        <!-- 
+            <div class="card-text mt-2 mb-2" style=" width: 100%; /* Set the desired width */
+            text-align: justify; /* Justify the text */
+            overflow: hidden; /* Hide any overflow */
+            white-space: nowrap;">
+                <b>Description:</b>
+                {{product["description"]}}
+            </div> -->
+
+        <b>Price:</b>
+        <span class="text-decoration-line-through fs-6 text-danger">
+            {{product["price"]}}
+        </span>
+        <span class="fs-5 ms-1">
+            {{product.price - (product.price*(product.discountPercentage/100))}}
+        </span>
+        <br>
+        <b>Rating:</b>
+        {{product["rating"]}}
+        <br>
+        <button class="btn btn-primary mt-2 addToCartBtn" (click)="onClick(product,i)"><b>Add to Cart</b></button>
+    </div>
+</div>
+<!-- </div> -->
